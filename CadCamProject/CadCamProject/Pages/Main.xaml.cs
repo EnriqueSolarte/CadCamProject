@@ -37,7 +37,9 @@ namespace CadCamProject.Pages
             buttonProfile.IsEnabled = v;
             buttonRadialMilling.IsEnabled = v;
             buttonThreading.IsEnabled = v;
-            buttonTrasnferSpindle.IsEnabled = v;       
+            buttonTrasnferSpindle.IsEnabled = v;
+            buttonGrooving.IsEnabled = v;
+            buttonInternalTurning.IsEnabled = v;     
         }
 
         private void buttonProfile_Click(object sender, RoutedEventArgs e)
