@@ -14,9 +14,9 @@
 
         <Button x:Name="buttonAccept" Content="Accept" Margin="0,40,10,10" Click="buttonAccept_Click" Grid.Row="1" HorizontalAlignment="Right" Width="120"/>
         <Label x:Name="label" Content="Profile Defintion" Margin="269,10,259,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Center" Width="272"/>
-        <Image x:Name="image_Copy" Source="/Images/ProfileDefinition2.PNG" Margin="30,85,0,35" HorizontalAlignment="Left" Width="475"/>
+        <Image x:Name="image_Copy" Source="/Images/ProfileDefinition2.PNG" Margin="140,85,0,280" HorizontalAlignment="Left" Width="275"/>
         <Button x:Name="buttonCancel" Content="Cancel" Margin="0,0,10,33" Click="buttonCancel_Click" Height="20" VerticalAlignment="Bottom" Grid.Row="1" HorizontalAlignment="Right" Width="120"/>
-        <TextBox x:Name="textBoxParameters" Margin="0,65,25,15" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="235"/>
+        <TextBox x:Name="textBoxParameters" Margin="0,280,300,10" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="490"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="15,17,0,0" TextWrapping="Wrap" Text="Profile Name" VerticalAlignment="Top" Height="16" Width="75" Grid.Row="1"/>
         <TextBox x:Name="textBox" Margin="95,10,0,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="155" Grid.Row="1"/>
         <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="15,40,0,0" TextWrapping="Wrap" Text="Normal Plane" VerticalAlignment="Top" Height="16" Width="85" Grid.Row="1"/>

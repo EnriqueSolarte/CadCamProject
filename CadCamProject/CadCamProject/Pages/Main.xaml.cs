@@ -20,13 +20,26 @@ namespace CadCamProject.Pages
     public partial class Main : UserControl
     {
 
-
+       
         public Main()
         {
             InitializeComponent();
             this.labelTime.Content = DateTime.Now.ToString();
+            Buttons(false);
+
         }
-    
+
+        private void Buttons(bool v)
+        {
+            buttonAxialMilling.IsEnabled = v;
+            buttonDrilling.IsEnabled = v;
+            buttonExternalTurning.IsEnabled = v;
+            buttonProfile.IsEnabled = v;
+            buttonRadialMilling.IsEnabled = v;
+            buttonThreading.IsEnabled = v;
+            buttonTrasnferSpindle.IsEnabled = v;       
+        }
+
         private void buttonProfile_Click(object sender, RoutedEventArgs e)
         {
             int index = this.listViewOperations.Items.Count+1;
