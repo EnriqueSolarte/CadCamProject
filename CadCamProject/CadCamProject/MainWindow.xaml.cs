@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace CadCamProject
 {
     
@@ -21,7 +22,17 @@ namespace CadCamProject
         public MainWindow()
         {
             InitializeComponent();
+            Switcher.window = this;
+            Switcher.Switch(new Pages.Main());
+
             
         }
+        #region Switcher Tool
+        public void Navigate(UserControl nextPage)
+        {
+            this.Content = nextPage;
+        }
+
+        #endregion
     }
 }

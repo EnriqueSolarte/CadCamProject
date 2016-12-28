@@ -11,3 +11,8 @@ D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug
 D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\CadCamProject.csproj.GenerateResource.Cache
 D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\CadCamProject.exe
 D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\CadCamProject.pdb
+D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\CadCamProject.csprojResolveAssemblyReference.cache
+D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\Main.g.cs
+D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\Profile.g.cs
+D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\Main.baml
+D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\Profile.baml

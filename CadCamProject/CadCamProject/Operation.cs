@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using Interface.Pages;
+using CadCamProject.Pages;
 
 namespace CadCamProject
 {

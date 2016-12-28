@@ -13,7 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Interface.Pages
+
+namespace CadCamProject.Pages
 {
   
     public partial class Main : UserControl
