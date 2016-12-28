@@ -59,5 +59,7 @@ namespace CadCamProject.Pages
             this.textBoxParameters.Text = profileOperation.Index + profileOperation.Parameters;
 
         }
+
+      
     }
 }
