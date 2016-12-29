@@ -25,7 +25,7 @@ namespace CadCamProject.Pages
         {
             InitializeComponent();
             this.labelTime.Content = DateTime.Now.ToString();
-            Buttons(true);
+            Buttons(false);
 
         }
 
