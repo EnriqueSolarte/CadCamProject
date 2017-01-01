@@ -17,7 +17,7 @@
                     <GridViewColumn Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding TypeImagineOperation}" Width="25" Height="25"/>
+                                <Image Source="{Binding TypeImagineOperation}" Width="50" Height="50"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -38,7 +38,7 @@
         <Button x:Name="buttonRadialMilling" Content="Radial Milling" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,265,0,0"/>
         <Button x:Name="buttonAxialMilling" Content="Axial Milling" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,290,0,0"/>
         <Label x:Name="labelTime" Content="" Grid.Column="1" Margin="10,0,10,10" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
-        <Button x:Name="buttonWorkSetting" Content="Work Settings" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,35,0,0" Click="buttonProfile_Click"/>
+        <Button x:Name="buttonWorkSetting" Content="Work Settings" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,35,0,0" Click="buttonWorkSettings_Click"/>
 
     </Grid>
 </UserControl>

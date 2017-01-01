@@ -58,10 +58,14 @@
     <Compile Include="Pages\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\wSettingPage.xaml.cs">
+      <DependentUpon>wSettingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Switcher.cs" />
+    <Compile Include="WorkSettings.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -75,6 +79,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Pages\Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\wSettingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -115,7 +123,9 @@
     <Resource Include="Images\Icono.png" />
     <Resource Include="Images\Profile.png" />
     <Resource Include="Images\ProfileDefinition.PNG" />
-    <Resource Include="Images\ProfileDefinition2.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\workSettings.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

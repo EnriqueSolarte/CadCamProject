@@ -19,14 +19,11 @@ namespace CadCamProject.Pages
   
     public partial class Main : UserControl
     {
-
-       
         public Main()
         {
             InitializeComponent();
             this.labelTime.Content = DateTime.Now.ToString();
-            Buttons(false);
-
+            Buttons(true);
         }
 
         private void Buttons(bool v)
@@ -42,14 +39,14 @@ namespace CadCamProject.Pages
             buttonInternalTurning.IsEnabled = v;     
         }
 
-        private void buttonProfile_Click(object sender, RoutedEventArgs e)
+        private void doubleCLlick(object sender, MouseButtonEventArgs e)
         {
-            int index = this.listViewOperations.Items.Count+1;
-            Switcher.Switch(new Pages.Profile(this,index));
+            int index = this.listViewOperations.SelectedIndex;
+            Switcher.Switch(new Pages.Profile(this, index)); // hay que cambiar en funcion del tipo de operacion
 
         }
 
-       
+
 
         #region Rezing ListView
         private void ChangeSize(object sender, SizeChangedEventArgs e)
@@ -69,14 +66,19 @@ namespace CadCamProject.Pages
 
         #endregion
 
-        private void doubleCLlick(object sender, MouseButtonEventArgs e)
+        
+
+        private void buttonWorkSettings_Click(object sender, RoutedEventArgs e)
         {
-            int index = this.listViewOperations.SelectedIndex;
+           Switcher.Switch(new Pages.wSettingPage(this));
+        }
+
+        private void buttonProfile_Click(object sender, RoutedEventArgs e)
+        {
+            int index = this.listViewOperations.Items.Count + 1;
             Switcher.Switch(new Pages.Profile(this, index));
 
         }
-
-        
     }
 }
 
