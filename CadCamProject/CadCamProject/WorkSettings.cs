@@ -21,11 +21,14 @@ namespace CadCamProject
         {
           
             List<WorkSettings> workSettings = new List<WorkSettings>();
+            WorkSettings kk = new WorkSettings();
 
-            workSettings = MainPage.listViewOperations.Items.GetItemAt(0) as List<WorkSettings>;
-            
-
-            return workSettings;
+            if (MainPage.listViewOperations.Items.Count != 0)
+            {
+                var pp = MainPage.listViewOperations.SelectedItems[0];
+            }
+           
+            return kk;
         }
 
         public List<WorkSettings> SetParameters(WorkSettings opParameters, Main MainPage)
