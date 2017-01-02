@@ -11,13 +11,13 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="172"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="listViewOperations" Margin="10" MouseDoubleClick="doubleCLlick">
+        <ListView x:Name="listViewOperations" Margin="10,10,10,20" MouseDoubleClick="doubleCLlick">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="50">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="{Binding TypeImagineOperation}" Width="50" Height="50"/>
+                                <Image Source="{Binding TypeImagineOperation}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

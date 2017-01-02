@@ -55,7 +55,7 @@ namespace CadCamProject.Pages
 
         private void fillingProfileParameters()
         {
-            this.textBoxParameters.Text = workSettings.Index + workSettings.Parameters;
+            
 
         }
 

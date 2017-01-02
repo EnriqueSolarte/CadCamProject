@@ -6,23 +6,29 @@
              xmlns:local="clr-namespace:CadCamProject.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
-    <Grid Background="White">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="70"/>
-        </Grid.RowDefinitions>
+    <Grid Background="White" Margin="0,-10,0,10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="270"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        <Button x:Name="buttonAccept" Content="Accept" Margin="0,40,10,10" Click="buttonAccept_Click" Grid.Row="1" HorizontalAlignment="Right" Width="120"/>
-        <Label x:Name="label" Content="Profile Defintion" Margin="269,10,259,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Center" Width="272"/>
-        <Image x:Name="image_Copy" Source="/Images/ProfileDefinition2.PNG" Margin="140,85,0,280" HorizontalAlignment="Left" Width="275"/>
-        <Button x:Name="buttonCancel" Content="Cancel" Margin="0,0,10,33" Click="buttonCancel_Click" Height="20" VerticalAlignment="Bottom" Grid.Row="1" HorizontalAlignment="Right" Width="120"/>
-        <TextBox x:Name="textBoxParameters" Margin="0,280,300,10" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="490"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="15,17,0,0" TextWrapping="Wrap" Text="Profile Name" VerticalAlignment="Top" Height="16" Width="75" Grid.Row="1"/>
-        <TextBox x:Name="textBox" Margin="95,10,0,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="155" Grid.Row="1"/>
-        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="15,40,0,0" TextWrapping="Wrap" Text="Normal Plane" VerticalAlignment="Top" Height="16" Width="85" Grid.Row="1"/>
-        <ComboBox x:Name="comboBoxDesignPlane" Margin="95,38,0,0" VerticalAlignment="Top" Height="22" Grid.Row="1" HorizontalAlignment="Left" Width="155"/>
-        <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="280,40,0,0" TextWrapping="Wrap" Text="Origin" VerticalAlignment="Top" Height="16" Width="35" Grid.Row="1"/>
-        <ComboBox x:Name="comboBoxOrigin" Margin="320,38,0,0" VerticalAlignment="Top" Height="22" Grid.Row="1" HorizontalAlignment="Left" Width="155"/>
+        <Button x:Name="buttonAccept" Content="Accept" Margin="10,0,140,10" Click="buttonAccept_Click" Height="20" VerticalAlignment="Bottom"/>
+        <Label x:Name="label" Content="Working Settings" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265" Grid.ColumnSpan="2"/>
+        <Button x:Name="buttonCancel" Content="Cancel" Margin="0,0,10,10" Click="buttonCancel_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="15,91,0,0" TextWrapping="Wrap" Text="Program Name" VerticalAlignment="Top" Height="16" Width="90"/>
+        <TextBox x:Name="textBox" Margin="105,84,15,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="15,176,0,0" TextWrapping="Wrap" Text="Post Processor" VerticalAlignment="Top" Height="16" Width="85"/>
+        <ComboBox x:Name="comboBoxDesignPlane" Margin="105,170,15,0" VerticalAlignment="Top" Height="22"/>
+        <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="15,271,0,0" TextWrapping="Wrap" Text="Work Coordinate Systems" VerticalAlignment="Top" Height="16" Width="180"/>
+        <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="15,116,0,0" TextWrapping="Wrap" Text="Local Path" VerticalAlignment="Top" Height="16" Width="90"/>
+        <TextBox x:Name="textBox_Copy" Margin="15,137,15,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top"/>
+        <Button x:Name="buttonBrowserPath" Content="Browse" Margin="180,114,15,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlock_Copy3" HorizontalAlignment="Left" Margin="15,211,0,0" TextWrapping="Wrap" Text="Tool Magazine" VerticalAlignment="Top" Height="16" Width="90"/>
+        <TextBox x:Name="textBox_Copy1" Margin="15,232,15,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top"/>
+        <Button x:Name="buttonBrowserPath_Copy" Content="Browse" Margin="180,267,15,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox_Copy2" Margin="15,292,15,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top"/>
+        <Button x:Name="buttonBrowserPath_Copy1" Content="Browse" Margin="180,207,15,0" VerticalAlignment="Top"/>
+        <Frame x:Name="myFrame" Content="" Grid.Column="1" Margin="10"/>
 
     </Grid>
 </UserControl>
