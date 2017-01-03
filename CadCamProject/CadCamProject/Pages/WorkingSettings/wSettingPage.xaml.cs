@@ -22,25 +22,28 @@ namespace CadCamProject.Pages
         Main MainPage;
         WorkSettings workSettings;
 
-        public wSettingPage(Main main)
+        public wSettingPage(Main main, int index)
         { 
             Main = main;
             MainPage = main;
             InitializeComponent();
             workSettings = new WorkSettings();
-            workSettings = workSettings.GetParameters(MainPage);
-            fillingProfileParameters();
+            workSettings = workSettings.GetParameters(MainPage, index);
+            fillingParameters();
         } 
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
         {
-            profileDefinition();
+            Definition();
+            MainPage.Buttons(true);
             Switcher.Switch(Main);
         }
 
-        private void profileDefinition()
+        private void Definition()
         {
            
+            workSettings.TypeImagineOperation = "/Images/WorkSettigs.png";
+            workSettings.TypeOperation = "Work Settings";
             workSettings.Parameters = DateTime.Now.ToString("[DD=hh][MM=mm][YY=-hh][MM=mmss]");
             workSettings.upDate = DateTime.Now.ToString();
          
@@ -53,12 +56,16 @@ namespace CadCamProject.Pages
             Switcher.Switch(Main);
         }
 
-        private void fillingProfileParameters()
+        private void fillingParameters()
         {
-            
+            textBlockVersion.Text = workSettings.upDate;
 
         }
 
-      
+        private void DefaultEvent(object sender, RoutedEventArgs e)
+        {
+            myFrame.Content = new Pages.WorkingSettings.Default();
+
+        }
     }
 }

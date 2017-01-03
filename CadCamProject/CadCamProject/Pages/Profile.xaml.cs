@@ -29,16 +29,16 @@ namespace CadCamProject.Pages
             InitializeComponent();
             profileOperation = new Operation();
             profileOperation = profileOperation.GetParameters(MainPage,index);
-            fillingProfileParameters();
+            fillingParameters();
         } 
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
         {
-            profileDefinition();
+           Definition();
             Switcher.Switch(Main);
         }
 
-        private void profileDefinition()
+        private void Definition()
         {
             profileOperation.TypeImagineOperation ="/Images/Profile.png";
             profileOperation.TypeOperation = "Profile";
@@ -54,10 +54,9 @@ namespace CadCamProject.Pages
             Switcher.Switch(Main);
         }
 
-        private void fillingProfileParameters()
+        private void fillingParameters()
         {
-            this.textBoxParameters.Text = profileOperation.Index + profileOperation.Parameters;
-
+            textBlockVersion.Text = profileOperation.upDate;
         }
 
       

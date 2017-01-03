@@ -19,14 +19,15 @@ namespace CadCamProject.Pages
   
     public partial class Main : UserControl
     {
+        
         public Main()
         {
             InitializeComponent();
             this.labelTime.Content = DateTime.Now.ToString();
-            Buttons(true);
+            Buttons(false);
         }
 
-        private void Buttons(bool v)
+        public void Buttons(bool v)
         {
             buttonAxialMilling.IsEnabled = v;
             buttonDrilling.IsEnabled = v;
@@ -70,15 +71,15 @@ namespace CadCamProject.Pages
 
         private void buttonWorkSettings_Click(object sender, RoutedEventArgs e)
         {
-           Switcher.Switch(new Pages.wSettingPage(this));
+           Switcher.Switch(new wSettingPage(this, 1));
         }
 
         private void buttonProfile_Click(object sender, RoutedEventArgs e)
         {
             int index = this.listViewOperations.Items.Count + 1;
-            Switcher.Switch(new Pages.Profile(this, index));
+            Switcher.Switch(new Profile(this, index));
 
         }
     }
 }
-
+ 

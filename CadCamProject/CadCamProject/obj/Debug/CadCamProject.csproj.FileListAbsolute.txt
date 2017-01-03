@@ -16,5 +16,7 @@ D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug
 D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\Profile.g.cs
 D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\Main.baml
 D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\Profile.baml
-D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\wSettingPage.g.cs
-D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\wSettingPage.baml
+D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\WorkingSettings\Default.g.cs
+D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\WorkingSettings\Default.baml
+D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\WorkingSettings\wSettingPage.g.cs
+D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\WorkingSettings\wSettingPage.baml

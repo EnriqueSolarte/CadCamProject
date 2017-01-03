@@ -9,37 +9,42 @@ namespace CadCamProject
 {
     class WorkSettings
     {
-        public string TypeImagineOperation = "/Images/workSettings.png";
-        public string TypeOperation = "Work Settings";
+        public string TypeImagineOperation { get; set; }
+        public string TypeOperation { get; set; }
         public string Parameters { get; set; }
 
-        public int Index = 0;
+        public int Index { get; set; }
 
         public string upDate { get; set; }
 
-        public WorkSettings GetParameters(Main MainPage)
+        public WorkSettings GetParameters(Main MainPage, int index)
         {
-          
-            List<WorkSettings> workSettings = new List<WorkSettings>();
-            WorkSettings kk = new WorkSettings();
+            
+            WorkSettings op = new WorkSettings();
 
-            if (MainPage.listViewOperations.Items.Count != 0)
+            if (index <= MainPage.listViewOperations.Items.Count)
             {
-                var pp = MainPage.listViewOperations.SelectedItems[0];
+                var listOperation = MainPage.listViewOperations.Items.GetItemAt(0) as List<WorkSettings>;
+                op = listOperation.Last();
             }
-           
-            return kk;
+      
+            else
+            {
+                op.Index = MainPage.listViewOperations.Items.Count;
+            }
+            return op;
         }
 
-        public List<WorkSettings> SetParameters(WorkSettings opParameters, Main MainPage)
+        public List<WorkSettings> SetParameters(WorkSettings parameters, Main MainPage)
         {
             List<WorkSettings> listOperation = new List<WorkSettings>();
-            listOperation.Add(opParameters);
-            if (opParameters.Index != MainPage.listViewOperations.Items.Count)
+            listOperation.Add(parameters);
+            if (parameters.Index != MainPage.listViewOperations.Items.Count)
             {
-                MainPage.listViewOperations.Items.RemoveAt(opParameters.Index);
+                MainPage.listViewOperations.Items.RemoveAt(parameters.Index);
             }
             return listOperation;
+          
         }
     }
 }

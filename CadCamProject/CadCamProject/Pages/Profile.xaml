@@ -14,7 +14,6 @@
 
         <Button x:Name="buttonAccept" Content="Accept" Margin="0,40,10,10" Click="buttonAccept_Click" Grid.Row="1" HorizontalAlignment="Right" Width="120"/>
         <Label x:Name="label" Content="Profile Defintion" Margin="269,10,259,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Center" Width="272"/>
-        <Image x:Name="image_Copy" Source="/Images/ProfileDefinition2.PNG" Margin="140,85,0,280" HorizontalAlignment="Left" Width="275"/>
         <Button x:Name="buttonCancel" Content="Cancel" Margin="0,0,10,33" Click="buttonCancel_Click" Height="20" VerticalAlignment="Bottom" Grid.Row="1" HorizontalAlignment="Right" Width="120"/>
         <TextBox x:Name="textBoxParameters" Margin="0,280,300,10" TextWrapping="Wrap" Text="" HorizontalAlignment="Right" Width="490"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="15,17,0,0" TextWrapping="Wrap" Text="Profile Name" VerticalAlignment="Top" Height="16" Width="75" Grid.Row="1"/>
@@ -23,6 +22,8 @@
         <ComboBox x:Name="comboBoxDesignPlane" Margin="95,38,0,0" VerticalAlignment="Top" Height="22" Grid.Row="1" HorizontalAlignment="Left" Width="155"/>
         <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="280,40,0,0" TextWrapping="Wrap" Text="Origin" VerticalAlignment="Top" Height="16" Width="35" Grid.Row="1"/>
         <ComboBox x:Name="comboBoxOrigin" Margin="320,38,0,0" VerticalAlignment="Top" Height="22" Grid.Row="1" HorizontalAlignment="Left" Width="155"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="520,0,0,20" TextWrapping="Wrap" Text="Settings Version" Height="16" VerticalAlignment="Bottom"/>
+        <TextBlock x:Name="textBlockVersion" HorizontalAlignment="Left" Margin="620,0,0,20" TextWrapping="Wrap" Text="%%" Height="16" VerticalAlignment="Bottom"/>
 
     </Grid>
 </UserControl>
