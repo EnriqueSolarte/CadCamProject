@@ -43,8 +43,24 @@ namespace CadCamProject.Pages
         private void doubleCLlick(object sender, MouseButtonEventArgs e)
         {
             int index = this.listViewOperations.SelectedIndex;
-            Switcher.Switch(new Pages.Profile(this, index)); // hay que cambiar en funcion del tipo de operacion
+            
+            if (index != 0)
+            {
+                Operation op = new Operation();
+                op = op.GetParameters(this, index);
+                EditingOperation(op.TypeOperation);
+            }
+            else {
+                WorkSettings op = new WorkSettings();
+                op = op.GetParameters(this, index);
+                EditingOperation(op.TypeOperation);
+            }
 
+        }
+
+        private void EditingOperation(string typeOperation)
+        {
+            throw new NotImplementedException();
         }
 
 
