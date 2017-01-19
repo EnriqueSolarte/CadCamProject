@@ -58,13 +58,10 @@
     <Compile Include="Pages\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\WorkingSettings\Default.xaml.cs">
-      <DependentUpon>Default.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\WorkingSettings\wSettingPage.xaml.cs">
       <DependentUpon>wSettingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Profile.xaml.cs">
+    <Compile Include="Pages\Profile\Profile.xaml.cs">
       <DependentUpon>Profile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Switcher.cs" />
@@ -85,15 +82,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\WorkingSettings\Default.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\WorkingSettings\wSettingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Profile.xaml">
+    <Page Include="Pages\Profile\Profile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -135,11 +128,9 @@
     <Resource Include="Images\WorkSettigs.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Pages\WorkingSettings\default.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\Capture1.PNG" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

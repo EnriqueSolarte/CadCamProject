@@ -60,7 +60,8 @@ namespace CadCamProject.Pages
 
         private void EditingOperation(string typeOperation)
         {
-            throw new NotImplementedException();
+            // over this function is gonna be implemented the code to access again to the data saved in each operation already created
+            MessageBox.Show("Is no implement yet :>>"+typeOperation);
         }
 
 

@@ -7,30 +7,36 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="800">
     <Grid Background="White" Margin="0,-10,0,10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="270"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        <Label x:Name="label" Content="Working Settings" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="15,0,0,10" TextWrapping="Wrap" Text="Settings Version" Height="16" VerticalAlignment="Bottom" Width="85"/>
+        <TextBlock x:Name="textBlockVersion" HorizontalAlignment="Left" Margin="115,0,0,10" TextWrapping="Wrap" Text="%%" Height="16" VerticalAlignment="Bottom" Width="20"/>
 
-        <Button x:Name="buttonAccept" Content="Accept" Margin="10,0,140,10" Click="buttonAccept_Click" Height="20" VerticalAlignment="Bottom"/>
-        <Label x:Name="label" Content="Working Settings" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265" Grid.ColumnSpan="2"/>
-        <Button x:Name="buttonCancel" Content="Cancel" Margin="0,0,10,10" Click="buttonCancel_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="120"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="15,91,0,0" TextWrapping="Wrap" Text="Program Name" VerticalAlignment="Top" Height="16" Width="90"/>
-        <TextBox x:Name="textBox" Margin="105,84,15,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top" SelectionChanged="DefaultEvent"/>
-        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="15,176,0,0" TextWrapping="Wrap" Text="Post Processor" VerticalAlignment="Top" Height="16" Width="85"/>
-        <ComboBox x:Name="comboBoxDesignPlane" Margin="105,170,15,0" VerticalAlignment="Top" Height="22"/>
-        <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="15,271,0,0" TextWrapping="Wrap" Text="Work Coordinate Systems" VerticalAlignment="Top" Height="16" Width="180"/>
-        <TextBlock x:Name="textBlock_Copy2" HorizontalAlignment="Left" Margin="15,116,0,0" TextWrapping="Wrap" Text="Local Path" VerticalAlignment="Top" Height="16" Width="90"/>
-        <TextBox x:Name="textBox_Copy" Margin="15,137,15,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top"/>
-        <Button x:Name="buttonBrowserPath" Content="Browse" Margin="180,114,15,0" VerticalAlignment="Top"/>
-        <TextBlock x:Name="textBlock_Copy3" HorizontalAlignment="Left" Margin="15,211,0,0" TextWrapping="Wrap" Text="Tool Magazine" VerticalAlignment="Top" Height="16" Width="90"/>
-        <TextBox x:Name="textBox_Copy1" Margin="15,232,15,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top"/>
-        <Button x:Name="buttonBrowserPath_Copy" Content="Browse" Margin="180,267,15,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_Copy2" Margin="15,292,15,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top"/>
-        <Button x:Name="buttonBrowserPath_Copy1" Content="Browse" Margin="180,207,15,0" VerticalAlignment="Top"/>
-        <Frame x:Name="myFrame" Content="" Grid.Column="1" Margin="10,10,10,30" NavigationUIVisibility="Hidden"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,0,0,7" TextWrapping="Wrap" Text="Settings Version" Grid.Column="1" Height="16" VerticalAlignment="Bottom"/>
-        <TextBlock x:Name="textBlockVersion" HorizontalAlignment="Left" Margin="110,0,0,7" TextWrapping="Wrap" Text="%%" Grid.Column="1" Height="16" VerticalAlignment="Bottom"/>
+        <TabControl x:Name="tabControl" Margin="10,70,10,35" BorderBrush="#FFB0AFAF" TabStripPlacement="Left">
+            <TabItem Header="General Settings" Width="120">
+                <Grid Background="White">
+                    <RadioButton x:Name="radioButtonExistingFile" Content="Existing fIle" HorizontalAlignment="Left" Margin="31,42,0,0" Height="15" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="radioButtonNewFile" Content="Create a new fIle" HorizontalAlignment="Left" Margin="31,62,0,0" Height="15" VerticalAlignment="Top"/>
+                    <Button x:Name="buttonBrowsePath" Content="Browse" Margin="0,152,57,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75"/>
+                    <TextBox x:Name="textBoxLocalPath" Height="23" Margin="31,149,147,0" TextWrapping="Wrap" Text="C:\" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="31,128,0,0" TextWrapping="Wrap" Text="Local Path:" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBoxFileName" Height="23" Margin="101,177,147,0" TextWrapping="Wrap" Text="defautlName" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="31,178,0,0" TextWrapping="Wrap" Text="File Name:" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="32,236,0,0" TextWrapping="Wrap" Text="Loading aditional Information:" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="checkBoxSettingTools" Content="Setting Tools" HorizontalAlignment="Left" Margin="82,277,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="checkBoxWorkOffset" Content="Work Offset" HorizontalAlignment="Left" Margin="82,297,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="checkBoxOperations" Content="Operations" HorizontalAlignment="Left" Margin="82,317,0,0" VerticalAlignment="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Work Offset">
+                <Grid Background="White"/>
+            </TabItem>
+            <TabItem Header="Tools Settings">
+                <Grid Background="White"/>
+            </TabItem>
+
+        </TabControl>
+        <Button x:Name="buttonAccept" Content="Accept" Margin="10,0,0,60" Click="buttonAccept_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120"/>
+        <Button x:Name="buttonCancel" Content="Cancel" Margin="10,0,0,35" Click="buttonCancel_Click" HorizontalAlignment="Left" Width="120" Height="20" VerticalAlignment="Bottom"/>
 
     </Grid>
 </UserControl>

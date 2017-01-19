@@ -62,10 +62,6 @@ namespace CadCamProject.Pages
 
         }
 
-        private void DefaultEvent(object sender, RoutedEventArgs e)
-        {
-            myFrame.Content = new Pages.WorkingSettings.Default();
-
-        }
+        
     }
 }
