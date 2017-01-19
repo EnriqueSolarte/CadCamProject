@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CadCamProject.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="1280">
     <Grid Background="White" Margin="0,-10,0,10">
         <Label x:Name="label" Content="Working Settings" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265"/>
         <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="15,0,0,10" TextWrapping="Wrap" Text="Settings Version" Height="16" VerticalAlignment="Bottom" Width="85"/>
@@ -21,14 +21,29 @@
                     <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="31,128,0,0" TextWrapping="Wrap" Text="Local Path:" VerticalAlignment="Top"/>
                     <TextBox x:Name="textBoxFileName" Height="23" Margin="101,177,147,0" TextWrapping="Wrap" Text="defautlName" VerticalAlignment="Top"/>
                     <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="31,178,0,0" TextWrapping="Wrap" Text="File Name:" VerticalAlignment="Top"/>
-                    <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="32,236,0,0" TextWrapping="Wrap" Text="Loading aditional Information:" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="32,236,0,0" TextWrapping="Wrap" Text="Load aditional Information:" VerticalAlignment="Top"/>
                     <CheckBox x:Name="checkBoxSettingTools" Content="Setting Tools" HorizontalAlignment="Left" Margin="82,277,0,0" VerticalAlignment="Top"/>
                     <CheckBox x:Name="checkBoxWorkOffset" Content="Work Offset" HorizontalAlignment="Left" Margin="82,297,0,0" VerticalAlignment="Top"/>
                     <CheckBox x:Name="checkBoxOperations" Content="Operations" HorizontalAlignment="Left" Margin="82,317,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="checkBoxProfiles" Content="Profiles" HorizontalAlignment="Left" Margin="82,337,0,0" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Work Offset">
-                <Grid Background="White"/>
+                <Grid Background="White">
+                    <ListView x:Name="listViewWorkOffset" Margin="30,107,42,22">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" Width="300"/>
+                                <GridViewColumn Header="G code" Width="100"/>
+                                <GridViewColumn Header="X" Width="125"/>
+                                <GridViewColumn Header="Y" Width="125"/>
+                                <GridViewColumn Header="Z" Width="125"/>
+                                <GridViewColumn Header="S1" Width="125"/>
+                                <GridViewColumn Header="S2" Width="150"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
             </TabItem>
             <TabItem Header="Tools Settings">
                 <Grid Background="White"/>
