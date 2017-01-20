@@ -14,19 +14,21 @@
         <TabControl x:Name="tabControl" Margin="15,75,5,30" BorderBrush="#FFB0AFAF" TabStripPlacement="Left">
             <TabItem Header="General Settings" Width="120">
                 <Grid Background="White">
-                    <RadioButton x:Name="radioButtonExistingFile" Content="Existing fIle" HorizontalAlignment="Left" Margin="31,42,0,0" Height="15" VerticalAlignment="Top"/>
-                    <RadioButton x:Name="radioButtonNewFile" Content="Create a new fIle" HorizontalAlignment="Left" Margin="31,62,0,0" Height="15" VerticalAlignment="Top"/>
+                    <RadioButton x:Name="radioButtonExistingFile" Content="Existing fIle" HorizontalAlignment="Left" Margin="31,42,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked"/>
+                    <RadioButton x:Name="radioButtonNewFile" Content="Create a new fIle" HorizontalAlignment="Left" Margin="31,62,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked" IsChecked="True"/>
                     <Button x:Name="buttonBrowsePath" Content="Browse" Margin="0,152,57,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75"/>
                     <TextBox x:Name="textBoxLocalPath" Height="23" Margin="31,149,147,0" TextWrapping="Wrap" Text="C:\" VerticalAlignment="Top"/>
                     <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="31,128,0,0" TextWrapping="Wrap" Text="Local Path:" VerticalAlignment="Top"/>
                     <TextBox x:Name="textBoxFileName" Height="23" Margin="101,177,147,0" TextWrapping="Wrap" Text="defautlName" VerticalAlignment="Top"/>
                     <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="31,178,0,0" TextWrapping="Wrap" Text="File Name:" VerticalAlignment="Top"/>
                     <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="32,236,0,0" TextWrapping="Wrap" Text="Load aditional Information:" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="checkBoxSettingTools" Content="Setting Tools" HorizontalAlignment="Left" Margin="82,277,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="checkBoxWorkOffset" Content="Work Offset" HorizontalAlignment="Left" Margin="82,297,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="checkBoxOperations" Content="Operations" HorizontalAlignment="Left" Margin="82,317,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="checkBoxProfiles" Content="Profiles" HorizontalAlignment="Left" Margin="82,337,0,0" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="checkBoxProfiles_Copy" Content="Blanks definitions" HorizontalAlignment="Left" Margin="82,357,0,0" VerticalAlignment="Top"/>
+                    <CheckBox x:Name="checkBoxSettingTools" Content="Setting Tools" HorizontalAlignment="Left" Margin="82,277,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                    <CheckBox x:Name="checkBoxWorkOffset" Content="Work Offset" HorizontalAlignment="Left" Margin="82,297,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                    <CheckBox x:Name="checkBoxOperations" Content="Operations" HorizontalAlignment="Left" Margin="82,317,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                    <CheckBox x:Name="checkBoxProfiles" Content="Profiles" HorizontalAlignment="Left" Margin="82,337,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                    <CheckBox x:Name="checkBoxBlanksDefinitions" Content="Blanks definitions" HorizontalAlignment="Left" Margin="82,357,0,0" VerticalAlignment="Top" IsEnabled="False"/>
+                    <Button x:Name="buttonLoadSave" Content="Save File" HorizontalAlignment="Left" Margin="35,422,0,0" VerticalAlignment="Top" Width="75"/>
+                    <ProgressBar HorizontalAlignment="Left" Height="10" Margin="365,627,0,0" VerticalAlignment="Top" Width="270"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Work offset">
