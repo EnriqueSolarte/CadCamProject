@@ -9,13 +9,29 @@ namespace CadCamProject
 {
     class WorkSettings
     {
+        //General parameters
         public string TypeImagineOperation { get; set; }
         public string TypeOperation { get; set; }
         public string Parameters { get; set; }
-
         public int Index { get; set; }
-
         public string upDate { get; set; }
+        public string savingFormat { get; set; }
+
+        //Specific parameters
+        public string pathDirectory { get; set; }
+        public string fileName { get; set; }
+        public string extension { get; }
+        public string duplicatedFilePrefix { get; }
+        
+
+        public WorkSettings()
+        {
+            pathDirectory = "C:\\";
+            fileName = "defaultName";
+            extension = ".opt";
+            duplicatedFilePrefix = "_duplicated";
+            savingFormat = "vamos por buen camino kikin";
+        }
 
         public WorkSettings GetParameters(Main MainPage, int index)
         {
