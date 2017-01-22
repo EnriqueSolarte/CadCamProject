@@ -6,12 +6,12 @@
              xmlns:local="clr-namespace:CadCamProject.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1280">
-   
+
     <Grid Background="White" Margin="0,0,0,0">
         <Label x:Name="label" Content="Working Settings" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265"/>
 
 
-        <TabControl x:Name="tabControl" Margin="15,75,5,30" BorderBrush="#FFB0AFAF" TabStripPlacement="Left">
+        <TabControl x:Name="tabControl" Margin="15,75,5,35" BorderBrush="#FFB0AFAF" TabStripPlacement="Left">
             <TabItem Header="General Settings" Width="120">
                 <Grid Background="White">
                     <RadioButton x:Name="radioButtonExistingFile" Content="Existing fIle" HorizontalAlignment="Left" Margin="31,42,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked"/>
@@ -98,17 +98,17 @@
             </TabItem>
 
         </TabControl>
-        <Button x:Name="buttonAccept" Content="Accept" Margin="18,0,0,49" Click="buttonAccept_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120"/>
-        <Button x:Name="buttonCancel" Content="Cancel" Margin="18,0,0,30" Click="buttonCancel_Click" HorizontalAlignment="Left" Width="120" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="buttonAccept" Content="Accept" Margin="18,0,0,56" Click="buttonAccept_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120"/>
+        <Button x:Name="buttonCancel" Content="Cancel" Margin="18,0,0,37" Click="buttonCancel_Click" HorizontalAlignment="Left" Width="120" Height="20" VerticalAlignment="Bottom"/>
 
         <DockPanel VerticalAlignment="Bottom" Margin="138,0,0,0">
-            <StatusBar DockPanel.Dock="Bottom" Height="30" Background="White">
-                <Label x:Name="LabelVersion" Content="Version:" HorizontalAlignment="Center"></Label>
+            <StatusBar DockPanel.Dock="Bottom" Height="35" Background="White">
+                <Label x:Name="LabelVersion" Content="Version:"></Label>
                 <TextBlock x:Name="textBlockVersion"></TextBlock>
-                <Label x:Name="LabelStatus" Content="Unsaved" HorizontalAlignment="Center"></Label>   
+                <Label x:Name="Labelblank" Content="                      " HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic"/>
+                <Label x:Name="LabelStatus" Content="(Unsaved)" HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic"/>
                 <Label x:Name="LabelProgressBar" Content="" HorizontalAlignment="Center"></Label>
-                <ProgressBar x:Name="ProgressBarLabel" Width="147" Height="15" Visibility="Hidden" />
-                
+                <ProgressBar x:Name="progressBar" Minimum="0" Maximum="100" Width="147" Height="15" ValueChanged="progressBar_ValueChanged" Visibility="Hidden"/>
             </StatusBar>
         </DockPanel>
     </Grid>

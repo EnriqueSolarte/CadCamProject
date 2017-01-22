@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
+using System.Threading;
+using System.Windows.Media.Animation;
 
 
 namespace CadCamProject.Pages
@@ -47,8 +49,8 @@ namespace CadCamProject.Pages
             workSettings.TypeImagineOperation = "/Images/WorkSettigs.png";
             workSettings.TypeOperation = "Work Settings";
             workSettings.Parameters = DateTime.Now.ToString("[DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss]");
-            workSettings.upDate = DateTime.Now.ToString();
-         
+            workSettings.upDate = DateTime.Now.ToString("ddMMyy.hhmmss");
+
             MainPage.listViewOperations.Items.Insert(workSettings.Index,
                 workSettings.SetParameters(workSettings, MainPage));     
         }
@@ -59,8 +61,11 @@ namespace CadCamProject.Pages
         }
 
         private void fillingParameters()
-        {
-            textBlockVersion.Text = workSettings.upDate;
+        { 
+            if(workSettings.upDate == null)
+            {
+                textBlockVersion.Text = DateTime.Now.ToString("ddMMyy.hhmmss");
+            }
 
         }
         
@@ -157,15 +162,27 @@ namespace CadCamProject.Pages
 
         private void buttonLoadSave_Click(object sender, RoutedEventArgs e)
         {
+            animateProgressBar();
             if (radioButtonExistingFile.IsChecked == true)
             {
                 loadFileInformation();
+                LabelProgressBar.Content = "Loading...";
             }
             else
             {
+                LabelProgressBar.Content = "Saving...";
                 saveFileInformation();
             }
-            
+
+        }
+
+        private void animateProgressBar()
+        {
+            progressBar.Visibility = Visibility.Visible;
+            Duration duration = new Duration(TimeSpan.FromSeconds(2));
+            DoubleAnimation doubleAnimation = new DoubleAnimation(200.0, duration);
+            progressBar.BeginAnimation(ProgressBar.ValueProperty, doubleAnimation);
+           
         }
 
         private void saveFileInformation()
@@ -177,6 +194,18 @@ namespace CadCamProject.Pages
         private void loadFileInformation()
         {
             MessageBox.Show("Is not implement yet >> :-)");
+        }
+
+        private void progressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+
+            if (progressBar.Value == progressBar.Maximum)
+            {
+                progressBar.Value = 0;
+                LabelProgressBar.Content = "";
+                progressBar.Visibility = Visibility.Hidden;
+                LabelStatus.Content = workSettings.fileName + workSettings.extension +  " (Saved)";
+            }
         }
 
         #endregion
