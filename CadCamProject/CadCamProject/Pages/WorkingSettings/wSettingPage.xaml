@@ -6,11 +6,9 @@
              xmlns:local="clr-namespace:CadCamProject.Pages"
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1280">
-    <Grid Background="White" Margin="0,-10,0,10">
+   
+    <Grid Background="White" Margin="0,0,0,0">
         <Label x:Name="label" Content="Working Settings" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265"/>
-
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Settings Version" Height="16" VerticalAlignment="Bottom" Width="85" Margin="140,0,0,9"/>
-        <TextBlock x:Name="textBlockVersion" HorizontalAlignment="Left" TextWrapping="Wrap" Text="%%" Height="16" VerticalAlignment="Bottom" Width="20" Canvas.Left="100" Margin="240,0,0,9"/>
 
 
         <TabControl x:Name="tabControl" Margin="15,75,5,30" BorderBrush="#FFB0AFAF" TabStripPlacement="Left">
@@ -103,5 +101,15 @@
         <Button x:Name="buttonAccept" Content="Accept" Margin="18,0,0,49" Click="buttonAccept_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120"/>
         <Button x:Name="buttonCancel" Content="Cancel" Margin="18,0,0,30" Click="buttonCancel_Click" HorizontalAlignment="Left" Width="120" Height="20" VerticalAlignment="Bottom"/>
 
+        <DockPanel VerticalAlignment="Bottom" Margin="138,0,0,0">
+            <StatusBar DockPanel.Dock="Bottom" Height="30" Background="White">
+                <Label x:Name="LabelVersion" Content="Version:" HorizontalAlignment="Center"></Label>
+                <TextBlock x:Name="textBlockVersion"></TextBlock>
+                <Label x:Name="LabelStatus" Content="Unsaved" HorizontalAlignment="Center"></Label>   
+                <Label x:Name="LabelProgressBar" Content="" HorizontalAlignment="Center"></Label>
+                <ProgressBar x:Name="ProgressBarLabel" Width="147" Height="15" Visibility="Hidden" />
+                
+            </StatusBar>
+        </DockPanel>
     </Grid>
 </UserControl>
