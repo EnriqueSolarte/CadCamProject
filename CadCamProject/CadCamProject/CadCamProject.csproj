@@ -56,9 +56,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Enums.cs" />
     <Compile Include="Pages\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\WindowsFunctions.cs" />
     <Compile Include="Pages\WorkingSettings\wSettingPage.xaml.cs">
       <DependentUpon>wSettingPage.xaml</DependentUpon>
     </Compile>

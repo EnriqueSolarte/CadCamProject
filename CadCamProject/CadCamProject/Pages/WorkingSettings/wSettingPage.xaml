@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="800" d:DesignWidth="1280">
 
-    <Grid Background="White" Margin="0,0,0,0">
+    <Grid Background="White" Margin="0,0,0,0" MouseMove="MouseMoveControl">
         <Label x:Name="label" Content="Working Settings" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265"/>
 
 
@@ -33,23 +33,21 @@
             </TabItem>
             <TabItem Header="Work offset">
                 <Grid Background="White">
-                    <ListView x:Name="listViewWorkOffset" Margin="30,67,42,22">
+                    <ListView x:Name="listViewWorkOffset" Margin="30,72,42,22">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Name" Width="300"/>
-                                <GridViewColumn Header="G code" Width="100"/>
-                                <GridViewColumn Header="X" Width="125"/>
-                                <GridViewColumn Header="Y" Width="125"/>
-                                <GridViewColumn Header="Z" Width="125"/>
-                                <GridViewColumn Header="S1" Width="125"/>
-                                <GridViewColumn Header="S2" Width="150"/>
+                                <GridViewColumn Header="Description" Width="300" DisplayMemberBinding="{Binding Path=description}"/>
+                                <GridViewColumn Header="G code" Width="100" DisplayMemberBinding="{Binding Path=Gcode}"/>
+                                <GridViewColumn Header="X" Width="125" DisplayMemberBinding="{Binding Path=Xpos}"/>
+                                <GridViewColumn Header="Y" Width="125" DisplayMemberBinding="{Binding Path=Ypos}"/>
+                                <GridViewColumn Header="Z" Width="125" DisplayMemberBinding="{Binding Path=Zpos}"/>
+                                <GridViewColumn Header="S1" Width="125" DisplayMemberBinding="{Binding Path=Spindle_1}"/>
+                                <GridViewColumn Header="S2" Width="150" DisplayMemberBinding="{Binding Path=Spindle_2}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button x:Name="buttonAddWOS" Content="Add Work offset" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top" Width="150"/>
-                    <Button x:Name="buttonDeleteWOItem" Content="Delete" HorizontalAlignment="Left" Margin="30,37,0,0" VerticalAlignment="Top" Width="150"/>
-                    <Button x:Name="buttonAddWCP" Content="Add Work Coordinate Point" HorizontalAlignment="Left" Margin="200,10,0,0" VerticalAlignment="Top" Width="175" RenderTransformOrigin="0.5,0.5"/>
-                    <Button x:Name="buttonAddTCP" Content="Add Tool Change Position" HorizontalAlignment="Left" Margin="395,10,0,0" VerticalAlignment="Top" Width="195" RenderTransformOrigin="0.5,0.5"/>
+                    <Button x:Name="buttonAddItemListViewWorkOffset" Content="Add Item" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top" Width="150" Click="buttonAddItemListViewWorkOffset_Click"/>
+                    <Button x:Name="buttonDeleteItemListViewWorkOffset" Content="Delete Item" HorizontalAlignment="Left" Margin="215,10,0,0" VerticalAlignment="Top" Width="150"/>
 
                 </Grid>
             </TabItem>
@@ -102,13 +100,13 @@
         <Button x:Name="buttonCancel" Content="Cancel" Margin="18,0,0,37" Click="buttonCancel_Click" HorizontalAlignment="Left" Width="120" Height="20" VerticalAlignment="Bottom"/>
 
         <DockPanel VerticalAlignment="Bottom" Margin="138,0,0,0">
-            <StatusBar DockPanel.Dock="Bottom" Height="35" Background="White">
-                <Label x:Name="LabelVersion" Content="Version:"></Label>
-                <TextBlock x:Name="textBlockVersion"></TextBlock>
+            <StatusBar x:Name="statusBar" DockPanel.Dock="Bottom" Height="35" Background="White">
+                <Label x:Name="textVersion" Content="Version:"></Label>
+                <Label x:Name="LabelVersion"></Label>
                 <Label x:Name="Labelblank" Content="                      " HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic"/>
-                <Label x:Name="LabelStatus" Content="(Unsaved)" HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic"/>
-                <Label x:Name="LabelProgressBar" Content="" HorizontalAlignment="Center"></Label>
-                <ProgressBar x:Name="progressBar" Minimum="0" Maximum="100" Width="147" Height="15" ValueChanged="progressBar_ValueChanged" Visibility="Hidden"/>
+                <Label x:Name="LabelStatusFile" Content="*opt" HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic"/>
+                <Label x:Name="LabelStatusProgressBar" HorizontalAlignment="Center"></Label>
+                <ProgressBar x:Name="progressBar" Minimum="0" Maximum="100" Width="147" Height="15" Visibility="Hidden"/>
             </StatusBar>
         </DockPanel>
     </Grid>

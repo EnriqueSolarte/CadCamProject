@@ -15,7 +15,7 @@ namespace CadCamProject
         public string Parameters { get; set; }
         public int Index { get; set; }
         public string upDate { get; set; }
-        public string savingFormat { get; set; }
+        public string dataContent { get; set; }
 
         //Specific parameters
         public string pathDirectory { get; set; }
@@ -30,7 +30,7 @@ namespace CadCamProject
             fileName = "defaultName";
             extension = ".opt";
             duplicatedFilePrefix = "_duplicated";
-            savingFormat = "vamos por buen camino kikin";
+            dataContent = "vamos por buen camino kikin";
         }
 
         public WorkSettings GetParameters(Main MainPage, int index)
@@ -63,4 +63,30 @@ namespace CadCamProject
           
         }
     }
+
+    class pointPosition
+    {
+        public string description { get; set; }
+        public TypePosition typePosition { get; set; }
+        public string Gcode { get; set; }
+        public double Xpos { get; set; }
+        public double Ypos { get; set; }
+        public double Zpos { get; set; }
+        public double Spindle_1 { get; set; }
+        public double Spindle_2 { get; set; }
+
+        public pointPosition()
+        {
+            description = "New Work Offset";
+            typePosition = TypePosition.coordinateOffset;
+            Gcode = "G54";
+            Xpos = 543.231;
+            Ypos = 0.00;
+            Zpos = 285.235;
+            Spindle_1 = 0;
+            Spindle_2 = 0;
+        }
+    }
+
+   
 }

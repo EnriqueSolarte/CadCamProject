@@ -25,6 +25,7 @@ namespace CadCamProject.Pages
         UserControl Main;
         Main MainPage;
         WorkSettings workSettings;
+        StatusBar statusBarInformation;
 
         public wSettingPage(Main main, int index)
         { 
@@ -32,6 +33,7 @@ namespace CadCamProject.Pages
             MainPage = main;
             InitializeComponent();
             workSettings = new WorkSettings();
+            statusBarInformation = new StatusBar();
             workSettings = workSettings.GetParameters(MainPage, index);
             fillingParameters();
         } 
@@ -62,11 +64,15 @@ namespace CadCamProject.Pages
 
         private void fillingParameters()
         { 
+
             if(workSettings.upDate == null)
             {
-                textBlockVersion.Text = DateTime.Now.ToString("ddMMyy.hhmmss");
+                statusBarInformation.version = DateTime.Now.ToString("ddMMyy.hhmmss");
+                statusBarInformation.savedFile = false;
             }
 
+            statusBarInformation.changed = true;
+            statusBarInformation.fileName = workSettings.fileName;
         }
         
         #region Worksettings
@@ -85,7 +91,7 @@ namespace CadCamProject.Pages
 
                 stateCheckBox = false;
                 checkBoxDuplicateFile.IsEnabled = false;
-                buttonLoadSave.Content = "Save File";
+                buttonLoadSave.Content = ButtonContents.Save;
                 if (checkBoxDuplicateFile.IsChecked == false)
                 {
                     textBoxFileName.IsEnabled = true;
@@ -104,112 +110,139 @@ namespace CadCamProject.Pages
             if (checkBoxDuplicateFile.IsChecked == true)
             {
                 textBoxFileName.IsEnabled = true;
-                buttonLoadSave.Content = "Save File";
-                textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(workSettings.fileName) + workSettings.duplicatedFilePrefix+workSettings.extension;
+                buttonLoadSave.Content = ButtonContents.Save;
+                textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(workSettings.fileName)
+                                     + workSettings.duplicatedFilePrefix+workSettings.extension;
             }else
             {
                 textBoxFileName.IsEnabled = false;
-                buttonLoadSave.Content = "Load";
-                textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(workSettings.fileName) + workSettings.extension;
+                buttonLoadSave.Content = ButtonContents.Load;
+                textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(workSettings.fileName)  
+                                    + workSettings.extension;
             }
 
         }
 
         private void buttonBrowsePath_Click(object sender, RoutedEventArgs e)
         {
+            WindowsFunctions funtions = new WindowsFunctions();
+           
             if (radioButtonExistingFile.IsChecked == true)
             {
-                fileBrowser();
+                PathDefinition path = new PathDefinition();
+                path = funtions.fileBrowser("CAM prog (.opt)|*.opt");
+                workSettings.fileName = path.fileName;
+                workSettings.pathDirectory = path.directory;
+                if (path != null)
+                    statusBarInformation.readyToSave = true;
             }
             else
             {
-                folderBrowser();
+                workSettings.pathDirectory = funtions.folderBrowser();
             }
+
+
             textBoxFileName.Text = workSettings.fileName + workSettings.extension;
             textBoxLocalPath.Text = workSettings.pathDirectory;
 
         }
 
-        private void fileBrowser()
+        private void MouseMoveControl(object sender, MouseEventArgs e)
         {
-            System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog();
-
-            dialog.Filter = "CAM prog (.opt)|*.opt";
-            dialog.FilterIndex = 1;
-            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
-
-
-            if (result == System.Windows.Forms.DialogResult.OK)
+            #region statusBar readyToSave
+            if (statusBarInformation.readyToSave)
             {
-                workSettings.pathDirectory = dialog.FileName;
-                workSettings.fileName = System.IO.Path.GetFileNameWithoutExtension(workSettings.pathDirectory);
-                workSettings.pathDirectory = System.IO.Path.GetDirectoryName(workSettings.pathDirectory);
-            }
-
-        }
-
-        private void folderBrowser()
-        {
-            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
-            System.Windows.Forms.DialogResult result = dialog.ShowDialog();
-
-            if (result == System.Windows.Forms.DialogResult.OK)
+                buttonLoadSave.IsEnabled = true;
+            }else
             {
-                workSettings.pathDirectory = dialog.SelectedPath;
-                workSettings.fileName = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text);
+                buttonLoadSave.IsEnabled = false;
             }
+            #endregion
+
+            #region statusBar savedFile
+            if (statusBarInformation.savedFile)
+            {
+                statusBarInformation.fileName = workSettings.fileName;
+            }else
+            {
+                statusBarInformation.fileName = workSettings.fileName + "*";
+            }
+            #endregion
+
+            #region ProgressBar
+            if (progressBar.Value == progressBar.Maximum)
+            {
+                progressBar.Visibility = Visibility.Hidden;
+                statusBarInformation.status = StateToFile.Ready;
+            }
+            #endregion
+
+            #region statusBar changed
+            if (statusBarInformation.changed)
+            {
+                statusBarInformation.changed = false;
+                LabelVersion.Content = statusBarInformation.version;
+                LabelStatusFile.Content = statusBarInformation.fileName;
+                LabelStatusProgressBar.Content = statusBarInformation.status;
+            }
+            #endregion
         }
 
         private void buttonLoadSave_Click(object sender, RoutedEventArgs e)
         {
-            animateProgressBar();
-            if (radioButtonExistingFile.IsChecked == true)
+            if (statusBarInformation.readyToSave)
             {
-                loadFileInformation();
-                LabelProgressBar.Content = "Loading...";
-            }
-            else
-            {
-                LabelProgressBar.Content = "Saving...";
-                saveFileInformation();
-            }
+                WindowsFunctions function = new WindowsFunctions();
+                function.animateProgressBar(progressBar, 5);
 
-        }
-
-        private void animateProgressBar()
-        {
-            progressBar.Visibility = Visibility.Visible;
-            Duration duration = new Duration(TimeSpan.FromSeconds(2));
-            DoubleAnimation doubleAnimation = new DoubleAnimation(200.0, duration);
-            progressBar.BeginAnimation(ProgressBar.ValueProperty, doubleAnimation);
+                if (radioButtonExistingFile.IsChecked == true)
+                {
+                    statusBarInformation.status = StateToFile.Loading;
+                    loadFileInformation();
+                }
+                else
+                {
+                    statusBarInformation.status = StateToFile.Saving;
+                    saveFileInformation();
+                }
+            }
            
         }
-
+       
         private void saveFileInformation()
         {
-            string fileName = workSettings.pathDirectory + "\\" + System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text) + workSettings.extension;
-            File.WriteAllText(fileName, workSettings.savingFormat);
-        }
+            string fileName = workSettings.pathDirectory + "\\" 
+                             + System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text) 
+                             + workSettings.extension;
+            //it is necessary create a method to create and staore the format in dataCOntent
+            MessageBox.Show("It is necessary create a method tho save");
+            File.WriteAllText(fileName, workSettings.dataContent);
+            statusBarInformation.savedFile = true;
+        } 
 
         private void loadFileInformation()
         {
             MessageBox.Show("Is not implement yet >> :-)");
         }
 
-        private void progressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
+        #endregion
 
-            if (progressBar.Value == progressBar.Maximum)
-            {
-                progressBar.Value = 0;
-                LabelProgressBar.Content = "";
-                progressBar.Visibility = Visibility.Hidden;
-                LabelStatus.Content = workSettings.fileName + workSettings.extension +  " (Saved)";
-            }
+        #region WorkOffset
+        private void buttonAddItemListViewWorkOffset_Click(object sender, RoutedEventArgs e)
+        {
+            List<pointPosition> newPointPosition = new List<pointPosition>();
+            newPointPosition.Add(new pointPosition());
+            listViewWorkOffset.Items.Insert(listViewWorkOffset.Items.Count,newPointPosition);
+            statusBarInformation.savedFile = false;
         }
+
+
+
 
         #endregion
 
-
+        
     }
+
+    
 }
