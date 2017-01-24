@@ -22,6 +22,7 @@ namespace CadCamProject
         Error,
         Fail,
         Ready,
+
     }
 
     public enum ButtonContents

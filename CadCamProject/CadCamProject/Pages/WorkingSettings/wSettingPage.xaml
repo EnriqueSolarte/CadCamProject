@@ -11,15 +11,15 @@
         <Label x:Name="label" Content="Working Settings" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265"/>
 
 
-        <TabControl x:Name="tabControl" Margin="15,75,5,35" BorderBrush="#FFB0AFAF" TabStripPlacement="Left">
+        <TabControl x:Name="tabControl" Margin="15,75,5,35" BorderBrush="#FFB0AFAF" TabStripPlacement="Left" SelectionChanged="tabControl_SelectionChanged">
             <TabItem Header="General Settings" Width="120">
                 <Grid Background="White">
                     <RadioButton x:Name="radioButtonExistingFile" Content="Existing fIle" HorizontalAlignment="Left" Margin="31,42,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked"/>
                     <RadioButton x:Name="radioButtonNewFile" Content="Create a new fIle" HorizontalAlignment="Left" Margin="31,62,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked" IsChecked="True"/>
                     <Button x:Name="buttonBrowsePath" Content="Browse" Margin="0,152,57,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="buttonBrowsePath_Click"/>
-                    <TextBox x:Name="textBoxLocalPath" Height="23" Margin="31,149,147,0" TextWrapping="Wrap" Text="C:\" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBoxLocalPath" Height="23" Margin="31,149,147,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
                     <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="31,128,0,0" TextWrapping="Wrap" Text="Local Path:" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBoxFileName" Height="23" Margin="101,177,147,0" TextWrapping="Wrap" Text="defautlName.opt" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBoxFileName" Height="23" Margin="101,177,147,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
                     <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="31,178,0,0" TextWrapping="Wrap" Text="File Name:" VerticalAlignment="Top"/>
                     <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="32,236,0,0" TextWrapping="Wrap" Text="Load aditional Information:" VerticalAlignment="Top"/>
                     <CheckBox x:Name="checkBoxSettingTools" Content="Setting Tools" HorizontalAlignment="Left" Margin="82,277,0,0" VerticalAlignment="Top" IsEnabled="False" IsChecked="True"/>
@@ -31,9 +31,9 @@
                     <CheckBox x:Name="checkBoxDuplicateFile" Content="Use a duplicate file" HorizontalAlignment="Left" Margin="101,205,0,0" VerticalAlignment="Top" IsEnabled="False" Click="checkBoxDuplicateFile_clicked"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Work offset">
+            <TabItem Header="Work offset" Height="24" VerticalAlignment="Top">
                 <Grid Background="White">
-                    <ListView x:Name="listViewWorkOffset" Margin="30,72,42,22">
+                    <ListView x:Name="listViewWorkOffset" Margin="30,47,42,30" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Description" Width="300" DisplayMemberBinding="{Binding Path=description}"/>
@@ -46,8 +46,8 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button x:Name="buttonAddItemListViewWorkOffset" Content="Add Item" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top" Width="150" Click="buttonAddItemListViewWorkOffset_Click"/>
-                    <Button x:Name="buttonDeleteItemListViewWorkOffset" Content="Delete Item" HorizontalAlignment="Left" Margin="215,10,0,0" VerticalAlignment="Top" Width="150"/>
+                    <Button x:Name="buttonAddItemListViewWorkOffset" Content="Add Item" HorizontalAlignment="Left" Margin="30,22,0,0" VerticalAlignment="Top" Width="150" Click="buttonAddItemListViewWorkOffset_Click"/>
+                    <Button x:Name="buttonDeleteItemListViewWorkOffset" Content="Delete Item" HorizontalAlignment="Left" Margin="185,22,0,0" VerticalAlignment="Top" Width="150"/>
 
                 </Grid>
             </TabItem>
@@ -104,8 +104,8 @@
                 <Label x:Name="textVersion" Content="Version:"></Label>
                 <Label x:Name="LabelVersion"></Label>
                 <Label x:Name="Labelblank" Content="                      " HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic"/>
-                <Label x:Name="LabelStatusFile" Content="*opt" HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic"/>
-                <Label x:Name="LabelStatusProgressBar" HorizontalAlignment="Center"></Label>
+                <Label x:Name="LabelFile" Content="*opt" HorizontalAlignment="Center" FontWeight="Bold" FontStyle="Italic"/>
+                <Label x:Name="LabelStatus" HorizontalAlignment="Center"></Label>
                 <ProgressBar x:Name="progressBar" Minimum="0" Maximum="100" Width="147" Height="15" Visibility="Hidden"/>
             </StatusBar>
         </DockPanel>

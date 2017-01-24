@@ -36,7 +36,26 @@ namespace CadCamProject.Pages
             statusBarInformation = new StatusBar();
             workSettings = workSettings.GetParameters(MainPage, index);
             fillingParameters();
-        } 
+        }
+
+        private void fillingParameters()
+        {
+            if (workSettings.verision == null)
+            {
+                // If the file is new
+                workSettings.verision = DateTime.Now.ToString("ddMMyy.hhmmss");
+                
+            }
+            else
+            {
+                // If the file is not new is gonna change worksettings
+            }
+
+            //fill information from worksettings
+            textBoxFileName.Text = workSettings.file.fileName + workSettings.file.extension;
+            textBoxLocalPath.Text = workSettings.file.directory;
+            statusBarInformation.fileName = workSettings.file.fileName;
+        }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
         {
@@ -51,7 +70,7 @@ namespace CadCamProject.Pages
             workSettings.TypeImagineOperation = "/Images/WorkSettigs.png";
             workSettings.TypeOperation = "Work Settings";
             workSettings.Parameters = DateTime.Now.ToString("[DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss]");
-            workSettings.upDate = DateTime.Now.ToString("ddMMyy.hhmmss");
+            workSettings.verision = DateTime.Now.ToString("ddMMyy.hhmmss");
 
             MainPage.listViewOperations.Items.Insert(workSettings.Index,
                 workSettings.SetParameters(workSettings, MainPage));     
@@ -62,18 +81,7 @@ namespace CadCamProject.Pages
             Switcher.Switch(Main);
         }
 
-        private void fillingParameters()
-        { 
-
-            if(workSettings.upDate == null)
-            {
-                statusBarInformation.version = DateTime.Now.ToString("ddMMyy.hhmmss");
-                statusBarInformation.savedFile = false;
-            }
-
-            statusBarInformation.changed = true;
-            statusBarInformation.fileName = workSettings.fileName;
-        }
+        
         
         #region Worksettings
         private void radioButtonFiles_Clicked(object sender, RoutedEventArgs e)
@@ -111,14 +119,14 @@ namespace CadCamProject.Pages
             {
                 textBoxFileName.IsEnabled = true;
                 buttonLoadSave.Content = ButtonContents.Save;
-                textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(workSettings.fileName)
-                                     + workSettings.duplicatedFilePrefix+workSettings.extension;
+                textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(workSettings.file.fileName)
+                                     + workSettings.duplicatedFilePrefix+workSettings.file.extension;
             }else
             {
                 textBoxFileName.IsEnabled = false;
                 buttonLoadSave.Content = ButtonContents.Load;
-                textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(workSettings.fileName)  
-                                    + workSettings.extension;
+                textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(workSettings.file.fileName)  
+                                    + workSettings.file.extension;
             }
 
         }
@@ -131,41 +139,42 @@ namespace CadCamProject.Pages
             {
                 PathDefinition path = new PathDefinition();
                 path = funtions.fileBrowser("CAM prog (.opt)|*.opt");
-                workSettings.fileName = path.fileName;
-                workSettings.pathDirectory = path.directory;
-                if (path != null)
-                    statusBarInformation.readyToSave = true;
+                
+                if (path.directory != null)
+                {
+                    textBoxFileName.Text = path.fileName;
+                    textBoxLocalPath.Text = path.directory;
+                    statusBarInformation.ready = true;
+                }
             }
             else
             {
-                workSettings.pathDirectory = funtions.folderBrowser();
-            }
-
-
-            textBoxFileName.Text = workSettings.fileName + workSettings.extension;
-            textBoxLocalPath.Text = workSettings.pathDirectory;
+                string auxPath = funtions.folderBrowser();
+                if (auxPath != "")
+                {
+                    textBoxLocalPath.Text = auxPath;
+                    statusBarInformation.ready = true;
+                }
+            }         
 
         }
 
         private void MouseMoveControl(object sender, MouseEventArgs e)
         {
-            #region statusBar readyToSave
-            if (statusBarInformation.readyToSave)
+            ControlStatusBar();
+        }
+
+        private void ControlStatusBar()
+        {
+
+            #region statusBar ready
+            if (statusBarInformation.ready)
             {
                 buttonLoadSave.IsEnabled = true;
-            }else
+            }
+            else
             {
                 buttonLoadSave.IsEnabled = false;
-            }
-            #endregion
-
-            #region statusBar savedFile
-            if (statusBarInformation.savedFile)
-            {
-                statusBarInformation.fileName = workSettings.fileName;
-            }else
-            {
-                statusBarInformation.fileName = workSettings.fileName + "*";
             }
             #endregion
 
@@ -177,24 +186,14 @@ namespace CadCamProject.Pages
             }
             #endregion
 
-            #region statusBar changed
-            if (statusBarInformation.changed)
-            {
-                statusBarInformation.changed = false;
-                LabelVersion.Content = statusBarInformation.version;
-                LabelStatusFile.Content = statusBarInformation.fileName;
-                LabelStatusProgressBar.Content = statusBarInformation.status;
-            }
-            #endregion
+            LabelVersion.Content = statusBarInformation.version;
+            LabelFile.Content = statusBarInformation.fileName;
+            LabelStatus.Content = statusBarInformation.status;
         }
 
         private void buttonLoadSave_Click(object sender, RoutedEventArgs e)
         {
-            if (statusBarInformation.readyToSave)
-            {
-                WindowsFunctions function = new WindowsFunctions();
-                function.animateProgressBar(progressBar, 5);
-
+             
                 if (radioButtonExistingFile.IsChecked == true)
                 {
                     statusBarInformation.status = StateToFile.Loading;
@@ -205,19 +204,28 @@ namespace CadCamProject.Pages
                     statusBarInformation.status = StateToFile.Saving;
                     saveFileInformation();
                 }
-            }
+
+            WindowsFunctions function = new WindowsFunctions();
+            function.animateProgressBar(progressBar, 5);
            
         }
-       
+
         private void saveFileInformation()
         {
-            string fileName = workSettings.pathDirectory + "\\" 
+           
+            string fileName = textBoxLocalPath.Text + "\\" 
                              + System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text) 
-                             + workSettings.extension;
+                             + workSettings.file.extension;
             //it is necessary create a method to create and staore the format in dataCOntent
-            MessageBox.Show("It is necessary create a method tho save");
+            //MessageBox.Show("It is necessary create a method to save");
             File.WriteAllText(fileName, workSettings.dataContent);
-            statusBarInformation.savedFile = true;
+
+            ControlStatusBar();
+            workSettings.file.directory = textBoxLocalPath.Text;
+            workSettings.file.fileName = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text);
+
+            statusBarInformation.version = workSettings.verision;
+            statusBarInformation.fileName = workSettings.file.fileName;
         } 
 
         private void loadFileInformation()
@@ -231,17 +239,30 @@ namespace CadCamProject.Pages
         private void buttonAddItemListViewWorkOffset_Click(object sender, RoutedEventArgs e)
         {
             List<pointPosition> newPointPosition = new List<pointPosition>();
-            newPointPosition.Add(new pointPosition());
+            newPointPosition.Add(new pointPosition(listViewWorkOffset.Items.Count.ToString()));
             listViewWorkOffset.Items.Insert(listViewWorkOffset.Items.Count,newPointPosition);
-            statusBarInformation.savedFile = false;
+
+           
         }
+
+
 
 
 
 
         #endregion
 
-        
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listViewWorkOffset.Items.Count != 0) {
+                workSettings.workOffsets.Clear();
+                for (int i = 0; i < listViewWorkOffset.Items.Count; i++)
+                {
+                    workSettings.workOffsets.AddRange(listViewWorkOffset.Items.GetItemAt(i) as List<pointPosition>);
+                }     
+            }
+        }
+            
     }
 
     

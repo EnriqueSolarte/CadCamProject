@@ -14,21 +14,22 @@ namespace CadCamProject
         public string TypeOperation { get; set; }
         public string Parameters { get; set; }
         public int Index { get; set; }
-        public string upDate { get; set; }
+        public string verision { get; set; }
         public string dataContent { get; set; }
 
         //Specific parameters
-        public string pathDirectory { get; set; }
-        public string fileName { get; set; }
-        public string extension { get; }
+        public PathDefinition file { get; set; }
         public string duplicatedFilePrefix { get; }
-        
+        public List<pointPosition> workOffsets { get; set; }
+
 
         public WorkSettings()
         {
-            pathDirectory = "C:\\";
-            fileName = "defaultName";
-            extension = ".opt";
+            workOffsets = new List<pointPosition>();
+            file = new PathDefinition();
+            file.directory = "C:\\";
+            file.fileName = "defaultName";
+            file.extension = ".opt";
             duplicatedFilePrefix = "_duplicated";
             dataContent = "vamos por buen camino kikin";
         }
@@ -75,9 +76,9 @@ namespace CadCamProject
         public double Spindle_1 { get; set; }
         public double Spindle_2 { get; set; }
 
-        public pointPosition()
+        public pointPosition(string index)
         {
-            description = "New Work Offset";
+            description = "New Work Offset " + index;
             typePosition = TypePosition.coordinateOffset;
             Gcode = "G54";
             Xpos = 543.231;

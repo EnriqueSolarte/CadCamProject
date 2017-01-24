@@ -62,7 +62,7 @@ namespace CadCamProject.Pages
         public string directory { get; set; }
         public string fileName { get; set; }
         public string extension { get; set; }
-        public bool existenceCondition { get; set; }
+        
 
     }
 
@@ -71,8 +71,11 @@ namespace CadCamProject.Pages
         public string version { get; set; }
         public string fileName { get; set; }
         public StateToFile status { get; set; }
-        public bool savedFile { get; set; }
-        public bool readyToSave { get; set; }
-        public bool changed { get; set; }
+        public bool ready { get; set; }
+        
+        public StatusBar()
+        {
+            status = StateToFile.Unsaved;
+        }
     }
 }
