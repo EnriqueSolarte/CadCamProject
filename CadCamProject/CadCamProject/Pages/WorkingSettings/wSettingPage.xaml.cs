@@ -245,7 +245,13 @@ namespace CadCamProject.Pages
            
         }
 
-
+        private void buttonDeleteItemListViewWorkOffset_Click(object sender, RoutedEventArgs e)
+        {
+            if (listViewWorkOffset.SelectedItem != null)
+            {
+                listViewWorkOffset.Items.RemoveAt(listViewWorkOffset.SelectedIndex);
+            }
+        }
 
 
 
@@ -262,7 +268,8 @@ namespace CadCamProject.Pages
                 }     
             }
         }
-            
+
+        
     }
 
     

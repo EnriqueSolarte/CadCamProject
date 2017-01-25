@@ -33,7 +33,7 @@
             </TabItem>
             <TabItem Header="Work offset" Height="24" VerticalAlignment="Top">
                 <Grid Background="White">
-                    <ListView x:Name="listViewWorkOffset" Margin="30,47,42,30" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                    <ListView x:Name="listViewWorkOffset" Margin="30,35,42,30" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionMode="Single">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Description" Width="300" DisplayMemberBinding="{Binding Path=description}"/>
@@ -46,8 +46,8 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button x:Name="buttonAddItemListViewWorkOffset" Content="Add Item" HorizontalAlignment="Left" Margin="30,22,0,0" VerticalAlignment="Top" Width="150" Click="buttonAddItemListViewWorkOffset_Click"/>
-                    <Button x:Name="buttonDeleteItemListViewWorkOffset" Content="Delete Item" HorizontalAlignment="Left" Margin="185,22,0,0" VerticalAlignment="Top" Width="150"/>
+                    <Button x:Name="buttonAddItemListViewWorkOffset" Content="Add Item" HorizontalAlignment="Left" Margin="30,10,0,0" VerticalAlignment="Top" Width="150" Click="buttonAddItemListViewWorkOffset_Click"/>
+                    <Button x:Name="buttonDeleteItemListViewWorkOffset" Content="Delete Item" HorizontalAlignment="Left" Margin="185,10,0,0" VerticalAlignment="Top" Width="150" Click="buttonDeleteItemListViewWorkOffset_Click"/>
 
                 </Grid>
             </TabItem>
