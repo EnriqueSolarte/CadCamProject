@@ -81,8 +81,18 @@ namespace CadCamProject.Pages
             Switcher.Switch(Main);
         }
 
-        
-        
+        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (listViewWorkOffset.Items.Count != 0)
+            {
+                workSettings.workOffsets.Clear();
+                for (int i = 0; i < listViewWorkOffset.Items.Count; i++)
+                {
+                    workSettings.workOffsets.AddRange(listViewWorkOffset.Items.GetItemAt(i) as List<pointPosition>);
+                }
+            }
+        }
+
         #region Worksettings
         private void radioButtonFiles_Clicked(object sender, RoutedEventArgs e)
         {
@@ -258,19 +268,6 @@ namespace CadCamProject.Pages
 
         #region Tool Settings
 
-        #endregion
-
-        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (listViewWorkOffset.Items.Count != 0) {
-                workSettings.workOffsets.Clear();
-                for (int i = 0; i < listViewWorkOffset.Items.Count; i++)
-                {
-                    workSettings.workOffsets.AddRange(listViewWorkOffset.Items.GetItemAt(i) as List<pointPosition>);
-                }     
-            }
-        }
-
         private void buttonNewTool_Click(object sender, RoutedEventArgs e)
         {
             List<tool> newCuttingTool = new List<tool>();
@@ -278,6 +275,18 @@ namespace CadCamProject.Pages
             listViewToolSettings.Items.Insert(listViewToolSettings.Items.Count, newCuttingTool);
 
         }
+
+        private void buttonDeleteToolItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (listViewToolSettings.SelectedItem != null)
+            {
+                listViewToolSettings.Items.RemoveAt(listViewToolSettings.SelectedIndex);
+            }
+        }
+        #endregion
+
+
+
     }
 
     

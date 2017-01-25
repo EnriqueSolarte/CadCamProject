@@ -182,7 +182,7 @@
                     </ListView>
                     <Button x:Name="buttonNewTool" Content="New Tool" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="30,10,0,0" Click="buttonNewTool_Click"/>
                     <Button x:Name="buttonNewEdge" Content="New Edge" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="110,10,0,0"/>
-                    <Button x:Name="buttonDeleteToolItem" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="740,10,0,0"/>
+                    <Button x:Name="buttonDeleteToolItem" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="740,10,0,0" Click="buttonDeleteToolItem_Click"/>
 
                 </Grid>
             </TabItem>
