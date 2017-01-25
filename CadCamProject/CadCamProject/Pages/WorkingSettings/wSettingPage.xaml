@@ -36,13 +36,55 @@
                     <ListView x:Name="listViewWorkOffset" Margin="30,35,42,30" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionMode="Single">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Description" Width="300" DisplayMemberBinding="{Binding Path=description}"/>
-                                <GridViewColumn Header="G code" Width="100" DisplayMemberBinding="{Binding Path=Gcode}"/>
-                                <GridViewColumn Header="X" Width="125" DisplayMemberBinding="{Binding Path=Xpos}"/>
-                                <GridViewColumn Header="Y" Width="125" DisplayMemberBinding="{Binding Path=Ypos}"/>
-                                <GridViewColumn Header="Z" Width="125" DisplayMemberBinding="{Binding Path=Zpos}"/>
-                                <GridViewColumn Header="S1" Width="125" DisplayMemberBinding="{Binding Path=Spindle_1}"/>
-                                <GridViewColumn Header="S2" Width="150" DisplayMemberBinding="{Binding Path=Spindle_2}"/>
+                                <GridViewColumn Header="Description" Width="300">
+                                    <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                            <TextBox Text="{Binding Path=description}" Width="285"/>
+                                    </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="G code" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox Text="{Binding Path=GcodeDefault}" ItemsSource="{Binding Path=GcodeArray}" SelectedIndex="0" Width="85"></ComboBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="X" Width="125">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Xpos}" Width="110"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Y" Width="125">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Ypos}" Width="110"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Z" Width="125">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Zpos}" Width="110"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="S1" Width="125">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Spindle_1}" Width="110"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="S2" Width="125">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=Spindle_2}" Width="110"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn> 
                             </GridView>
                         </ListView.View>
                     </ListView>

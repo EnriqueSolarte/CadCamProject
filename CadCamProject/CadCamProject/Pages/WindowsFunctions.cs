@@ -55,6 +55,19 @@ namespace CadCamProject.Pages
 
         }
 
+        public string[] GcodeArrayWorkOfset()
+        {
+            string[] strArray =
+            {
+                Gcode.G54.ToString(),
+                Gcode.G55.ToString(),
+                Gcode.G56.ToString(),
+                Gcode.G57.ToString(),
+                Gcode.G58.ToString(),
+                Gcode.G59.ToString(),
+    };
+            return strArray;
+        }
     }
 
     public class PathDefinition

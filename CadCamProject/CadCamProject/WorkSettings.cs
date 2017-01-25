@@ -69,7 +69,8 @@ namespace CadCamProject
     {
         public string description { get; set; }
         public TypePosition typePosition { get; set; }
-        public string Gcode { get; set; }
+        public string[] GcodeArray { get; set; }
+        public string GcodeDefault { get; set; }
         public double Xpos { get; set; }
         public double Ypos { get; set; }
         public double Zpos { get; set; }
@@ -78,9 +79,11 @@ namespace CadCamProject
 
         public pointPosition(string index)
         {
+            WindowsFunctions functions = new WindowsFunctions();
             description = "New Work Offset " + index;
             typePosition = TypePosition.coordinateOffset;
-            Gcode = "G54";
+            GcodeArray = functions.GcodeArrayWorkOfset();
+            GcodeDefault = Gcode.G54.ToString();
             Xpos = 543.231;
             Ypos = 0.00;
             Zpos = 285.235;

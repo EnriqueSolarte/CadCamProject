@@ -242,6 +242,7 @@ namespace CadCamProject.Pages
             newPointPosition.Add(new pointPosition(listViewWorkOffset.Items.Count.ToString()));
             listViewWorkOffset.Items.Insert(listViewWorkOffset.Items.Count,newPointPosition);
 
+
            
         }
 
@@ -252,9 +253,6 @@ namespace CadCamProject.Pages
                 listViewWorkOffset.Items.RemoveAt(listViewWorkOffset.SelectedIndex);
             }
         }
-
-
-
 
         #endregion
 
