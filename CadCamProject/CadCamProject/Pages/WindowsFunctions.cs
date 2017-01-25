@@ -65,12 +65,57 @@ namespace CadCamProject.Pages
                 Gcode.G57.ToString(),
                 Gcode.G58.ToString(),
                 Gcode.G59.ToString(),
-    };
+                Gcode.CPP.ToString(),
+            };
+            return strArray;
+        }
+    
+         public string[] CuttingToolTypeArray()
+        {
+        string[] strArray =
+        {
+                CuttingToolType.Turning.ToString(),
+                CuttingToolType.Drilling.ToString(),
+                CuttingToolType.Grooving.ToString(),
+                CuttingToolType.Milling.ToString(),
+                CuttingToolType.Threading.ToString(),
+               
+
+            };
+        return strArray;
+    }
+
+         public int[] ReferenceDirectionArray()
+        {
+            int[] strArray =
+            {
+                (int)ReferenceDirection.pos1,
+                (int)ReferenceDirection.pos2,
+                (int)ReferenceDirection.pos3,
+                (int)ReferenceDirection.pos4,
+                (int)ReferenceDirection.pos5,
+                (int)ReferenceDirection.pos6,
+                (int)ReferenceDirection.pos7,
+                (int)ReferenceDirection.pos8,
+                (int)ReferenceDirection.pos9,
+                
+            };
+            return strArray;
+        }
+
+        public string[] SpindleControl()
+        {
+            string[] strArray =
+       {
+                Mcode.M3.ToString(),
+                Mcode.M4.ToString(),
+
+            };
             return strArray;
         }
     }
 
-    public class PathDefinition
+public class PathDefinition
     {
         public string directory { get; set; }
         public string fileName { get; set; }

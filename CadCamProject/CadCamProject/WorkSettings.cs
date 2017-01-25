@@ -68,7 +68,7 @@ namespace CadCamProject
     class pointPosition
     {
         public string description { get; set; }
-        public TypePosition typePosition { get; set; }
+      
         public string[] GcodeArray { get; set; }
         public string GcodeDefault { get; set; }
         public double Xpos { get; set; }
@@ -77,11 +77,11 @@ namespace CadCamProject
         public double Spindle_1 { get; set; }
         public double Spindle_2 { get; set; }
 
-        public pointPosition(string index)
+        public pointPosition(int index)
         {
             WindowsFunctions functions = new WindowsFunctions();
-            description = "New Work Offset " + index;
-            typePosition = TypePosition.coordinateOffset;
+            description = "New Work Offset " + index.ToString();
+    
             GcodeArray = functions.GcodeArrayWorkOfset();
             GcodeDefault = Gcode.G54.ToString();
             Xpos = 543.231;
@@ -91,6 +91,49 @@ namespace CadCamProject
             Spindle_2 = 0;
         }
     }
+    
+    class tool
+    {
+        public int localization { get; set; }
+        public string[] cuttingToolTypeArray { get; set; }
+        public string cuttingToolType { get; set; }
+        public string toolName { get; set; }
+        public int toolSet { get; set; }
+        public double lengthX { get; set;}
+        public double lengthZ { get; set; }
+        public double radius { get; set; }
+        public int[] referenceDirectionArray { get; set; }
+        public int referenceDirectory { get; set; }
+        public double parm_1 { get; set; }
+        public double parm_2 { get; set; }
+        public double parm_3 { get; set; }
+        public bool coolant { get; set; }
+        public string[] spindleControlArray { get; set; }
+        public string spindleControl { get; set; }
 
-   
+        public tool(int index)
+        {
+            WindowsFunctions functions = new WindowsFunctions();
+            localization = index+1;
+            cuttingToolTypeArray = functions.CuttingToolTypeArray();
+            cuttingToolType = CuttingToolType.Turning.ToString();
+            toolName = " New tool " + (index+1).ToString();
+            toolSet = 1;
+            lengthX = 0.000;
+            lengthZ = 0.000;
+            radius = 0.010;
+            referenceDirectionArray = functions.ReferenceDirectionArray();
+            referenceDirectory = 3;
+            parm_1 = 95.000;
+            parm_2 = 80;
+            parm_3 = 12.000;
+            spindleControlArray = functions.SpindleControl();
+            spindleControl = "M3";
+            coolant = true;
+
+        }
+
+
+    }
+
 }

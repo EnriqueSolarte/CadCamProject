@@ -95,28 +95,94 @@
             </TabItem>
             <TabItem Header="Tools Settings">
                 <Grid Background="White">
-                    <ListView x:Name="listViewToolSettings" Margin="10,92,10,10">
+                    <ListView x:Name="listViewToolSettings" Margin="30,35,42,30" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionMode="Single">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Loc." Width="50"/>
-                                <GridViewColumn Header="Type" Width="50"/>
-                                <GridViewColumn Header="Tool Name" Width="300"/>
-                                <GridViewColumn Header="Set" Width="50"/>
-                                <GridViewColumn Header="Length X" Width="80"/>
-                                <GridViewColumn Header="Length Z" Width="80"/>
-                                <GridViewColumn Header="Radius" Width="80"/>
-                                <GridViewColumn Header="N" Width="30"/>
-                                <GridViewColumn Width="80"/>
-                                <GridViewColumn Width="80"/>
-                                <GridViewColumn Width="80"/>
-                                <GridViewColumn Header="Rotation" Width="70"/>
-                                <GridViewColumn Header="Coolant" Width="70"/>
+                                <GridViewColumn Header="Loc." Width="30" DisplayMemberBinding="{Binding Path=localization}"/>
+                                <GridViewColumn Header="Type" Width="100">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox Text="{Binding Path=cuttingToolType}" ItemsSource="{Binding Path=cuttingToolTypeArray}" SelectedIndex="0" Width="85"></ComboBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Tool Name" Width="230">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=toolName}" Width="215"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Set" Width="30" DisplayMemberBinding="{Binding Path=toolSet}"/>
+                                <GridViewColumn Header="Length X" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=lengthX}" Width="65"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Length Z" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=lengthZ}" Width="65"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Radius" Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=radius}" Width="65"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="N" Width="50">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox Text="{Binding Path=referenceDirection}" ItemsSource="{Binding Path=referenceDirectionArray}" SelectedIndex="0" Width="35"></ComboBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=parm_1}" Width="65"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=parm_2}" Width="65"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="80">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox Text="{Binding Path=parm_3}" Width="65"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Rotation" Width="70">
+                                    <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox Text="{Binding Path=spindleControl}" ItemsSource="{Binding Path=spindleControlArray}" SelectedIndex="0" Width="55"></ComboBox>
+                                    </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Coolant" Width="50">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox HorizontalAlignment="Center" IsChecked="{Binding Path=coolant}"></CheckBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    <Button x:Name="buttonNewTool" Content="New Tool" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,10,0,0"/>
-                    <Button x:Name="buttonNewEdge" Content="New Edge" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,35,0,0"/>
-                    <Button x:Name="buttonDeleteToolItem" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="10,60,0,0"/>
+                    <Button x:Name="buttonNewTool" Content="New Tool" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="30,10,0,0" Click="buttonNewTool_Click"/>
+                    <Button x:Name="buttonNewEdge" Content="New Edge" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="110,10,0,0"/>
+                    <Button x:Name="buttonDeleteToolItem" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="740,10,0,0"/>
 
                 </Grid>
             </TabItem>

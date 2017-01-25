@@ -239,7 +239,7 @@ namespace CadCamProject.Pages
         private void buttonAddItemListViewWorkOffset_Click(object sender, RoutedEventArgs e)
         {
             List<pointPosition> newPointPosition = new List<pointPosition>();
-            newPointPosition.Add(new pointPosition(listViewWorkOffset.Items.Count.ToString()));
+            newPointPosition.Add(new pointPosition(listViewWorkOffset.Items.Count));
             listViewWorkOffset.Items.Insert(listViewWorkOffset.Items.Count,newPointPosition);
 
 
@@ -256,6 +256,10 @@ namespace CadCamProject.Pages
 
         #endregion
 
+        #region Tool Settings
+
+        #endregion
+
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (listViewWorkOffset.Items.Count != 0) {
@@ -267,7 +271,13 @@ namespace CadCamProject.Pages
             }
         }
 
-        
+        private void buttonNewTool_Click(object sender, RoutedEventArgs e)
+        {
+            List<tool> newCuttingTool = new List<tool>();
+            newCuttingTool.Add(new tool(listViewToolSettings.Items.Count));
+            listViewToolSettings.Items.Insert(listViewToolSettings.Items.Count, newCuttingTool);
+
+        }
     }
 
     
