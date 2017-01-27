@@ -26,29 +26,34 @@ namespace CadCamProject.Pages
         Main MainPage;
         WorkSettings workSettings;
         StatusBar statusBarInformation;
+        SpecialChart specialChart;
 
-        public wSettingPage(Main main, int index)
+        public wSettingPage(Main main)
         { 
-            Main = main;
+            Main = main;  
             MainPage = main;
             InitializeComponent();
             workSettings = new WorkSettings();
             statusBarInformation = new StatusBar();
-            workSettings = workSettings.GetParameters(MainPage, index);
+            specialChart = new SpecialChart();
+            workSettings = workSettings.GetParameters(MainPage);
             fillingParameters();
         }
 
         private void fillingParameters()
         {
-            if (workSettings.verision == null)
+            if (workSettings.version == null)
             {
                 // If the file is new
-                workSettings.verision = DateTime.Now.ToString("ddMMyy.hhmmss");
-                
+                workSettings.version = DateTime.Now.ToString("ddMMyy.hhmmss");
+               
             }
             else
             {
                 // If the file is not new is gonna change worksettings
+                listViewWorkOffset.Items.Add(workSettings.workOffsets);
+                listViewToolSettings.Items.Add(workSettings.toolSettings);
+
             }
 
             //fill information from worksettings
@@ -59,21 +64,20 @@ namespace CadCamProject.Pages
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
         {
-            Definition();
+            Definition();               
             MainPage.Buttons(true);
             Switcher.Switch(Main);
+            
         }
 
         private void Definition()
         {
-           
+            WindowsFunctions funtions = new WindowsFunctions();
             workSettings.TypeImagineOperation = "/Images/WorkSettigs.png";
             workSettings.TypeOperation = "Work Settings";
-            workSettings.Parameters = DateTime.Now.ToString("[DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss][DD=hh][MM=mm][YY=-hh][MM=mmss]");
-            workSettings.verision = DateTime.Now.ToString("ddMMyy.hhmmss");
-
+            workSettings.Parameters = workSettings.ShowingParameters(workSettings);            
             MainPage.listViewOperations.Items.Insert(workSettings.Index,
-                workSettings.SetParameters(workSettings, MainPage));     
+                     workSettings.SetParameters(workSettings, MainPage));     
         }
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
@@ -191,10 +195,12 @@ namespace CadCamProject.Pages
             if (statusBarInformation.ready)
             {
                 buttonLoadSave.IsEnabled = true;
+                buttonAccept.IsEnabled = true;
             }
             else
             {
                 buttonLoadSave.IsEnabled = false;
+                buttonAccept.IsEnabled = false;
             }
             #endregion
 
@@ -244,7 +250,7 @@ namespace CadCamProject.Pages
             workSettings.file.directory = textBoxLocalPath.Text;
             workSettings.file.fileName = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text);
 
-            statusBarInformation.version = workSettings.verision;
+            statusBarInformation.version = workSettings.version;
             statusBarInformation.fileName = workSettings.file.fileName;
         } 
 
@@ -298,10 +304,14 @@ namespace CadCamProject.Pages
         private void OrderListViewtools()
         {
             int count = listViewToolSettings.Items.Count;
-          
+
             for (int i = 0; i < count; i++)
             {
-                (listViewToolSettings.Items.GetItemAt(i) as List<tool>)[0].localization = i+1;                
+                if ((listViewToolSettings.Items.GetItemAt(i) as List<tool>)[0].isEdgeTool != true)
+                {
+                    (listViewToolSettings.Items.GetItemAt(i) as List<tool>)[0].localization = i + 1;
+                }
+              
             }
             listViewToolSettings.Items.Refresh();
                     

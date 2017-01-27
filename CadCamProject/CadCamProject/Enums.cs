@@ -70,5 +70,20 @@ namespace CadCamProject
         pos7=7,
         pos8=8,
         pos9=9,
+        
     }
+
+    public class SpecialChart
+    {
+        public string chLF { get; }
+        public string chRH { get; }
+        public string blank { get; }
+
+        public SpecialChart()
+        {
+            blank = " ";
+            chLF = "[";
+            chRH = "]";
+        }
+    } 
 }

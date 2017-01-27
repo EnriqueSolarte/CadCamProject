@@ -69,8 +69,8 @@ namespace CadCamProject.Pages
             };
             return strArray;
         }
-    
-         public string[] CuttingToolTypeArray()
+
+        public string[] CuttingToolTypeArray()
         {
         string[] strArray =
         {
@@ -85,7 +85,7 @@ namespace CadCamProject.Pages
         return strArray;
     }
 
-         public int[] ReferenceDirectionArray()
+        public int[] ReferenceDirectionArray()
         {
             int[] strArray =
             {
@@ -113,9 +113,11 @@ namespace CadCamProject.Pages
             };
             return strArray;
         }
+
+        
     }
 
-public class PathDefinition
+    public class PathDefinition
     {
         public string directory { get; set; }
         public string fileName { get; set; }

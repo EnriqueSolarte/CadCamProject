@@ -20,6 +20,7 @@ namespace CadCamProject.Pages
     public partial class Main : UserControl
     {
         
+
         public Main()
         {
             InitializeComponent();
@@ -51,9 +52,9 @@ namespace CadCamProject.Pages
                 EditingOperation(op.TypeOperation);
             }
             else {
-                WorkSettings op = new WorkSettings();
-                op = op.GetParameters(this, index);
-                EditingOperation(op.TypeOperation);
+                //WorkSettings op = new WorkSettings();
+                //op = op.GetParameters(this, index);
+                //EditingOperation(op.TypeOperation);
             }
 
         }

@@ -13,11 +13,11 @@ namespace CadCamProject
         public string TypeImagineOperation { get; set; }
         public string TypeOperation { get; set; }
         public string Parameters { get; set; }
-        public int Index { get; set; }
-        public string verision { get; set; }
+        public int Index { get; set; }     
         public string dataContent { get; set; }
 
         //Specific parameters
+        public string version { get; set; }
         public PathDefinition file { get; set; }
         public string duplicatedFilePrefix { get; }
         public List<pointPosition> workOffsets { get; set; }
@@ -38,14 +38,14 @@ namespace CadCamProject
             dataContent = "vamos por buen camino kikin";
         }
 
-        public WorkSettings GetParameters(Main MainPage, int index)
+        internal WorkSettings GetParameters(Main MainPage)
         {
             
             WorkSettings op = new WorkSettings();
 
-            if (index <= MainPage.listViewOperations.Items.Count)
+            if (MainPage.listViewOperations.Items.Count != 0)
             {
-                var listOperation = MainPage.listViewOperations.Items.GetItemAt(0) as List<WorkSettings>;
+                List<WorkSettings> listOperation = MainPage.listViewOperations.Items.GetItemAt(0) as List<WorkSettings>;
                 op = listOperation.Last();
             }
       
@@ -66,6 +66,18 @@ namespace CadCamProject
             }
             return listOperation;
           
+        }
+
+        internal string ShowingParameters(WorkSettings wSettings)
+        {
+            SpecialChart sCh = new SpecialChart();
+            string dataOut = sCh.chLF + wSettings.file.fileName + sCh.chRH +
+                             sCh.chLF + "WO " + wSettings.workOffsets.Count.ToString() + sCh.chRH +
+                             sCh.chLF + "TS " + wSettings.toolSettings.Count.ToString() + sCh.chRH +
+                             sCh.chLF + "BK " + wSettings.stock.externalDiameter.ToString() + sCh.blank +
+                             wSettings.stock.finalPosition.ToString() + sCh.blank +
+                             wSettings.stock.splindleLimit.ToString() + sCh.chRH;
+            return dataOut;
         }
     }
 
