@@ -21,11 +21,15 @@ namespace CadCamProject
         public PathDefinition file { get; set; }
         public string duplicatedFilePrefix { get; }
         public List<pointPosition> workOffsets { get; set; }
+        public List<tool> toolSettings { get; set; }
+        public blackStock stock { get; set; }
 
 
         public WorkSettings()
         {
             workOffsets = new List<pointPosition>();
+            toolSettings = new List<tool>();
+            stock = new blackStock();
             file = new PathDefinition();
             file.directory = "C:\\";
             file.fileName = "defaultName";
@@ -103,13 +107,15 @@ namespace CadCamProject
         public double lengthZ { get; set; }
         public double radius { get; set; }
         public int[] referenceDirectionArray { get; set; }
-        public int referenceDirectory { get; set; }
+        public int referenceDirection { get; set; }
         public double parm_1 { get; set; }
         public double parm_2 { get; set; }
         public double parm_3 { get; set; }
         public bool coolant { get; set; }
         public string[] spindleControlArray { get; set; }
         public string spindleControl { get; set; }
+        public bool isEdgeTool { get; set; }
+        public int definedSetTools { get; set; }
 
         public tool(int index)
         {
@@ -123,7 +129,7 @@ namespace CadCamProject
             lengthZ = 0.000;
             radius = 0.010;
             referenceDirectionArray = functions.ReferenceDirectionArray();
-            referenceDirectory = 3;
+            referenceDirection = 3;
             parm_1 = 95.000;
             parm_2 = 80;
             parm_3 = 12.000;
@@ -131,9 +137,28 @@ namespace CadCamProject
             spindleControl = "M3";
             coolant = true;
 
+            isEdgeTool = false;
+            definedSetTools = 1;
         }
 
 
     }
 
+    class blackStock
+    {
+        public double externalDiameter { get; set; }
+        public double internalDiameter { get; set; }
+        public double initialPosition { get; set; }
+        public double finalPosition { get; set; }
+        public double splindleLimit { get; set; }
+
+        public blackStock()
+        {
+            externalDiameter = 60.000;
+            internalDiameter = 0.000;
+            initialPosition = 0.000;
+            finalPosition = -80.000;
+            splindleLimit = 10.000;
+    }
+}
 }

@@ -91,6 +91,16 @@ namespace CadCamProject.Pages
                     workSettings.workOffsets.AddRange(listViewWorkOffset.Items.GetItemAt(i) as List<pointPosition>);
                 }
             }
+            if (listViewToolSettings.Items.Count != 0)
+            {
+                workSettings.toolSettings.Clear();
+                for (int i = 0; i < listViewToolSettings.Items.Count; i++)
+                {
+                    workSettings.toolSettings.AddRange(listViewToolSettings.Items.GetItemAt(i) as List<tool>);
+                }
+            }
+
+
         }
 
         #region Worksettings
@@ -281,10 +291,60 @@ namespace CadCamProject.Pages
             if (listViewToolSettings.SelectedItem != null)
             {
                 listViewToolSettings.Items.RemoveAt(listViewToolSettings.SelectedIndex);
+                OrderListViewtools();              
             }
         }
-        #endregion
 
+        private void OrderListViewtools()
+        {
+            int count = listViewToolSettings.Items.Count;
+          
+            for (int i = 0; i < count; i++)
+            {
+                (listViewToolSettings.Items.GetItemAt(i) as List<tool>)[0].localization = i+1;                
+            }
+            listViewToolSettings.Items.Refresh();
+                    
+        }
+
+        private void buttonNewEdge_Click(object sender, RoutedEventArgs e)
+        {
+            if(listViewToolSettings.SelectedItem != null)
+            {
+                
+                int index = listViewToolSettings.SelectedIndex;
+                index=selectMainTool(index);
+                int definedSets = (listViewToolSettings.Items[index] as List<tool>)[0].definedSetTools;
+                List<tool> newEdgeCuttingTool = new List<tool>();
+                newEdgeCuttingTool.Add(new tool(0));
+                newEdgeCuttingTool[0].toolName = "New Edge Tool";
+                newEdgeCuttingTool[0].localization = index + 1;
+                newEdgeCuttingTool[0].toolSet= definedSets +1;
+                newEdgeCuttingTool[0].isEdgeTool = true;
+                newEdgeCuttingTool[0].definedSetTools= definedSets +1;
+                listViewToolSettings.Items.Insert(index + 1, newEdgeCuttingTool);
+                listViewToolSettings.SelectedIndex = index + 1;
+                (listViewToolSettings.Items[index] as List<tool>)[0].definedSetTools++;
+                
+            }
+        }
+
+        private int selectMainTool(int index)
+        {
+            List<tool> currentList = listViewToolSettings.Items[index] as List<tool>;
+            while (currentList[0].isEdgeTool == true)
+            {
+                index--;
+                currentList = listViewToolSettings.Items.GetItemAt(index) as List<tool>;
+                
+            }
+            return index;
+        }
+
+      
+
+
+        #endregion
 
 
     }

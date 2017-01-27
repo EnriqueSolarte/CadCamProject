@@ -27,8 +27,19 @@
                     <CheckBox x:Name="checkBoxOperations" Content="Operations" HorizontalAlignment="Left" Margin="82,317,0,0" VerticalAlignment="Top" IsEnabled="False" IsChecked="True"/>
                     <CheckBox x:Name="checkBoxProfiles" Content="Profiles" HorizontalAlignment="Left" Margin="82,337,0,0" VerticalAlignment="Top" IsEnabled="False" IsChecked="True"/>
                     <CheckBox x:Name="checkBoxBlanksDefinitions" Content="Blanks definitions" HorizontalAlignment="Left" Margin="82,357,0,0" VerticalAlignment="Top" IsEnabled="False" IsChecked="True"/>
-                    <Button x:Name="buttonLoadSave" Content="Save File" HorizontalAlignment="Left" Margin="35,422,0,0" VerticalAlignment="Top" Width="75" Click="buttonLoadSave_Click"/>
+                    <Button x:Name="buttonLoadSave" Content="Save File" HorizontalAlignment="Left" Margin="32,392,0,0" VerticalAlignment="Top" Width="75" Click="buttonLoadSave_Click"/>
                     <CheckBox x:Name="checkBoxDuplicateFile" Content="Use a duplicate file" HorizontalAlignment="Left" Margin="101,205,0,0" VerticalAlignment="Top" IsEnabled="False" Click="checkBoxDuplicateFile_clicked"/>
+                    <Label x:Name="label1" Content="Geometry Dimension" HorizontalAlignment="Left" Margin="31,432,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label2" Content="External Diameter" HorizontalAlignment="Left" Margin="66,459,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBoxExternalDiam" HorizontalAlignment="Left" Height="23" Margin="191,462,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
+                    <Label x:Name="label3" Content="Internal Diameter" HorizontalAlignment="Left" Margin="66,490,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBoxInternalDiam" HorizontalAlignment="Left" Height="23" Margin="191,490,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
+                    <Label x:Name="label4" Content="Initial Position" HorizontalAlignment="Left" Margin="66,520,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label5" Content="Final Position" HorizontalAlignment="Left" Margin="68,551,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label6" Content="Sipindle Limite" HorizontalAlignment="Left" Margin="68,582,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBoxInitial_Z" HorizontalAlignment="Left" Height="23" Margin="191,520,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
+                    <TextBox x:Name="textBoxFinal_Z" HorizontalAlignment="Left" Height="23" Margin="191,551,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
+                    <TextBox x:Name="textBoxFinanal_SZ" HorizontalAlignment="Left" Height="23" Margin="191,582,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Work offset" Height="24" VerticalAlignment="Top">
@@ -38,9 +49,9 @@
                             <GridView>
                                 <GridViewColumn Header="Description" Width="300">
                                     <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
+                                        <DataTemplate>
                                             <TextBox Text="{Binding Path=description}" Width="285"/>
-                                    </DataTemplate>
+                                        </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="G code" Width="100">
@@ -84,7 +95,7 @@
                                             <TextBox Text="{Binding Path=Spindle_2}" Width="110"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
-                                </GridViewColumn> 
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -102,7 +113,7 @@
                                 <GridViewColumn Header="Type" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <ComboBox Text="{Binding Path=cuttingToolType}" ItemsSource="{Binding Path=cuttingToolTypeArray}" SelectedIndex="0" Width="85"></ComboBox>
+                                            <ComboBox Text="{Binding Path=cuttingToolType}" ItemsSource="{Binding Path=cuttingToolTypeArray}" Width="85"></ComboBox>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -138,7 +149,7 @@
                                 <GridViewColumn Header="N" Width="50">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <ComboBox Text="{Binding Path=referenceDirection}" ItemsSource="{Binding Path=referenceDirectionArray}" SelectedIndex="0" Width="35"></ComboBox>
+                                            <ComboBox Text="{Binding Path=referenceDirection}" ItemsSource="{Binding Path=referenceDirectionArray}" Width="35"></ComboBox>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
@@ -165,10 +176,10 @@
                                 </GridViewColumn>
                                 <GridViewColumn Header="Rotation" Width="70">
                                     <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <ComboBox Text="{Binding Path=spindleControl}" ItemsSource="{Binding Path=spindleControlArray}" SelectedIndex="0" Width="55"></ComboBox>
-                                    </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ComboBox Text="{Binding Path=spindleControl}" ItemsSource="{Binding Path=spindleControlArray}" SelectedIndex="0" Width="55"></ComboBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
                                 <GridViewColumn Header="Coolant" Width="50">
                                     <GridViewColumn.CellTemplate>
@@ -181,27 +192,12 @@
                         </ListView.View>
                     </ListView>
                     <Button x:Name="buttonNewTool" Content="New Tool" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="30,10,0,0" Click="buttonNewTool_Click"/>
-                    <Button x:Name="buttonNewEdge" Content="New Edge" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="110,10,0,0"/>
+                    <Button x:Name="buttonNewEdge" Content="New Edge" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="110,10,0,0" Click="buttonNewEdge_Click"/>
                     <Button x:Name="buttonDeleteToolItem" Content="Delete" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="740,10,0,0" Click="buttonDeleteToolItem_Click"/>
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Blank Settings">
-                <Grid Background="White">
-                    <Label x:Name="label1" Content="Work Offset" HorizontalAlignment="Left" Margin="30,66,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label2" Content="External Diameter" HorizontalAlignment="Left" Margin="30,97,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label3" Content="Internal Diameter" HorizontalAlignment="Left" Margin="30,128,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label4" Content="Initial Position" HorizontalAlignment="Left" Margin="30,159,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label5" Content="Final Position" HorizontalAlignment="Left" Margin="32,190,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label6" Content="Sipindle Limite" HorizontalAlignment="Left" Margin="32,221,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBoxExternalDiam" HorizontalAlignment="Left" Height="23" Margin="155,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
-                    <TextBox x:Name="textBoxInternalDiam" HorizontalAlignment="Left" Height="23" Margin="155,128,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
-                    <TextBox x:Name="textBoxInitial_Z" HorizontalAlignment="Left" Height="23" Margin="155,159,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
-                    <TextBox x:Name="textBoxFinal_Z" HorizontalAlignment="Left" Height="23" Margin="155,190,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
-                    <TextBox x:Name="textBoxFinanal_SZ" HorizontalAlignment="Left" Height="23" Margin="155,221,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
 
-                </Grid>
-            </TabItem>
 
         </TabControl>
         <Button x:Name="buttonAccept" Content="Accept" Margin="18,0,0,56" Click="buttonAccept_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120"/>
