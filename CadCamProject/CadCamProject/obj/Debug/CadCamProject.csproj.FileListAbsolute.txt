@@ -13,6 +13,8 @@ D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug
 D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\CadCamProject.pdb
 D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\CadCamProject.csprojResolveAssemblyReference.cache
 D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\Main.g.cs
-D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\Profile.g.cs
 D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\Main.baml
-D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\Profile.baml
+D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\WorkingSettings\wSettingPage.g.cs
+D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\WorkingSettings\wSettingPage.baml
+D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\Profile\Profile.g.cs
+D:\Documents\RESEARCH\GitHub\CadCamProject\CadCamProject\CadCamProject\obj\Debug\Pages\Profile\Profile.baml

@@ -19,22 +19,56 @@ namespace CadCamProject.Pages
   
     public partial class Main : UserControl
     {
-
+        
 
         public Main()
         {
             InitializeComponent();
             this.labelTime.Content = DateTime.Now.ToString();
+            Buttons(false);
         }
-    
-        private void buttonProfile_Click(object sender, RoutedEventArgs e)
+
+        public void Buttons(bool v)
         {
-            int index = this.listViewOperations.Items.Count+1;
-            Switcher.Switch(new Pages.Profile(this,index));
+            buttonAxialMilling.IsEnabled = v;
+            buttonDrilling.IsEnabled = v;
+            buttonExternalTurning.IsEnabled = v;
+            buttonProfile.IsEnabled = v;
+            buttonRadialMilling.IsEnabled = v;
+            buttonThreading.IsEnabled = v;
+            buttonTrasnferSpindle.IsEnabled = v;
+            buttonGrooving.IsEnabled = v;
+            buttonInternalTurning.IsEnabled = v;     
+        }
+
+        private void doubleCLlick(object sender, MouseButtonEventArgs e)
+        {
+            int index = this.listViewOperations.SelectedIndex;
+            
+            if (index != 0)
+            {
+                Operation op = new Operation();
+                op = op.GetParameters(this, index);
+                EditingOperation(op.TypeOperation);
+            }
+            else {
+                gotoWorkSettings();
+            }
 
         }
 
-       
+        private void gotoWorkSettings()
+        {
+            Switcher.Switch(new wSettingPage(this));
+        }
+
+        private void EditingOperation(string typeOperation)
+        {
+            // over this function is gonna be implemented the code to access again to the data saved in each operation already created
+            MessageBox.Show("Is no implement yet :>>"+typeOperation);
+        }
+
+
 
         #region Rezing ListView
         private void ChangeSize(object sender, SizeChangedEventArgs e)
@@ -54,14 +88,19 @@ namespace CadCamProject.Pages
 
         #endregion
 
-        private void doubleCLlick(object sender, MouseButtonEventArgs e)
-        {
-            int index = this.listViewOperations.SelectedIndex;
-            Switcher.Switch(new Pages.Profile(this, index));
+        
 
+        private void buttonWorkSettings_Click(object sender, RoutedEventArgs e)
+        {
+            gotoWorkSettings();
         }
 
-        
+        private void buttonProfile_Click(object sender, RoutedEventArgs e)
+        {
+            int index = this.listViewOperations.Items.Count + 1;
+            Switcher.Switch(new Profile(this, index));
+
+        }
     }
 }
-
+ 

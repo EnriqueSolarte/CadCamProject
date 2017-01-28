@@ -24,8 +24,8 @@ namespace CadCamProject
 
             if (index <= MainPage.listViewOperations.Items.Count)
             {
-                var listProfileOperation = MainPage.listViewOperations.SelectedValue as List<Operation>;
-                op = listProfileOperation.Last();
+                var listOperation = MainPage.listViewOperations.Items.GetItemAt(index) as List<Operation>;
+                op = listOperation.Last();
             }
             else
             {
