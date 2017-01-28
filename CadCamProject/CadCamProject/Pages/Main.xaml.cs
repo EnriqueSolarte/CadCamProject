@@ -52,11 +52,14 @@ namespace CadCamProject.Pages
                 EditingOperation(op.TypeOperation);
             }
             else {
-                //WorkSettings op = new WorkSettings();
-                //op = op.GetParameters(this, index);
-                //EditingOperation(op.TypeOperation);
+                gotoWorkSettings();
             }
 
+        }
+
+        private void gotoWorkSettings()
+        {
+            Switcher.Switch(new wSettingPage(this));
         }
 
         private void EditingOperation(string typeOperation)
@@ -89,7 +92,7 @@ namespace CadCamProject.Pages
 
         private void buttonWorkSettings_Click(object sender, RoutedEventArgs e)
         {
-           Switcher.Switch(new wSettingPage(this, 1));
+            gotoWorkSettings();
         }
 
         private void buttonProfile_Click(object sender, RoutedEventArgs e)

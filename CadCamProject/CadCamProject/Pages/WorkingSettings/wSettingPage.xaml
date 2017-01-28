@@ -11,7 +11,7 @@
         <Label x:Name="label" Content="Working Settings" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265"/>
 
 
-        <TabControl x:Name="tabControl" Margin="15,75,5,35" BorderBrush="#FFB0AFAF" TabStripPlacement="Left" SelectionChanged="tabControl_SelectionChanged">
+        <TabControl x:Name="tabControl" Margin="15,75,5,35" BorderBrush="#FFB0AFAF" TabStripPlacement="Left">
             <TabItem Header="General Settings" Width="120">
                 <Grid Background="White">
                     <RadioButton x:Name="radioButtonExistingFile" Content="Existing fIle" HorizontalAlignment="Left" Margin="31,42,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked"/>
@@ -39,7 +39,7 @@
                     <Label x:Name="label6" Content="Sipindle Limite" HorizontalAlignment="Left" Margin="67,548,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="textBoxInitial_Z" HorizontalAlignment="Left" Height="23" Margin="190,486,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
                     <TextBox x:Name="textBoxFinal_Z" HorizontalAlignment="Left" Height="23" Margin="190,517,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
-                    <TextBox x:Name="textBoxFinanal_SZ" HorizontalAlignment="Left" Height="23" Margin="190,548,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
+                    <TextBox x:Name="textBoxFinal_SZ" HorizontalAlignment="Left" Height="23" Margin="190,548,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Work offset" Height="24" VerticalAlignment="Top">
@@ -57,7 +57,7 @@
                                 <GridViewColumn Header="G code" Width="100">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <ComboBox Text="{Binding Path=GcodeDefault}" ItemsSource="{Binding Path=GcodeArray}" SelectedIndex="0" Width="85"></ComboBox>
+                                            <ComboBox Text="{Binding Path=GcodeDefault}" ItemsSource="{Binding Path=GcodeArray}" Width="85"></ComboBox>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>

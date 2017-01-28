@@ -46,17 +46,21 @@ namespace CadCamProject.Pages
             {
                 // If the file is new
                 workSettings.version = DateTime.Now.ToString("ddMMyy.hhmmss");
-               
-            }
-            else
-            {
-                // If the file is not new is gonna change worksettings
-                listViewWorkOffset.Items.Add(workSettings.workOffsets);
-                listViewToolSettings.Items.Add(workSettings.toolSettings);
-
+                statusBarInformation.ready = false;
             }
 
-            //fill information from worksettings
+            // If the file is not new is gonna change worksettings
+            //changing listViews
+            listViewWorkOffset.ItemsSource = workSettings.workOffsets;
+            listViewToolSettings.ItemsSource= workSettings.toolSettings;
+            // Blank stock information 
+            textBoxExternalDiam.Text = workSettings.stock.externalDiameter.ToString();
+            textBoxInternalDiam.Text = workSettings.stock.internalDiameter.ToString();
+            textBoxInitial_Z.Text = workSettings.stock.initialPosition.ToString();
+            textBoxFinal_Z.Text = workSettings.stock.finalPosition.ToString();
+            textBoxFinal_SZ.Text = workSettings.stock.splindleLimit.ToString();
+            
+            //Filling file information
             textBoxFileName.Text = workSettings.file.fileName + workSettings.file.extension;
             textBoxLocalPath.Text = workSettings.file.directory;
             statusBarInformation.fileName = workSettings.file.fileName;
@@ -75,36 +79,17 @@ namespace CadCamProject.Pages
             WindowsFunctions funtions = new WindowsFunctions();
             workSettings.TypeImagineOperation = "/Images/WorkSettigs.png";
             workSettings.TypeOperation = "Work Settings";
-            workSettings.Parameters = workSettings.ShowingParameters(workSettings);            
+
+            workSettings.Parameters = workSettings.ShowingParameters(workSettings);
+
+
             MainPage.listViewOperations.Items.Insert(workSettings.Index,
-                     workSettings.SetParameters(workSettings, MainPage));     
+                     workSettings.SetParameters(workSettings, MainPage));
         }
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(Main);
-        }
-
-        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (listViewWorkOffset.Items.Count != 0)
-            {
-                workSettings.workOffsets.Clear();
-                for (int i = 0; i < listViewWorkOffset.Items.Count; i++)
-                {
-                    workSettings.workOffsets.AddRange(listViewWorkOffset.Items.GetItemAt(i) as List<pointPosition>);
-                }
-            }
-            if (listViewToolSettings.Items.Count != 0)
-            {
-                workSettings.toolSettings.Clear();
-                for (int i = 0; i < listViewToolSettings.Items.Count; i++)
-                {
-                    workSettings.toolSettings.AddRange(listViewToolSettings.Items.GetItemAt(i) as List<tool>);
-                }
-            }
-
-
         }
 
         #region Worksettings
@@ -264,19 +249,18 @@ namespace CadCamProject.Pages
         #region WorkOffset
         private void buttonAddItemListViewWorkOffset_Click(object sender, RoutedEventArgs e)
         {
-            List<pointPosition> newPointPosition = new List<pointPosition>();
-            newPointPosition.Add(new pointPosition(listViewWorkOffset.Items.Count));
-            listViewWorkOffset.Items.Insert(listViewWorkOffset.Items.Count,newPointPosition);
-
-
            
+            workSettings.workOffsets.Add(new pointPosition(listViewWorkOffset.Items.Count));
+            listViewWorkOffset.Items.Refresh();
         }
 
         private void buttonDeleteItemListViewWorkOffset_Click(object sender, RoutedEventArgs e)
         {
             if (listViewWorkOffset.SelectedItem != null)
             {
-                listViewWorkOffset.Items.RemoveAt(listViewWorkOffset.SelectedIndex);
+                int index = listViewWorkOffset.SelectedIndex;
+                workSettings.workOffsets.RemoveAt(index);
+                listViewWorkOffset.Items.Refresh();
             }
         }
 
@@ -286,35 +270,56 @@ namespace CadCamProject.Pages
 
         private void buttonNewTool_Click(object sender, RoutedEventArgs e)
         {
-            List<tool> newCuttingTool = new List<tool>();
-            newCuttingTool.Add(new tool(listViewToolSettings.Items.Count));
-            listViewToolSettings.Items.Insert(listViewToolSettings.Items.Count, newCuttingTool);
-
+            workSettings.toolSettings.Add(new tool(workSettings.counterTools+1));
+            workSettings.counterTools++;
+            listViewToolSettings.Items.Refresh();
+          
         }
 
         private void buttonDeleteToolItem_Click(object sender, RoutedEventArgs e)
         {
             if (listViewToolSettings.SelectedItem != null)
             {
-                listViewToolSettings.Items.RemoveAt(listViewToolSettings.SelectedIndex);
-                OrderListViewtools();              
+                int index = listViewToolSettings.SelectedIndex;
+                if (workSettings.toolSettings[index].isEdgeTool)
+                {
+                    workSettings.toolSettings.RemoveAt(index);
+                }
+                else
+                {
+                    if (MessageBox.Show("If the current Tool is eliminated every Set-Tool related with it will be also eliminated. Continue?", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                    { 
+                        int localization = workSettings.toolSettings[index].localization;
+                        for (int i =0; i < workSettings.toolSettings.Count; i++)
+                        {
+                            if(workSettings.toolSettings[i].localization == localization)
+                            {
+                                workSettings.toolSettings.RemoveAt(i);
+                                i--;
+                            }
+                        }
+                    }
+                }
+
+               OrderListTools();
+              
+               
             }
         }
 
-        private void OrderListViewtools()
+        private void OrderListTools()
         {
-            int count = listViewToolSettings.Items.Count;
-
+            int count = workSettings.toolSettings.Count;
+            workSettings.counterTools = 0;
             for (int i = 0; i < count; i++)
             {
-                if ((listViewToolSettings.Items.GetItemAt(i) as List<tool>)[0].isEdgeTool != true)
+                if (workSettings.toolSettings[i].isEdgeTool == false)
                 {
-                    (listViewToolSettings.Items.GetItemAt(i) as List<tool>)[0].localization = i + 1;
+                    workSettings.counterTools++;  
                 }
-              
+                workSettings.toolSettings[i].localization = workSettings.counterTools;
             }
             listViewToolSettings.Items.Refresh();
-                    
         }
 
         private void buttonNewEdge_Click(object sender, RoutedEventArgs e)
@@ -324,29 +329,29 @@ namespace CadCamProject.Pages
                 
                 int index = listViewToolSettings.SelectedIndex;
                 index=selectMainTool(index);
-                int definedSets = (listViewToolSettings.Items[index] as List<tool>)[0].definedSetTools;
-                List<tool> newEdgeCuttingTool = new List<tool>();
-                newEdgeCuttingTool.Add(new tool(0));
-                newEdgeCuttingTool[0].toolName = "New Edge Tool";
-                newEdgeCuttingTool[0].localization = index + 1;
-                newEdgeCuttingTool[0].toolSet= definedSets +1;
-                newEdgeCuttingTool[0].isEdgeTool = true;
-                newEdgeCuttingTool[0].definedSetTools= definedSets +1;
-                listViewToolSettings.Items.Insert(index + 1, newEdgeCuttingTool);
-                listViewToolSettings.SelectedIndex = index + 1;
-                (listViewToolSettings.Items[index] as List<tool>)[0].definedSetTools++;
+              
+                tool newEdgeCuttingTool = new tool(0);
+                newEdgeCuttingTool.toolName = "New Edge Tool";
+                newEdgeCuttingTool.localization = workSettings.toolSettings[index].localization;
+                newEdgeCuttingTool.toolSet= workSettings.toolSettings[index].definedSetTools + 1;
+                newEdgeCuttingTool.isEdgeTool = true;
+                newEdgeCuttingTool.definedSetTools= workSettings.toolSettings[index].definedSetTools + 1;
+                workSettings.toolSettings.Insert(index +1,newEdgeCuttingTool);
+                workSettings.toolSettings[index].definedSetTools++;
+                listViewToolSettings.Items.Refresh();
+                listViewToolSettings.SelectedIndex = index;
+                
+                
                 
             }
         }
 
         private int selectMainTool(int index)
         {
-            List<tool> currentList = listViewToolSettings.Items[index] as List<tool>;
-            while (currentList[0].isEdgeTool == true)
+            
+            while (workSettings.toolSettings[index].isEdgeTool == true)
             {
                 index--;
-                currentList = listViewToolSettings.Items.GetItemAt(index) as List<tool>;
-                
             }
             return index;
         }

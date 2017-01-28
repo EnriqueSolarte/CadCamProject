@@ -22,13 +22,18 @@ namespace CadCamProject
         public string duplicatedFilePrefix { get; }
         public List<pointPosition> workOffsets { get; set; }
         public List<tool> toolSettings { get; set; }
+        public int counterTools { get; set; }
         public blackStock stock { get; set; }
+        
 
 
         public WorkSettings()
         {
             workOffsets = new List<pointPosition>();
+            workOffsets.Add(new pointPosition(0));
             toolSettings = new List<tool>();
+            toolSettings.Add(new tool(0));
+            counterTools = 0;
             stock = new blackStock();
             file = new PathDefinition();
             file.directory = "C:\\";
@@ -56,13 +61,13 @@ namespace CadCamProject
             return op;
         }
 
-        public List<WorkSettings> SetParameters(WorkSettings parameters, Main MainPage)
+        public List<WorkSettings> SetParameters(WorkSettings wSettings, Main MainPage)
         {
             List<WorkSettings> listOperation = new List<WorkSettings>();
-            listOperation.Add(parameters);
-            if (parameters.Index != MainPage.listViewOperations.Items.Count)
+            listOperation.Add(wSettings);
+            if (wSettings.Index != MainPage.listViewOperations.Items.Count)
             {
-                MainPage.listViewOperations.Items.RemoveAt(parameters.Index);
+                MainPage.listViewOperations.Items.RemoveAt(wSettings.Index);
             }
             return listOperation;
           

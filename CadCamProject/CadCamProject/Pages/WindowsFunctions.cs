@@ -136,6 +136,7 @@ namespace CadCamProject.Pages
         public StatusBar()
         {
             status = StateToFile.Unsaved;
+            ready = true;
         }
     }
 }
