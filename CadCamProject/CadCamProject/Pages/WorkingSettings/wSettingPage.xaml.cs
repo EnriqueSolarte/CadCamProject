@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using System.IO;
 using System.Threading;
 using System.Windows.Media.Animation;
-
+using System.Globalization;
 
 namespace CadCamProject.Pages
 {
@@ -77,11 +77,14 @@ namespace CadCamProject.Pages
         private void Definition()
         {
             WindowsFunctions funtions = new WindowsFunctions();
-            workSettings.TypeImagineOperation = "/Images/WorkSettigs.png";
-            workSettings.TypeOperation = "Work Settings";
+            
+            workSettings.stock.externalDiameter = Double.Parse(textBoxExternalDiam.Text, CultureInfo.InvariantCulture); 
+            workSettings.stock.internalDiameter = Double.Parse(textBoxInternalDiam.Text, CultureInfo.InvariantCulture);
+            workSettings.stock.initialPosition = Double.Parse(textBoxInitial_Z.Text, CultureInfo.InvariantCulture);
+            workSettings.stock.finalPosition = Double.Parse(textBoxFinal_Z.Text, CultureInfo.InvariantCulture);
+            workSettings.stock.splindleLimit = Double.Parse(textBoxFinal_SZ.Text, CultureInfo.InvariantCulture);
 
             workSettings.Parameters = workSettings.ShowingParameters(workSettings);
-
 
             MainPage.listViewOperations.Items.Insert(workSettings.Index,
                      workSettings.SetParameters(workSettings, MainPage));
@@ -180,12 +183,12 @@ namespace CadCamProject.Pages
             if (statusBarInformation.ready)
             {
                 buttonLoadSave.IsEnabled = true;
-                buttonAccept.IsEnabled = true;
+                
             }
             else
             {
                 buttonLoadSave.IsEnabled = false;
-                buttonAccept.IsEnabled = false;
+               
             }
             #endregion
 
@@ -217,7 +220,7 @@ namespace CadCamProject.Pages
                 }
 
             WindowsFunctions function = new WindowsFunctions();
-            function.animateProgressBar(progressBar, 5);
+            function.animateProgressBar(progressBar, 1);
            
         }
 
@@ -269,9 +272,9 @@ namespace CadCamProject.Pages
         #region Tool Settings
 
         private void buttonNewTool_Click(object sender, RoutedEventArgs e)
-        {
-            workSettings.toolSettings.Add(new tool(workSettings.counterTools+1));
+            {
             workSettings.counterTools++;
+            workSettings.toolSettings.Add(new tool(workSettings.counterTools));
             listViewToolSettings.Items.Refresh();
           
         }
@@ -356,13 +359,15 @@ namespace CadCamProject.Pages
             return index;
         }
 
-      
+
+
+
 
 
         #endregion
 
-
-    }
+        
+      }
 
     
 }

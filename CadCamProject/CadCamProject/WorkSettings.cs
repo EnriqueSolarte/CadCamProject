@@ -29,11 +29,13 @@ namespace CadCamProject
 
         public WorkSettings()
         {
+            TypeImagineOperation = "/Images/WorkSettigs.png";
+            TypeOperation = "Work Settings";
             workOffsets = new List<pointPosition>();
             workOffsets.Add(new pointPosition(0));
             toolSettings = new List<tool>();
-            toolSettings.Add(new tool(0));
-            counterTools = 0;
+            toolSettings.Add(new tool(1));
+            counterTools = 1;
             stock = new blackStock();
             file = new PathDefinition();
             file.directory = "C:\\";
@@ -137,10 +139,10 @@ namespace CadCamProject
         public tool(int index)
         {
             WindowsFunctions functions = new WindowsFunctions();
-            localization = index+1;
+            localization = index;
             cuttingToolTypeArray = functions.CuttingToolTypeArray();
             cuttingToolType = CuttingToolType.Turning.ToString();
-            toolName = " New tool " + (index+1).ToString();
+            toolName = " New tool " + (index).ToString();
             toolSet = 1;
             lengthX = 0.000;
             lengthZ = 0.000;
