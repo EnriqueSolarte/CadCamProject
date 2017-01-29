@@ -56,9 +56,9 @@ namespace CadCamProject.Pages
 
         private void fillingParameters()
         {
-            textBlockVersion.Text = profileOperation.upDate;
+            
         }
 
-      
+       
     }
 }

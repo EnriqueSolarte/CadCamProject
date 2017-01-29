@@ -114,7 +114,6 @@ namespace CadCamProject.Pages
             return strArray;
         }
 
-        
     }
 
     public class PathDefinition
