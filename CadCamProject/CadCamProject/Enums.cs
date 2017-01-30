@@ -49,6 +49,12 @@ namespace CadCamProject
         M5,
     }
 
+    public enum wPlane
+    {
+        XZ,
+        XY,
+    }
+
     public enum CuttingToolType
     {
         Turning,
@@ -59,7 +65,19 @@ namespace CadCamProject
 
     }
                    
-    public enum ReferenceDirection
+    public enum RadiusDefinition
+    {
+        byRadius,
+        byCoordinateCenter,
+    }
+
+    public enum TransitionGeometries
+    {
+        Round,
+        Chamfer,
+    }
+
+    public enum ReferenceToolDirection
     {
         pos1=1,
         pos2=2,
@@ -86,4 +104,16 @@ namespace CadCamProject
             chRH = "]";
         }
     } 
+
+    public enum Operations
+    {
+        Work_Settings,
+        Profile, 
+    }
+
+    public enum WorkingPlane
+    {
+        XZ,
+        XY,
+    }
 }

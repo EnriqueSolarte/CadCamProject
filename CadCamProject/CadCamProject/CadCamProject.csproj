@@ -64,9 +64,10 @@
     <Compile Include="Pages\WorkingSettings\wSettingPage.xaml.cs">
       <DependentUpon>wSettingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Profile\Profile.xaml.cs">
-      <DependentUpon>Profile.xaml</DependentUpon>
+    <Compile Include="Pages\Profile\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Profile.cs" />
     <Compile Include="Switcher.cs" />
     <Compile Include="WorkSettings.cs" />
     <Page Include="MainWindow.xaml">
@@ -89,7 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\Profile\Profile.xaml">
+    <Page Include="Pages\Profile\ProfilePage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

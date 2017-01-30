@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Media.Animation;
 
+
 namespace CadCamProject.Pages
 {
     class WindowsFunctions
@@ -55,65 +56,94 @@ namespace CadCamProject.Pages
 
         }
 
-        public string[] GcodeArrayWorkOfset()
+        public Gcode[] GcodeArrayWorkOfset()
         {
-            string[] strArray =
+            Gcode[] strArray =
             {
-                Gcode.G54.ToString(),
-                Gcode.G55.ToString(),
-                Gcode.G56.ToString(),
-                Gcode.G57.ToString(),
-                Gcode.G58.ToString(),
-                Gcode.G59.ToString(),
-                Gcode.CPP.ToString(),
+                Gcode.G54,
+                Gcode.G55,
+                Gcode.G56,
+                Gcode.G57,
+                Gcode.G58,
+                Gcode.G59,
+                Gcode.CPP,
             };
             return strArray;
         }
 
-        public string[] CuttingToolTypeArray()
+        public wPlane[] wPlaneArray()
         {
-        string[] strArray =
+            wPlane[] strArray =
+            {
+              wPlane.XY,
+              wPlane.XZ,
+            };
+            return strArray;
+        }
+
+        public CuttingToolType[] CuttingToolTypeArray()
         {
-                CuttingToolType.Turning.ToString(),
-                CuttingToolType.Drilling.ToString(),
-                CuttingToolType.Grooving.ToString(),
-                CuttingToolType.Milling.ToString(),
-                CuttingToolType.Threading.ToString(),
+            CuttingToolType[] strArray =
+        {
+                CuttingToolType.Turning,
+                CuttingToolType.Drilling,
+                CuttingToolType.Grooving,
+                CuttingToolType.Milling,
+                CuttingToolType.Threading,
                
 
             };
         return strArray;
     }
 
-        public int[] ReferenceDirectionArray()
+        public int[] ReferenceToolDirectionArray()
         {
             int[] strArray =
             {
-                (int)ReferenceDirection.pos1,
-                (int)ReferenceDirection.pos2,
-                (int)ReferenceDirection.pos3,
-                (int)ReferenceDirection.pos4,
-                (int)ReferenceDirection.pos5,
-                (int)ReferenceDirection.pos6,
-                (int)ReferenceDirection.pos7,
-                (int)ReferenceDirection.pos8,
-                (int)ReferenceDirection.pos9,
+                (int)ReferenceToolDirection.pos1,
+                (int)ReferenceToolDirection.pos2,
+                (int)ReferenceToolDirection.pos3,
+                (int)ReferenceToolDirection.pos4,
+                (int)ReferenceToolDirection.pos5,
+                (int)ReferenceToolDirection.pos6,
+                (int)ReferenceToolDirection.pos7,
+                (int)ReferenceToolDirection.pos8,
+                (int)ReferenceToolDirection.pos9,
                 
             };
             return strArray;
         }
 
-        public string[] SpindleControl()
+        public Mcode[] SpindleControl()
         {
-            string[] strArray =
+            Mcode[] strArray =
        {
-                Mcode.M3.ToString(),
-                Mcode.M4.ToString(),
+                Mcode.M3,
+                Mcode.M4,
 
             };
             return strArray;
         }
 
+        public RadiusDefinition[] RadiusDefinitionArray()
+        {
+            RadiusDefinition[] Array =
+            {
+                RadiusDefinition.byRadius,
+                RadiusDefinition.byCoordinateCenter,
+            };
+            return Array;
+        }
+        
+        public TransitionGeometries[] TransitionGeometriesArray()
+        {
+            TransitionGeometries[] Array =
+            {
+               TransitionGeometries.Round,
+               TransitionGeometries.Chamfer,
+            };
+            return Array;
+        }
     }
 
     public class PathDefinition

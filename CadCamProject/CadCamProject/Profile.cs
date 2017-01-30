@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using CadCamProject.Pages;
 
+
 namespace CadCamProject
 {
-    public  class Operation
+    public class Profile
     {
         //General Parameters
         public string TypeImagineOperation { get; set; }
@@ -16,39 +17,45 @@ namespace CadCamProject
         public string Parameters { get; set; }
         public int Index { get; set; }
         public string dataContent { get; set; }
+       
 
-        //Common Parameters
+        //Specific parameters
         public string OperationName { get; set; }
-        public string version { get; set; }
+        public int workOffsetIndex { get; set; }
+        public wPlane workingPlane { get; set; }
 
-        public Operation()
+        public Profile()
         {
             TypeImagineOperation = "/Images/Profile.png";
             TypeOperation = Operations.Profile;
+            workingPlane = wPlane.XZ;
+            workOffsetIndex = 0;
 
 
             dataContent = "vamos por buen camino kikin";
         }
 
-        public Operation GetParameters(Main MainPage, int index)
+        public Profile GetParameters(Main MainPage, int index)
         {
-            Operation op = new Operation();
+            Profile op = new Profile();
 
             if (index <= MainPage.listViewOperations.Items.Count)
             {
-                var listOperation = MainPage.listViewOperations.Items.GetItemAt(index) as List<Operation>;
+                var listOperation = MainPage.listViewOperations.Items.GetItemAt(index) as List<Profile>;
                 op = listOperation.Last();
             }
             else
             {
                 op.Index = MainPage.listViewOperations.Items.Count;
             }
+
+
             return op;
         }
 
-        public List<Operation> SetParameters(Operation opParameters, Main MainPage)
+        public List<Profile> SetParameters(Profile opParameters, Main MainPage)
         {
-            List<Operation> listOperation = new List<Operation>();
+            List<Profile> listOperation = new List<Profile>();
             listOperation.Add(opParameters);
             if (opParameters.Index != MainPage.listViewOperations.Items.Count)
             {
@@ -56,6 +63,11 @@ namespace CadCamProject
             }
             return listOperation;
         }
+    }
+
+    class GeometryProfile
+    {
 
     }
+
 }
