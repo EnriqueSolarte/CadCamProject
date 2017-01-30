@@ -17,12 +17,13 @@ namespace CadCamProject
         public string Parameters { get; set; }
         public int Index { get; set; }
         public string dataContent { get; set; }
-       
+
 
         //Specific parameters
         public string OperationName { get; set; }
         public int workOffsetIndex { get; set; }
         public wPlane workingPlane { get; set; }
+        
 
         public Profile()
         {
@@ -30,6 +31,7 @@ namespace CadCamProject
             TypeOperation = Operations.Profile;
             workingPlane = wPlane.XZ;
             workOffsetIndex = 0;
+         
 
 
             dataContent = "vamos por buen camino kikin";
