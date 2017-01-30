@@ -56,10 +56,11 @@ namespace CadCamProject.Pages
 
             //Radius Definition - Transition Between Geomeries
             comboBoxRadiusDefinition.ItemsSource = function.RadiusDefinitionArray();
-
+            // 
             comboBoxTransitionNext.ItemsSource = function.TransitionGeometriesArray();
-            
-            
+            //
+
+
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
@@ -114,7 +115,28 @@ namespace CadCamProject.Pages
             ControlStatusBar();
         }
 
-       
+        private void radioButtonAddArc_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckingDefinitionGeometry();
+        }
+
+        private void CheckingDefinitionGeometry()
+        {
+            if (radioButtonAddArc.IsChecked.Value)
+            {
+
+            }
+
+            if (radioButtonAddLine.IsChecked.Value)
+            {
+
+            }
+
+            if (checkBoxTransitionNext.IsChecked.Value)
+            {
+
+            }
+        }
     }
 
 }
