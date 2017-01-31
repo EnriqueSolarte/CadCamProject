@@ -32,7 +32,7 @@
             </StatusBar>
         </DockPanel>
         <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="25,5,0,0" TextWrapping="Wrap" Text="Profile Name:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="71"/>
-        <TextBox x:Name="textBoxProfileName" Height="23" Margin="25,21,25,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBoxProfileName" Height="23" Margin="25,21,25,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="textBoxProfileName_TextChanged"/>
         <ComboBox x:Name="comboBoxWorkOffsets" HorizontalAlignment="Left" Margin="25,65,0,0" VerticalAlignment="Top" Width="245" Grid.Row="1" Height="22"/>
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="25,49,0,0" TextWrapping="Wrap" Text="Work Offset:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="66"/>
         <ComboBox x:Name="comboBoxWorkingPlane" HorizontalAlignment="Left" Margin="115,92,0,0" VerticalAlignment="Top" Width="155" Grid.Row="1" Height="22" SelectionChanged="comboBoxWorkingPlane_SelectionChanged"/>

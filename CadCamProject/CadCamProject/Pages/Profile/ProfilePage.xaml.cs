@@ -88,12 +88,14 @@ namespace CadCamProject.Pages
 
             #region statusBar ready
             if (statusBarInformation.ready)
-            {               
+            {
                 //state ready
+                buttonAccept.IsEnabled = true;
             }
             else
             {
-               //state no ready
+                //state no ready
+                buttonAccept.IsEnabled = false;
             }
             #endregion
 
@@ -112,17 +114,17 @@ namespace CadCamProject.Pages
 
         private void Grid_MouseMove(object sender, MouseEventArgs e)
         {
+           
             ControlStatusBar();
             CheckingDefinitionGeometry();
             wTransitionParameters.IsEnabled = (bool)checkBoxTransitionNext.IsChecked;
-
+            CheckingProfileFileName();
         }
 
         private void comboBoxRadiusDefinition_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CheckingDefinitionGeometry();
         }
-
         private void CheckingDefinitionGeometry()
         {
             if (radioButtonAddArc.IsChecked == true)
@@ -161,7 +163,6 @@ namespace CadCamProject.Pages
             CheckingDefinitionGeometry();
         }
 
-
         private void comboBoxTransitionNext_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if((TransitionGeometries)comboBoxTransitionNext.SelectedItem == TransitionGeometries.Round)
@@ -172,6 +173,10 @@ namespace CadCamProject.Pages
             {
                 labelTransitionParameter.Content = TransitionParameter.Chm;
             }
+        }
+        private void checkBoxTransitionNext_Clicked(object sender, RoutedEventArgs e)
+        {
+            wTransitionParameters.IsEnabled = (bool)checkBoxTransitionNext.IsChecked;
         }
 
         private void comboBoxWorkingPlane_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -193,13 +198,30 @@ namespace CadCamProject.Pages
                 labelCenterPosCoord2.Content = LabelCoordinate.K;
             }
         }
-
-        private void checkBoxTransitionNext_Clicked(object sender, RoutedEventArgs e)
+     
+        private void textBoxProfileName_TextChanged(object sender, TextChangedEventArgs e)
         {
-            wTransitionParameters.IsEnabled = (bool)checkBoxTransitionNext.IsChecked;
+            CheckingProfileFileName();
         }
 
-       
+        private void CheckingProfileFileName()
+        {
+            if (textBoxProfileName.Text == "")
+            {
+                statusBarInformation.status = StateToFile.Without_Name;
+                statusBarInformation.ready = false;
+               
+            }
+            else
+            {
+                statusBarInformation.status = wSettings.status;
+                statusBarInformation.ready = true;
+               
+            }
+            ControlStatusBar();
+        }
+
+        
     }
 
 }
