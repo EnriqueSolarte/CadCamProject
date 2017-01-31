@@ -100,7 +100,7 @@
                 <TextBox x:Name="textBoxValueTransitionParameter" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="39,60,0,-30" Text="0.000"/>
             </Grid>
         </Viewbox>
-        <Button x:Name="buttonDefineGeometry" Content="Define" Margin="151,0,24,32" Grid.Row="1" Height="20" VerticalAlignment="Bottom" Click="buttonDefineGeometry_Click"/>
+        <Button x:Name="buttonDefineGeometry" Content="Define" Margin="25,0,150,25" Grid.Row="1" Height="20" VerticalAlignment="Bottom" Click="buttonDefineGeometry_Click"/>
         <Viewbox x:Name="wRadiusDefinition" Margin="26,270,30,368" Grid.Row="1" Stretch="Fill">
             <Grid Height="22" Width="239">
                 <TextBlock x:Name="TextBlockRadiusDefiniton" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Radius Definition" VerticalAlignment="Top" Height="16" Width="95"/>
@@ -116,6 +116,7 @@
         <CheckBox x:Name="checkBoxTransitionNext" Content="Transition to next geometry" HorizontalAlignment="Left" Margin="25,506,0,0" Grid.Row="1" VerticalAlignment="Top" Height="15" Width="166" Click="checkBoxTransitionNext_Clicked"/>
         <RadioButton x:Name="radioButtonAddLine" Content="Add Line" HorizontalAlignment="Left" Margin="134,147,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="True" Click="radioButtonAddLine_Clicked"/>
         <RadioButton x:Name="radioButtonAddArc" Content="Add Arc" HorizontalAlignment="Left" Margin="134,162,0,0" Grid.Row="1" VerticalAlignment="Top" Click="radioButtonAddArc_Clicked"/>
+        <Button x:Name="buttonEditGeometry" Content="Edit" Margin="151,0,24,25" Grid.Row="1" Height="20" VerticalAlignment="Bottom" Click="buttonDefineGeometry_Click"/>
 
     </Grid>
 </UserControl>

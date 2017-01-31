@@ -229,20 +229,29 @@ namespace CadCamProject.Pages
         private void buttonDefineGeometry_Click(object sender, RoutedEventArgs e)
         {
             TransitionGeometry transition = GettingTransitionGeometry();
-
+            Geometry geometry;
             if (radioButtonAddArc.IsChecked.Value)
             {
                 //Geometry type Arc
                 Arc arc = GettingArc();
-                profileOperation.geometry.Add(new Geometry(arc,transition,TypeGeometry.Arc,profileOperation.geometry.Count));
+                geometry = new Geometry(arc, transition, TypeGeometry.Arc, profileOperation.geometry.Count);
+                profileOperation.geometry.Add(geometry);
             }
             else
             {
                 //Geometry type Line
                 Line line = GeetingLine();
-                profileOperation.geometry.Add(new Geometry(line, transition, TypeGeometry.Line, profileOperation.geometry.Count));
+                geometry = new Geometry(line, transition, TypeGeometry.Line, profileOperation.geometry.Count);
+                profileOperation.geometry.Add(geometry);
             }
             listViewGeometries.Items.Refresh();
+            DrawGeometry(geometry);
+           
+        }
+
+        private void DrawGeometry(Geometry geometry)
+        {
+            //Draw the geometry defined in event buttom define 
         }
 
         private Line GeetingLine()
