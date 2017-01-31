@@ -27,6 +27,7 @@ namespace CadCamProject.Pages
         WorkSettings workSettings;
         StatusBar statusBarInformation;
         SpecialChart specialChart;
+        
 
         public wSettingPage(Main main)
         { 
@@ -78,13 +79,22 @@ namespace CadCamProject.Pages
 
         private void Definition()
         {
+            double externalDiameter, internalDiameter, initialPosition, finalPosition, splindleLimit;
             WindowsFunctions funtions = new WindowsFunctions();
-            
-            workSettings.stock.externalDiameter = Double.Parse(textBoxExternalDiam.Text, CultureInfo.InvariantCulture); 
-            workSettings.stock.internalDiameter = Double.Parse(textBoxInternalDiam.Text, CultureInfo.InvariantCulture);
-            workSettings.stock.initialPosition = Double.Parse(textBoxInitial_Z.Text, CultureInfo.InvariantCulture);
-            workSettings.stock.finalPosition = Double.Parse(textBoxFinal_Z.Text, CultureInfo.InvariantCulture);
-            workSettings.stock.splindleLimit = Double.Parse(textBoxFinal_SZ.Text, CultureInfo.InvariantCulture);
+            double.TryParse(textBoxExternalDiam.Text,out externalDiameter);
+            workSettings.stock.externalDiameter = externalDiameter;
+
+            double.TryParse(textBoxInternalDiam.Text, out internalDiameter);
+            workSettings.stock.internalDiameter = internalDiameter;
+
+            double.TryParse(textBoxInitial_Z.Text, out initialPosition);
+            workSettings.stock.initialPosition = initialPosition;
+
+            double.TryParse(textBoxFinal_Z.Text, out finalPosition);
+            workSettings.stock.finalPosition = finalPosition;
+
+            double.TryParse(textBoxFinal_SZ.Text, out splindleLimit);
+            workSettings.stock.splindleLimit = splindleLimit;
 
             workSettings.Parameters = workSettings.ShowingParameters(workSettings);
 

@@ -23,7 +23,7 @@ namespace CadCamProject
         public string OperationName { get; set; }
         public int workOffsetIndex { get; set; }
         public wPlane workingPlane { get; set; }
-        public List<Geometry> geometries { get; set; }
+        public List<Geometry> geometry { get; set; }
 
 
         public Profile()
@@ -32,7 +32,7 @@ namespace CadCamProject
             TypeOperation = Operations.Profile;
             workingPlane = wPlane.XZ;
             workOffsetIndex = 0;
-            geometries = new List<Geometry>();
+            geometry = new List<Geometry>();
 
 
             dataContent = "vamos por buen camino kikin";
@@ -91,7 +91,7 @@ namespace CadCamProject
 
     public class TransitionGeometry
     {
-        public TransitionGeometries typeTransition { get; set; }
+        public TypeTransitionGeometry typeTransition { get; set; }
         private TransitionParameter labelParameter { get; set; }
         public double parameter { get; set; }
         
@@ -104,19 +104,23 @@ namespace CadCamProject
         public Point finalPoint { get; set; }
         public Point centerPoint { get; set; }
         public double radius { get; set; }
+        public ArcDirection arcDirection {get; set;}
 
         public Arc()
         {
             radiusDefinition = RadiusDefinition.byRadius;
+            arcDirection = ArcDirection.CW;
             initialPoint = new Point();
             finalPoint = new Point();
             centerPoint = new Point();
             radius = 0.000;
         }
 
-        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double _radius)
+        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double _radius, ArcDirection _arcDirection)
         {
+            arcDirection = _arcDirection;
             radiusDefinition = RadiusDefinition.byRadius;
+
             initialPoint = new Point(initial_coord1, initial_coord2);
             finalPoint = new Point(final_coord1, final_coord2);
             radius = _radius;
@@ -124,8 +128,10 @@ namespace CadCamProject
             centerPoint = gettingArcParameters(initialPoint, finalPoint, radius);
         }
 
-        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double center_coord1, double center_coord2)
+        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double center_coord1, double center_coord2, ArcDirection _arcDirection)
         {
+
+            arcDirection = _arcDirection;
             radiusDefinition = RadiusDefinition.byCoordinateCenter;
             initialPoint = new Point(initial_coord1, initial_coord2);
             finalPoint = new Point(final_coord1, final_coord2);

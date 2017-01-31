@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Media.Animation;
-
+using System.Collections;
 
 namespace CadCamProject.Pages
 {
@@ -81,6 +81,16 @@ namespace CadCamProject.Pages
             return strArray;
         }
 
+        internal ArcDirection[] ArcDirectionArray()
+        {
+            ArcDirection[] Array =
+            {
+              ArcDirection.CW,
+              ArcDirection.CCW,
+            };
+            return Array;
+        }
+
         public CuttingToolType[] CuttingToolTypeArray()
         {
             CuttingToolType[] strArray =
@@ -135,12 +145,12 @@ namespace CadCamProject.Pages
             return Array;
         }
         
-        public TransitionGeometries[] TransitionGeometriesArray()
+        public TypeTransitionGeometry[] TransitionGeometriesArray()
         {
-            TransitionGeometries[] Array =
+            TypeTransitionGeometry[] Array =
             {
-               TransitionGeometries.Round,
-               TransitionGeometries.Chamfer,
+               TypeTransitionGeometry.Round,
+               TypeTransitionGeometry.Chamfer,
             };
             return Array;
         }

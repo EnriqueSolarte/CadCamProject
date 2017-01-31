@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,17 +27,17 @@ namespace CadCamProject.Pages
         WorkSettings wSettings;
 
         public ProfilePage(Main main, int index)
-        { 
+        {
             Main = main;
             MainPage = main;
             InitializeComponent();
             profileOperation = new Profile();
             statusBarInformation = new StatusBar();
             specialChart = new SpecialChart();
-            profileOperation = profileOperation.GetParameters(MainPage,index);
+            profileOperation = profileOperation.GetParameters(MainPage, index);
             wSettings = new WorkSettings();
             wSettings = wSettings.GetParameters(MainPage);
-           
+
             fillingParameters();
         }
 
@@ -54,13 +55,16 @@ namespace CadCamProject.Pages
             comboBoxWorkingPlane.ItemsSource = function.wPlaneArray();
             comboBoxWorkingPlane.SelectedItem = profileOperation.workingPlane;
 
-            //Radius Definition - Transition Between Geomeries
+            //Radius Definition - Transition Between Geomeries - ArcDirection
             comboBoxRadiusDefinition.ItemsSource = function.RadiusDefinitionArray();
-            comboBoxRadiusDefinition.SelectedItem = RadiusDefinition.byRadius; 
+            comboBoxRadiusDefinition.SelectedItem = RadiusDefinition.byRadius;
             comboBoxTransitionNext.ItemsSource = function.TransitionGeometriesArray();
-            comboBoxTransitionNext.SelectedItem = TransitionGeometries.Round;
+            comboBoxTransitionNext.SelectedItem = TypeTransitionGeometry.Round;
+            comboBoxArcDirection.ItemsSource = function.ArcDirectionArray();
+            comboBoxArcDirection.SelectedItem = ArcDirection.CW;
 
-
+            //Binding ListView Geometry with list Geometry
+            listViewGeometries.ItemsSource = profileOperation.geometry;
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
@@ -77,7 +81,7 @@ namespace CadCamProject.Pages
         private void Definition()
         {
 
-            
+
 
             MainPage.listViewOperations.Items.Insert(profileOperation.Index,
                 profileOperation.SetParameters(profileOperation, MainPage));
@@ -114,7 +118,7 @@ namespace CadCamProject.Pages
 
         private void Grid_MouseMove(object sender, MouseEventArgs e)
         {
-           
+
             ControlStatusBar();
             CheckingDefinitionGeometry();
             wTransitionParameters.IsEnabled = (bool)checkBoxTransitionNext.IsChecked;
@@ -130,6 +134,7 @@ namespace CadCamProject.Pages
             if (radioButtonAddArc.IsChecked == true)
             {
                 wRadiusDefinition.Visibility = Visibility.Visible;
+                wArcDirection.Visibility = Visibility.Visible;
 
                 if ((RadiusDefinition)comboBoxRadiusDefinition.SelectedItem == RadiusDefinition.byRadius)
                 {
@@ -148,10 +153,11 @@ namespace CadCamProject.Pages
             else
             {
                 wRadiusDefinition.Visibility = Visibility.Hidden;
+                wArcDirection.Visibility = Visibility.Hidden;
                 wRadius.Visibility = Visibility.Hidden;
                 wCenterPosCoord1.Visibility = Visibility.Hidden;
                 wCenterPosCoord2.Visibility = Visibility.Hidden;
-            }    
+            }
         }
 
         private void radioButtonAddArc_Clicked(object sender, RoutedEventArgs e)
@@ -165,7 +171,7 @@ namespace CadCamProject.Pages
 
         private void comboBoxTransitionNext_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if((TransitionGeometries)comboBoxTransitionNext.SelectedItem == TransitionGeometries.Round)
+            if ((TypeTransitionGeometry)comboBoxTransitionNext.SelectedItem == TypeTransitionGeometry.Round)
             {
                 labelTransitionParameter.Content = TransitionParameter.Rnd;
             }
@@ -183,7 +189,7 @@ namespace CadCamProject.Pages
         {
             CheckingDefinitionGeometry();
 
-            if((wPlane)comboBoxWorkingPlane.SelectedItem == wPlane.XY)
+            if ((wPlane)comboBoxWorkingPlane.SelectedItem == wPlane.XY)
             {
                 labelInitialCoord1.Content = labelFinalCoord1.Content = LabelCoordinate.X;
                 labelInitialCoord2.Content = labelFinalCoord2.Content = LabelCoordinate.Y;
@@ -198,30 +204,92 @@ namespace CadCamProject.Pages
                 labelCenterPosCoord2.Content = LabelCoordinate.K;
             }
         }
-     
+
         private void textBoxProfileName_TextChanged(object sender, TextChangedEventArgs e)
         {
             CheckingProfileFileName();
         }
-
         private void CheckingProfileFileName()
         {
             if (textBoxProfileName.Text == "")
             {
                 statusBarInformation.status = StateToFile.Without_Name;
                 statusBarInformation.ready = false;
-               
+
             }
             else
             {
                 statusBarInformation.status = wSettings.status;
                 statusBarInformation.ready = true;
-               
+
             }
             ControlStatusBar();
         }
 
-        
-    }
+        private void buttonDefineGeometry_Click(object sender, RoutedEventArgs e)
+        {
+            TransitionGeometry transition = GettingTransitionGeometry();
 
-}
+            if (radioButtonAddArc.IsChecked.Value)
+            {
+                //Geometry type Arc
+                Arc arc = GettingArc();
+                profileOperation.geometry.Add(new Geometry(arc,transition));
+            }
+            else
+            {
+                //Geometry type Line
+                Line line = GeetingLine();
+                profileOperation.geometry.Add(new Geometry(line, transition));
+            }
+            
+        }
+
+        private Line GeetingLine()
+        {
+            Line line;
+            double initalCoord1, initalCoord2, finalCoord1, finalCoord2;
+            double.TryParse(textBoxInitialCoord1.Text, out initalCoord1);
+            double.TryParse(textBoxInitialCoord2.Text, out initalCoord2);
+            double.TryParse(textBoxFinalCoord1.Text, out finalCoord1);
+            double.TryParse(textBoxFinalCoord2.Text, out finalCoord2);
+
+            line = new Line(initalCoord1, initalCoord2, finalCoord1, finalCoord2);
+            return line;
+        }
+
+        private Arc GettingArc()
+        {
+            Arc arc;
+            double initalCoord1, initalCoord2, finalCoord1, finalCoord2, radius, centerCoord1, centerCoord2;
+            double.TryParse(textBoxInitialCoord1.Text, out initalCoord1);
+            double.TryParse(textBoxInitialCoord2.Text, out initalCoord2);
+            double.TryParse(textBoxFinalCoord1.Text, out finalCoord1);
+            double.TryParse(textBoxFinalCoord2.Text, out finalCoord2);
+            double.TryParse(textBoxCentePosCoord1.Text, out centerCoord1);
+            double.TryParse(textBoxCenterPosCoord2.Text, out centerCoord2);
+            double.TryParse(textBoxRadius.Text, out radius);
+
+            if ((RadiusDefinition)comboBoxRadiusDefinition.SelectedItem == RadiusDefinition.byRadius)
+            {
+                arc = new Arc(initalCoord1,initalCoord2,finalCoord1,finalCoord2,radius,(ArcDirection)comboBoxArcDirection.SelectedItem);
+            }
+            else
+            {
+                arc = new Arc(initalCoord1,initalCoord2,finalCoord1,finalCoord2,centerCoord1,centerCoord2,(ArcDirection)comboBoxArcDirection.SelectedItem);
+            }
+
+            return arc;
+        }
+
+        private TransitionGeometry GettingTransitionGeometry()
+        {
+            TransitionGeometry transition = new TransitionGeometry();
+            double transitionParameter;
+            transition.typeTransition = (TypeTransitionGeometry)comboBoxTransitionNext.SelectedItem;
+            double.TryParse(textBoxValueTransitionParameter.Text, out transitionParameter);
+            transition.parameter = transitionParameter;
+            return transition;
+        }
+    }
+  }

@@ -56,6 +56,12 @@ namespace CadCamProject
         XY,
     }
 
+    public enum ArcDirection
+    {
+        CW,
+        CCW,
+    }
+
     public enum CuttingToolType
     {
         Turning,
@@ -72,7 +78,7 @@ namespace CadCamProject
         byCoordinateCenter,
     }
 
-    public enum TransitionGeometries
+    public enum TypeTransitionGeometry
     {
         Round,
         Chamfer,
