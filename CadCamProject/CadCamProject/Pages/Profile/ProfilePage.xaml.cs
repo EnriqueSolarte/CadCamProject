@@ -56,9 +56,9 @@ namespace CadCamProject.Pages
 
             //Radius Definition - Transition Between Geomeries
             comboBoxRadiusDefinition.ItemsSource = function.RadiusDefinitionArray();
-            // 
+            comboBoxRadiusDefinition.SelectedItem = RadiusDefinition.byRadius; 
             comboBoxTransitionNext.ItemsSource = function.TransitionGeometriesArray();
-            //
+            comboBoxTransitionNext.SelectedItem = TransitionGeometries.Round;
 
 
         }
@@ -113,30 +113,93 @@ namespace CadCamProject.Pages
         private void Grid_MouseMove(object sender, MouseEventArgs e)
         {
             ControlStatusBar();
+            CheckingDefinitionGeometry();
+            wTransitionParameters.IsEnabled = (bool)checkBoxTransitionNext.IsChecked;
+
         }
 
-        private void radioButtonAddArc_Checked(object sender, RoutedEventArgs e)
+        private void comboBoxRadiusDefinition_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CheckingDefinitionGeometry();
         }
 
         private void CheckingDefinitionGeometry()
         {
-            if (radioButtonAddArc.IsChecked.Value)
+            if (radioButtonAddArc.IsChecked == true)
             {
+                wRadiusDefinition.Visibility = Visibility.Visible;
 
+                if ((RadiusDefinition)comboBoxRadiusDefinition.SelectedItem == RadiusDefinition.byRadius)
+                {
+                    wRadius.Visibility = Visibility.Visible;
+                    wCenterPosCoord1.Visibility = Visibility.Hidden;
+                    wCenterPosCoord2.Visibility = Visibility.Hidden;
+
+                }
+                else
+                {
+                    wRadius.Visibility = Visibility.Hidden;
+                    wCenterPosCoord1.Visibility = Visibility.Visible;
+                    wCenterPosCoord2.Visibility = Visibility.Visible;
+                }
             }
-
-            if (radioButtonAddLine.IsChecked.Value)
+            else
             {
+                wRadiusDefinition.Visibility = Visibility.Hidden;
+                wRadius.Visibility = Visibility.Hidden;
+                wCenterPosCoord1.Visibility = Visibility.Hidden;
+                wCenterPosCoord2.Visibility = Visibility.Hidden;
+            }    
+        }
 
+        private void radioButtonAddArc_Clicked(object sender, RoutedEventArgs e)
+        {
+            CheckingDefinitionGeometry();
+        }
+        private void radioButtonAddLine_Clicked(object sender, RoutedEventArgs e)
+        {
+            CheckingDefinitionGeometry();
+        }
+
+
+        private void comboBoxTransitionNext_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if((TransitionGeometries)comboBoxTransitionNext.SelectedItem == TransitionGeometries.Round)
+            {
+                labelTransitionParameter.Content = TransitionParameter.Rnd;
             }
-
-            if (checkBoxTransitionNext.IsChecked.Value)
+            else
             {
-
+                labelTransitionParameter.Content = TransitionParameter.Chm;
             }
         }
+
+        private void comboBoxWorkingPlane_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CheckingDefinitionGeometry();
+
+            if((wPlane)comboBoxWorkingPlane.SelectedItem == wPlane.XY)
+            {
+                labelInitialCoord1.Content = labelFinalCoord1.Content = LabelCoordinate.X;
+                labelInitialCoord2.Content = labelFinalCoord2.Content = LabelCoordinate.Y;
+                labelCentePosCoord1.Content = LabelCoordinate.I;
+                labelCenterPosCoord2.Content = LabelCoordinate.J;
+            }
+            else
+            {
+                labelInitialCoord1.Content = labelFinalCoord1.Content = LabelCoordinate.X;
+                labelInitialCoord2.Content = labelFinalCoord2.Content = LabelCoordinate.Z;
+                labelCentePosCoord1.Content = LabelCoordinate.I;
+                labelCenterPosCoord2.Content = LabelCoordinate.K;
+            }
+        }
+
+        private void checkBoxTransitionNext_Clicked(object sender, RoutedEventArgs e)
+        {
+            wTransitionParameters.IsEnabled = (bool)checkBoxTransitionNext.IsChecked;
+        }
+
+       
     }
 
 }

@@ -76,6 +76,11 @@ namespace CadCamProject
         Round,
         Chamfer,
     }
+    public enum TransitionParameter
+    {
+        Rnd,
+        Chm,
+    }
 
     public enum ReferenceToolDirection
     {
@@ -115,5 +120,14 @@ namespace CadCamProject
     {
         XZ,
         XY,
+    }
+    public enum LabelCoordinate
+    {
+        X,
+        I,
+        Y,
+        J,
+        Z,
+        K,
     }
 }

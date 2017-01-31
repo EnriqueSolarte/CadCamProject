@@ -23,7 +23,8 @@ namespace CadCamProject
         public string OperationName { get; set; }
         public int workOffsetIndex { get; set; }
         public wPlane workingPlane { get; set; }
-        
+        public List<Geometry> geometries { get; set; }
+
 
         public Profile()
         {
@@ -31,7 +32,7 @@ namespace CadCamProject
             TypeOperation = Operations.Profile;
             workingPlane = wPlane.XZ;
             workOffsetIndex = 0;
-           
+            geometries = new List<Geometry>();
 
 
             dataContent = "vamos por buen camino kikin";
@@ -67,8 +68,36 @@ namespace CadCamProject
         }
     }
 
-    
-    class Arc
+
+    public class Geometry
+    {
+        public Line line { get; set; }
+        public Arc arc { get; set; }
+        public TransitionGeometry transition { get; set; }
+
+
+        public Geometry(Arc _arc, TransitionGeometry _transition)
+        {
+            arc = _arc;
+            transition = _transition;
+        }
+
+        public Geometry(Line _line, TransitionGeometry _transition)
+        {
+            line = _line;
+            transition = _transition;
+        }
+    }
+
+    public class TransitionGeometry
+    {
+        public TransitionGeometries typeTransition { get; set; }
+        private TransitionParameter labelParameter { get; set; }
+        public double parameter { get; set; }
+        
+    }
+
+    public class Arc
     {
         public RadiusDefinition radiusDefinition { get; set; }
         public Point initialPoint { get; set; }
@@ -119,7 +148,7 @@ namespace CadCamProject
         }
     }
 
-    class Line
+    public class Line
     {
         public Point initialPoint { get; set; }
         public Point finalPoint { get; set; }
@@ -137,7 +166,7 @@ namespace CadCamProject
         }
     }
 
-    class Point
+    public class Point
     {
         public double coord1 { get; set; }
         public double coord2 { get; set; }
@@ -155,4 +184,5 @@ namespace CadCamProject
         }
     }
 
+    
 }
