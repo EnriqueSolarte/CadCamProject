@@ -137,4 +137,10 @@ namespace CadCamProject
         Z,
         K,
     }
+
+    public enum TypeGeometry
+    {
+        Line,
+        Arc,
+    }
 }

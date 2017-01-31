@@ -75,17 +75,24 @@ namespace CadCamProject
         public Arc arc { get; set; }
         public TransitionGeometry transition { get; set; }
 
+        public int id { get; set; }
+        public TypeGeometry typeGeometry { get; set; }
 
-        public Geometry(Arc _arc, TransitionGeometry _transition)
+        public Geometry(Arc _arc, TransitionGeometry _transition, TypeGeometry _typeGeometry, int _id)
         {
             arc = _arc;
             transition = _transition;
+            typeGeometry = _typeGeometry;
+            id = _id;
         }
 
-        public Geometry(Line _line, TransitionGeometry _transition)
+        public Geometry(Line _line, TransitionGeometry _transition, TypeGeometry _typeGeometry, int _id)
         {
             line = _line;
             transition = _transition;
+            typeGeometry = _typeGeometry;
+            id = _id;
+
         }
     }
 

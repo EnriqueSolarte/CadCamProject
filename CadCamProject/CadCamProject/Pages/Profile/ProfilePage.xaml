@@ -58,7 +58,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID" Width="30" DisplayMemberBinding="{Binding Path=id}"/>
-                        <GridViewColumn Header="Geometry" Width="110" DisplayMemberBinding="{Binding Path=geometryName}"/>
+                        <GridViewColumn Header="Geometry" Width="110" DisplayMemberBinding="{Binding Path=typeGeometry}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

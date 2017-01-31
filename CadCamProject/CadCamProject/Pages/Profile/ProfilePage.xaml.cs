@@ -234,15 +234,15 @@ namespace CadCamProject.Pages
             {
                 //Geometry type Arc
                 Arc arc = GettingArc();
-                profileOperation.geometry.Add(new Geometry(arc,transition));
+                profileOperation.geometry.Add(new Geometry(arc,transition,TypeGeometry.Arc,profileOperation.geometry.Count));
             }
             else
             {
                 //Geometry type Line
                 Line line = GeetingLine();
-                profileOperation.geometry.Add(new Geometry(line, transition));
+                profileOperation.geometry.Add(new Geometry(line, transition, TypeGeometry.Line, profileOperation.geometry.Count));
             }
-            
+            listViewGeometries.Items.Refresh();
         }
 
         private Line GeetingLine()
