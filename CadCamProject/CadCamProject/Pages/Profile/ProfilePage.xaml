@@ -54,7 +54,7 @@
                     </DrawingBrush.Drawing>
                 </DrawingBrush>
             </Canvas.Background>
-            <ListView x:Name="listViewGeometries" Height="600" Canvas.Left="10" Canvas.Top="10" Width="150" SelectionMode="Single">
+            <ListView x:Name="listViewGeometries" Height="600" Canvas.Left="10" Canvas.Top="10" Width="150" SelectionMode="Single" SelectionChanged="listViewGeometries_SelectionChanged">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID" Width="30" DisplayMemberBinding="{Binding Path=id}"/>
@@ -116,7 +116,7 @@
         <CheckBox x:Name="checkBoxTransitionNext" Content="Transition to next geometry" HorizontalAlignment="Left" Margin="25,506,0,0" Grid.Row="1" VerticalAlignment="Top" Height="15" Width="166" Click="checkBoxTransitionNext_Clicked"/>
         <RadioButton x:Name="radioButtonAddLine" Content="Add Line" HorizontalAlignment="Left" Margin="134,147,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="True" Click="radioButtonAddLine_Clicked"/>
         <RadioButton x:Name="radioButtonAddArc" Content="Add Arc" HorizontalAlignment="Left" Margin="134,162,0,0" Grid.Row="1" VerticalAlignment="Top" Click="radioButtonAddArc_Clicked"/>
-        <Button x:Name="buttonEditGeometry" Content="Edit" Margin="151,0,24,25" Grid.Row="1" Height="20" VerticalAlignment="Bottom" Click="buttonDefineGeometry_Click"/>
+        <Button x:Name="buttonEditGeometry" Content="Edit" Margin="151,0,24,25" Grid.Row="1" Height="20" VerticalAlignment="Bottom"/>
 
     </Grid>
 </UserControl>

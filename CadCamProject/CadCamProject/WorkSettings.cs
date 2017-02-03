@@ -22,7 +22,7 @@ namespace CadCamProject
         public StateToFile status { get; set; }
         public PathDefinition file { get; set; }
         public string duplicatedFilePrefix { get; }
-        public List<PointPosition> workOffsets { get; set; }
+        public List<WorkOffsetPointPosition> workOffsets { get; set; }
         public List<Tool> toolSettings { get; set; }
         public int counterTools { get; set; }
         public BlackStock stock { get; set; }
@@ -32,8 +32,8 @@ namespace CadCamProject
         {
             TypeImagineOperation = "/Images/WorkSettigs.png";
             TypeOperation = Operations.Work_Settings;
-            workOffsets = new List<PointPosition>();
-            workOffsets.Add(new PointPosition(0));
+            workOffsets = new List<WorkOffsetPointPosition>();
+            workOffsets.Add(new WorkOffsetPointPosition(0));
             toolSettings = new List<Tool>();
             toolSettings.Add(new Tool(1));
             counterTools = 1;
@@ -46,7 +46,7 @@ namespace CadCamProject
             dataContent = "vamos por buen camino kikin";
         }
 
-        internal List<string> GettingWorkOffsets(List<PointPosition> workOffsets)
+        internal List<string> GettingWorkOffsets(List<WorkOffsetPointPosition> workOffsets)
         {
             SpecialChart sCh = new SpecialChart();
             List<string> wOffsets = new List<string>();
@@ -103,7 +103,7 @@ namespace CadCamProject
         }
     }
 
-    class PointPosition
+    class WorkOffsetPointPosition
     {
         public string description { get; set; }
       
@@ -115,7 +115,7 @@ namespace CadCamProject
         public double Spindle_1 { get; set; }
         public double Spindle_2 { get; set; }
 
-        public PointPosition(int index)
+        public WorkOffsetPointPosition(int index)
         {
             WindowsFunctions functions = new WindowsFunctions();
             description = "New Work Offset " + index.ToString();

@@ -265,7 +265,7 @@ namespace CadCamProject.Pages
         private void buttonAddItemListViewWorkOffset_Click(object sender, RoutedEventArgs e)
         {
            
-            workSettings.workOffsets.Add(new PointPosition(listViewWorkOffset.Items.Count));
+            workSettings.workOffsets.Add(new WorkOffsetPointPosition(listViewWorkOffset.Items.Count));
             listViewWorkOffset.Items.Refresh();
         }
 

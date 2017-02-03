@@ -75,6 +75,8 @@ namespace CadCamProject
         public Arc arc { get; set; }
         public TransitionGeometry transition { get; set; }
 
+        public WorkOffsetPointPosition initialPostion { get; }
+
         public int id { get; set; }
         public TypeGeometry typeGeometry { get; set; }
 

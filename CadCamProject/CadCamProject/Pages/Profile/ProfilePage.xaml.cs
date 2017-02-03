@@ -41,6 +41,7 @@ namespace CadCamProject.Pages
             fillingParameters();
         }
 
+        #region General Data Manage
         private void fillingParameters()
         {
             WindowsFunctions function = new WindowsFunctions();
@@ -122,9 +123,12 @@ namespace CadCamProject.Pages
             ControlStatusBar();
             CheckingDefinitionGeometry();
             wTransitionParameters.IsEnabled = (bool)checkBoxTransitionNext.IsChecked;
+            ChekingListViewSelection();
             CheckingProfileFileName();
         }
+        #endregion
 
+        #region Profile Data Manage
         private void comboBoxRadiusDefinition_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CheckingDefinitionGeometry();
@@ -225,10 +229,14 @@ namespace CadCamProject.Pages
             }
             ControlStatusBar();
         }
+        #endregion
 
+        #region Definition of Geometries
         private void buttonDefineGeometry_Click(object sender, RoutedEventArgs e)
         {
             TransitionGeometry transition = GettingTransitionGeometry();
+            settingIntialGeometryPoint();
+
             Geometry geometry;
             if (radioButtonAddArc.IsChecked.Value)
             {
@@ -247,6 +255,31 @@ namespace CadCamProject.Pages
             listViewGeometries.Items.Refresh();
             DrawGeometry(geometry);
            
+        }
+
+        private void settingIntialGeometryPoint()
+        {
+            if(TextboxInitialValues())
+            {
+
+            }
+
+        }
+
+        private bool TextboxInitialValues()
+        {
+            if (listViewGeometries.Items.Count != 0)
+            {
+                textBoxInitialCoord1.IsEnabled = false;
+                textBoxInitialCoord2.IsEnabled = false;
+                return true;
+            }
+            else
+            {
+                textBoxInitialCoord1.IsEnabled = true;
+                textBoxInitialCoord2.IsEnabled = true;
+                return false;
+            }
         }
 
         private void DrawGeometry(Geometry geometry)
@@ -300,5 +333,26 @@ namespace CadCamProject.Pages
             transition.parameter = transitionParameter;
             return transition;
         }
+       
+        private void listViewGeometries_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ChekingListViewSelection();
+        }
+
+        private void ChekingListViewSelection()
+        {
+           if(listViewGeometries.SelectedItem != null)
+            {
+                buttonEditGeometry.IsEnabled = true;
+                buttonDelete.IsEnabled = true;
+            }
+            else
+            {
+                buttonEditGeometry.IsEnabled = false;
+                buttonDelete.IsEnabled = false;
+            }
+        }
+
+        #endregion
     }
-  }
+}
