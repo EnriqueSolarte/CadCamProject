@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,38 +12,52 @@ namespace CadCamProject
     {
         //General parameters
         public string TypeImagineOperation { get; set; }
-        public string TypeOperation { get; set; }
+        public Operations TypeOperation { get; set; }
         public string Parameters { get; set; }
         public int Index { get; set; }     
         public string dataContent { get; set; }
 
         //Specific parameters
         public string version { get; set; }
+        public StateToFile status { get; set; }
         public PathDefinition file { get; set; }
         public string duplicatedFilePrefix { get; }
-        public List<pointPosition> workOffsets { get; set; }
-        public List<tool> toolSettings { get; set; }
+        public List<WorkOffsetPointPosition> workOffsets { get; set; }
+        public List<Tool> toolSettings { get; set; }
         public int counterTools { get; set; }
-        public blackStock stock { get; set; }
+        public BlackStock stock { get; set; }
         
-
 
         public WorkSettings()
         {
             TypeImagineOperation = "/Images/WorkSettigs.png";
-            TypeOperation = "Work Settings";
-            workOffsets = new List<pointPosition>();
-            workOffsets.Add(new pointPosition(0));
-            toolSettings = new List<tool>();
-            toolSettings.Add(new tool(1));
+            TypeOperation = Operations.Work_Settings;
+            workOffsets = new List<WorkOffsetPointPosition>();
+            workOffsets.Add(new WorkOffsetPointPosition(0));
+            toolSettings = new List<Tool>();
+            toolSettings.Add(new Tool(1));
             counterTools = 1;
-            stock = new blackStock();
+            stock = new BlackStock();
             file = new PathDefinition();
             file.directory = "C:\\";
             file.fileName = "defaultName";
-            file.extension = ".opt";
+            file.extension = extensionFiles.opt;
             duplicatedFilePrefix = "_duplicated";
             dataContent = "vamos por buen camino kikin";
+        }
+
+        internal List<string> GettingWorkOffsets(List<WorkOffsetPointPosition> workOffsets)
+        {
+            // gets the defined workoff sets by a list of strings to be used in a combobox
+            SpecialChart sCh = new SpecialChart();
+            List<string> wOffsets = new List<string>();
+            
+            for(int i=0; i < workOffsets.Count; i++)
+            {
+                wOffsets.Add(workOffsets[i].Gcode + sCh.blank +workOffsets[i].description);
+            }
+
+            return wOffsets;
         }
 
         internal WorkSettings GetParameters(Main MainPage)
@@ -83,30 +98,31 @@ namespace CadCamProject
                              sCh.chLF + "TS " + wSettings.toolSettings.Count.ToString() + sCh.chRH +
                              sCh.chLF + "BK " + wSettings.stock.externalDiameter.ToString() + sCh.blank +
                              wSettings.stock.finalPosition.ToString() + sCh.blank +
-                             wSettings.stock.splindleLimit.ToString() + sCh.chRH;
+                             wSettings.stock.splindleLimit.ToString() + sCh.chRH +
+                             sCh.chLF + "V" + wSettings.version + sCh.chRH;
             return dataOut;
         }
     }
 
-    class pointPosition
+    class WorkOffsetPointPosition
     {
         public string description { get; set; }
       
-        public string[] GcodeArray { get; set; }
-        public string GcodeDefault { get; set; }
+        public Gcode[] GcodeArray { get; set; }
+        public Gcode Gcode { get; set; }
         public double Xpos { get; set; }
         public double Ypos { get; set; }
         public double Zpos { get; set; }
         public double Spindle_1 { get; set; }
         public double Spindle_2 { get; set; }
 
-        public pointPosition(int index)
+        public WorkOffsetPointPosition(int index)
         {
             WindowsFunctions functions = new WindowsFunctions();
             description = "New Work Offset " + index.ToString();
     
             GcodeArray = functions.GcodeArrayWorkOfset();
-            GcodeDefault = Gcode.G54.ToString();
+            Gcode =Gcode.G54;
             Xpos = 543.231;
             Ypos = 0.00;
             Zpos = 285.235;
@@ -115,10 +131,10 @@ namespace CadCamProject
         }
     }
     
-    class tool
+    class Tool
     {
         public int localization { get; set; }
-        public string[] cuttingToolTypeArray { get; set; }
+        public CuttingToolType[] cuttingToolTypeArray { get; set; }
         public string cuttingToolType { get; set; }
         public string toolName { get; set; }
         public int toolSet { get; set; }
@@ -131,12 +147,12 @@ namespace CadCamProject
         public double parm_2 { get; set; }
         public double parm_3 { get; set; }
         public bool coolant { get; set; }
-        public string[] spindleControlArray { get; set; }
+        public Mcode[] spindleControlArray { get; set; }
         public string spindleControl { get; set; }
         public bool isEdgeTool { get; set; }
         public int definedSetTools { get; set; }
 
-        public tool(int index)
+        public Tool(int index)
         {
             WindowsFunctions functions = new WindowsFunctions();
             localization = index;
@@ -147,7 +163,7 @@ namespace CadCamProject
             lengthX = 0.000;
             lengthZ = 0.000;
             radius = 0.010;
-            referenceDirectionArray = functions.ReferenceDirectionArray();
+            referenceDirectionArray = functions.ReferenceToolDirectionArray();
             referenceDirection = 3;
             parm_1 = 95.000;
             parm_2 = 80;
@@ -163,7 +179,7 @@ namespace CadCamProject
 
     }
 
-    class blackStock
+    class BlackStock
     {
         public double externalDiameter { get; set; }
         public double internalDiameter { get; set; }
@@ -171,7 +187,7 @@ namespace CadCamProject
         public double finalPosition { get; set; }
         public double splindleLimit { get; set; }
 
-        public blackStock()
+        public BlackStock()
         {
             externalDiameter = 60.000;
             internalDiameter = 0.000;
@@ -180,4 +196,6 @@ namespace CadCamProject
             splindleLimit = 10.000;
     }
 }
+
+    
 }

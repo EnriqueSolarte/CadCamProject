@@ -27,6 +27,7 @@ namespace CadCamProject.Pages
         WorkSettings workSettings;
         StatusBar statusBarInformation;
         SpecialChart specialChart;
+        
 
         public wSettingPage(Main main)
         { 
@@ -46,6 +47,7 @@ namespace CadCamProject.Pages
             {
                 // If the file is new
                 workSettings.version = DateTime.Now.ToString("ddMMyy.hhmmss");
+                workSettings.status = statusBarInformation.status;
                 statusBarInformation.ready = false;
             }
 
@@ -64,6 +66,7 @@ namespace CadCamProject.Pages
             textBoxFileName.Text = workSettings.file.fileName + workSettings.file.extension;
             textBoxLocalPath.Text = workSettings.file.directory;
             statusBarInformation.fileName = workSettings.file.fileName;
+            statusBarInformation.version = workSettings.version;
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
@@ -76,13 +79,22 @@ namespace CadCamProject.Pages
 
         private void Definition()
         {
+            double externalDiameter, internalDiameter, initialPosition, finalPosition, splindleLimit;
             WindowsFunctions funtions = new WindowsFunctions();
-            
-            workSettings.stock.externalDiameter = Double.Parse(textBoxExternalDiam.Text, CultureInfo.InvariantCulture); 
-            workSettings.stock.internalDiameter = Double.Parse(textBoxInternalDiam.Text, CultureInfo.InvariantCulture);
-            workSettings.stock.initialPosition = Double.Parse(textBoxInitial_Z.Text, CultureInfo.InvariantCulture);
-            workSettings.stock.finalPosition = Double.Parse(textBoxFinal_Z.Text, CultureInfo.InvariantCulture);
-            workSettings.stock.splindleLimit = Double.Parse(textBoxFinal_SZ.Text, CultureInfo.InvariantCulture);
+            double.TryParse(textBoxExternalDiam.Text,out externalDiameter);
+            workSettings.stock.externalDiameter = externalDiameter;
+
+            double.TryParse(textBoxInternalDiam.Text, out internalDiameter);
+            workSettings.stock.internalDiameter = internalDiameter;
+
+            double.TryParse(textBoxInitial_Z.Text, out initialPosition);
+            workSettings.stock.initialPosition = initialPosition;
+
+            double.TryParse(textBoxFinal_Z.Text, out finalPosition);
+            workSettings.stock.finalPosition = finalPosition;
+
+            double.TryParse(textBoxFinal_SZ.Text, out splindleLimit);
+            workSettings.stock.splindleLimit = splindleLimit;
 
             workSettings.Parameters = workSettings.ShowingParameters(workSettings);
 
@@ -93,6 +105,40 @@ namespace CadCamProject.Pages
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
         {
             Switcher.Switch(Main);
+        }
+
+        private void MouseMoveControl(object sender, MouseEventArgs e)
+        {
+            ControlStatusBar();
+        }
+
+        private void ControlStatusBar()
+        {
+
+            #region statusBar ready
+            if (statusBarInformation.ready)
+            {
+                buttonLoadSave.IsEnabled = true;
+                workSettings.status = statusBarInformation.status;
+            }
+            else
+            {
+                buttonLoadSave.IsEnabled = false;
+
+            }
+            #endregion
+
+            #region ProgressBar
+            if (progressBar.Value == progressBar.Maximum)
+            {
+                progressBar.Visibility = Visibility.Hidden;
+                statusBarInformation.status = StateToFile.Ready;
+            }
+            #endregion
+
+            LabelVersion.Content = statusBarInformation.version;
+            LabelFile.Content = statusBarInformation.fileName;
+            LabelStatus.Content = statusBarInformation.status;
         }
 
         #region Worksettings
@@ -146,7 +192,7 @@ namespace CadCamProject.Pages
         private void buttonBrowsePath_Click(object sender, RoutedEventArgs e)
         {
             WindowsFunctions funtions = new WindowsFunctions();
-           
+
             if (radioButtonExistingFile.IsChecked == true)
             {
                 PathDefinition path = new PathDefinition();
@@ -171,40 +217,6 @@ namespace CadCamProject.Pages
 
         }
 
-        private void MouseMoveControl(object sender, MouseEventArgs e)
-        {
-            ControlStatusBar();
-        }
-
-        private void ControlStatusBar()
-        {
-
-            #region statusBar ready
-            if (statusBarInformation.ready)
-            {
-                buttonLoadSave.IsEnabled = true;
-                
-            }
-            else
-            {
-                buttonLoadSave.IsEnabled = false;
-               
-            }
-            #endregion
-
-            #region ProgressBar
-            if (progressBar.Value == progressBar.Maximum)
-            {
-                progressBar.Visibility = Visibility.Hidden;
-                statusBarInformation.status = StateToFile.Ready;
-            }
-            #endregion
-
-            LabelVersion.Content = statusBarInformation.version;
-            LabelFile.Content = statusBarInformation.fileName;
-            LabelStatus.Content = statusBarInformation.status;
-        }
-
         private void buttonLoadSave_Click(object sender, RoutedEventArgs e)
         {
              
@@ -221,13 +233,13 @@ namespace CadCamProject.Pages
 
             WindowsFunctions function = new WindowsFunctions();
             function.animateProgressBar(progressBar, 1);
-           
+            
         }
 
         private void saveFileInformation()
         {
            
-            string fileName = textBoxLocalPath.Text + "\\" 
+            string fileName = textBoxLocalPath.Text 
                              + System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text) 
                              + workSettings.file.extension;
             //it is necessary create a method to create and staore the format in dataCOntent
@@ -253,7 +265,7 @@ namespace CadCamProject.Pages
         private void buttonAddItemListViewWorkOffset_Click(object sender, RoutedEventArgs e)
         {
            
-            workSettings.workOffsets.Add(new pointPosition(listViewWorkOffset.Items.Count));
+            workSettings.workOffsets.Add(new WorkOffsetPointPosition(listViewWorkOffset.Items.Count));
             listViewWorkOffset.Items.Refresh();
         }
 
@@ -274,7 +286,7 @@ namespace CadCamProject.Pages
         private void buttonNewTool_Click(object sender, RoutedEventArgs e)
             {
             workSettings.counterTools++;
-            workSettings.toolSettings.Add(new tool(workSettings.counterTools));
+            workSettings.toolSettings.Add(new Tool(workSettings.counterTools));
             listViewToolSettings.Items.Refresh();
           
         }
@@ -333,7 +345,7 @@ namespace CadCamProject.Pages
                 int index = listViewToolSettings.SelectedIndex;
                 index=selectMainTool(index);
               
-                tool newEdgeCuttingTool = new tool(0);
+                Tool newEdgeCuttingTool = new Tool(0);
                 newEdgeCuttingTool.toolName = "New Edge Tool";
                 newEdgeCuttingTool.localization = workSettings.toolSettings[index].localization;
                 newEdgeCuttingTool.toolSet= workSettings.toolSettings[index].definedSetTools + 1;
@@ -358,11 +370,6 @@ namespace CadCamProject.Pages
             }
             return index;
         }
-
-
-
-
-
 
         #endregion
 

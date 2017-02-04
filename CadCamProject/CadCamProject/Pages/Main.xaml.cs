@@ -47,9 +47,7 @@ namespace CadCamProject.Pages
             
             if (index != 0)
             {
-                Operation op = new Operation();
-                op = op.GetParameters(this, index);
-                EditingOperation(op.TypeOperation);
+                MessageBox.Show("It is not implement yet");
             }
             else {
                 gotoWorkSettings();
@@ -62,7 +60,7 @@ namespace CadCamProject.Pages
             Switcher.Switch(new wSettingPage(this));
         }
 
-        private void EditingOperation(string typeOperation)
+        private void EditingOperation(Operations typeOperation)
         {
             // over this function is gonna be implemented the code to access again to the data saved in each operation already created
             MessageBox.Show("Is no implement yet :>>"+typeOperation);
@@ -98,7 +96,8 @@ namespace CadCamProject.Pages
         private void buttonProfile_Click(object sender, RoutedEventArgs e)
         {
             int index = this.listViewOperations.Items.Count + 1;
-            Switcher.Switch(new Profile(this, index));
+
+            Switcher.Switch(new ProfilePage(this, index));
 
         }
     }
