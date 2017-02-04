@@ -9,7 +9,6 @@ using CadCamProject.Pages;
 
 namespace CadCamProject
 {
-    [Serializable]
     public class Profile
     {
         //General Parameters
@@ -18,14 +17,11 @@ namespace CadCamProject
         public string Parameters { get; set; }
         public int Index { get; set; }
         public string dataContent { get; set; }
-        public string Path { get; set; }
 
-        
 
         //Specific parameters
         public string OperationName { get; set; }
         public int workOffsetIndex { get; set; }
-        public Gcode workOffset { get; set; }
         public wPlane workingPlane { get; set; }
         public List<Geometry> geometry { get; set; }
 
@@ -70,27 +66,16 @@ namespace CadCamProject
             }
             return listOperation;
         }
-
-        internal string ShowingParameters(Profile _profile)
-        {
-            SpecialChart sCh = new SpecialChart();
-            string dataOut = sCh.chLF + _profile.OperationName + sCh.chRH +
-                             sCh.chLF + "WO " + _profile.workOffsetIndex.ToString() + sCh.blank + _profile.workOffset + sCh.chRH +
-                             sCh.chLF + "GT " + _profile.geometry.Count.ToString() + sCh.chRH +
-                             sCh.chLF + "PL " + _profile.workingPlane.ToString() + sCh.chRH;                           
-            return dataOut;
-        }
     }
 
-    [Serializable]
+
     public class Geometry
     {
         public Line line { get; set; }
         public Arc arc { get; set; }
         public TransitionGeometry transition { get; set; }
 
-        public Point initialPosition { get; }
-        public Point finalPosition { get; }
+        public WorkOffsetPointPosition initialPostion { get; }
 
         public int id { get; set; }
         public TypeGeometry typeGeometry { get; set; }
@@ -101,9 +86,6 @@ namespace CadCamProject
             transition = _transition;
             typeGeometry = _typeGeometry;
             id = _id;
-            initialPosition = _arc.initialPoint;
-            finalPosition = _arc.finalPoint;    
-
         }
 
         public Geometry(Line _line, TransitionGeometry _transition, TypeGeometry _typeGeometry, int _id)
@@ -112,12 +94,10 @@ namespace CadCamProject
             transition = _transition;
             typeGeometry = _typeGeometry;
             id = _id;
-            initialPosition = _line.initialPoint;
-            finalPosition = _line.finalPoint;
 
         }
     }
-    [Serializable]
+
     public class TransitionGeometry
     {
         public TypeTransitionGeometry typeTransition { get; set; }
@@ -125,7 +105,7 @@ namespace CadCamProject
         public double parameter { get; set; }
         
     }
-    [Serializable]
+
     public class Arc
     {
         public RadiusDefinition radiusDefinition { get; set; }
@@ -182,7 +162,7 @@ namespace CadCamProject
             return cPoint;
         }
     }
-    [Serializable]
+
     public class Line
     {
         public Point initialPoint { get; set; }
@@ -200,7 +180,7 @@ namespace CadCamProject
             finalPoint = new Point(final_coord1, final_coord2);
         }
     }
-    [Serializable]
+
     public class Point
     {
         public double coord1 { get; set; }
@@ -219,4 +199,5 @@ namespace CadCamProject
         }
     }
 
+    
 }

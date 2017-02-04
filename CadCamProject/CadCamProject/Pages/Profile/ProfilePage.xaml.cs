@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Xml.Serialization;
 
 namespace CadCamProject.Pages
 {
@@ -83,17 +81,9 @@ namespace CadCamProject.Pages
 
         private void Definition()
         {
-            ExportAndImportToFIle function = new ExportAndImportToFIle();
-            profileOperation.OperationName = textBoxProfileName.Text;
-            int indexWO = comboBoxWorkOffsets.SelectedIndex;
-            profileOperation.workOffset = wSettings.workOffsets[indexWO].Gcode;
-            profileOperation.workOffsetIndex = indexWO;
-            profileOperation.workingPlane = (wPlane)comboBoxWorkingPlane.SelectedItem;
-            profileOperation.Path = wSettings.file.directory;
-            profileOperation.Parameters = profileOperation.ShowingParameters(profileOperation);
 
-           
-            function.WriteToBinaryFile<Profile>(profileOperation.Path + profileOperation.OperationName + "."+ extensionFiles.prf, profileOperation);
+
+
             MainPage.listViewOperations.Items.Insert(profileOperation.Index,
                 profileOperation.SetParameters(profileOperation, MainPage));
         }
@@ -134,7 +124,6 @@ namespace CadCamProject.Pages
             CheckingDefinitionGeometry();
             wTransitionParameters.IsEnabled = (bool)checkBoxTransitionNext.IsChecked;
             ChekingListViewSelection();
-            settingIntialGeometryPoint();
             CheckingProfileFileName();
         }
         #endregion
@@ -246,7 +235,7 @@ namespace CadCamProject.Pages
         private void buttonDefineGeometry_Click(object sender, RoutedEventArgs e)
         {
             TransitionGeometry transition = GettingTransitionGeometry();
-            
+            settingIntialGeometryPoint();
 
             Geometry geometry;
             if (radioButtonAddArc.IsChecked.Value)
@@ -265,16 +254,14 @@ namespace CadCamProject.Pages
             }
             listViewGeometries.Items.Refresh();
             DrawGeometry(geometry);
-            settingIntialGeometryPoint();
+           
         }
 
         private void settingIntialGeometryPoint()
         {
-            if (TextboxInitialValues())
+            if(TextboxInitialValues())
             {
-                int lastIndex = listViewGeometries.Items.Count - 1;
-                textBoxInitialCoord1.Text = profileOperation.geometry[lastIndex].finalPosition.coord1.ToString();
-                textBoxInitialCoord2.Text = profileOperation.geometry[lastIndex].finalPosition.coord2.ToString();
+
             }
 
         }
@@ -366,22 +353,6 @@ namespace CadCamProject.Pages
             }
         }
 
-
         #endregion
-
-        private void buttonLoadProfile_Click(object sender, RoutedEventArgs e)
-        {
-           
-            WindowsFunctions fn = new WindowsFunctions();
-            ExportAndImportToFIle function = new ExportAndImportToFIle();
-            PathDefinition path = new PathDefinition();
-            path = fn.fileBrowser("Profile (.prf)|*.prf");
-
-            if (path.directory != null)
-            {
-                profileOperation = function.ReadFromBinaryFile<Profile>(path.directory + path.fileName + "." + extensionFiles.prf);
-                fillingParameters();
-            }
-        }
     }
 }

@@ -47,7 +47,9 @@ namespace CadCamProject.Pages
             
             if (index != 0)
             {
-                MessageBox.Show("It is not implement yet");
+                Operation op = new Operation();
+                op = op.GetParameters(this, index);
+                EditingOperation(op.TypeOperation);
             }
             else {
                 gotoWorkSettings();
@@ -96,7 +98,6 @@ namespace CadCamProject.Pages
         private void buttonProfile_Click(object sender, RoutedEventArgs e)
         {
             int index = this.listViewOperations.Items.Count + 1;
-
             Switcher.Switch(new ProfilePage(this, index));
 
         }
