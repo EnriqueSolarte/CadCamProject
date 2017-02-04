@@ -41,13 +41,14 @@ namespace CadCamProject
             file = new PathDefinition();
             file.directory = "C:\\";
             file.fileName = "defaultName";
-            file.extension = ".opt";
+            file.extension = extensionFiles.opt;
             duplicatedFilePrefix = "_duplicated";
             dataContent = "vamos por buen camino kikin";
         }
 
         internal List<string> GettingWorkOffsets(List<WorkOffsetPointPosition> workOffsets)
         {
+            // gets the defined workoff sets by a list of strings to be used in a combobox
             SpecialChart sCh = new SpecialChart();
             List<string> wOffsets = new List<string>();
             
@@ -108,7 +109,7 @@ namespace CadCamProject
         public string description { get; set; }
       
         public Gcode[] GcodeArray { get; set; }
-        public string Gcode { get; set; }
+        public Gcode Gcode { get; set; }
         public double Xpos { get; set; }
         public double Ypos { get; set; }
         public double Zpos { get; set; }
@@ -121,7 +122,7 @@ namespace CadCamProject
             description = "New Work Offset " + index.ToString();
     
             GcodeArray = functions.GcodeArrayWorkOfset();
-            Gcode = CadCamProject.Gcode.G54.ToString();
+            Gcode =Gcode.G54;
             Xpos = 543.231;
             Ypos = 0.00;
             Zpos = 285.235;

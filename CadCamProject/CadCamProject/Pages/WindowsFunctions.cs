@@ -7,6 +7,9 @@ using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Media.Animation;
 using System.Collections;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace CadCamProject.Pages
 {
@@ -18,7 +21,7 @@ namespace CadCamProject.Pages
             PathDefinition file = new PathDefinition();
             System.Windows.Forms.OpenFileDialog dialog = new System.Windows.Forms.OpenFileDialog();
 
-            //dialog.Filter = "CAM prog (.opt)|*.opt";
+           
             dialog.Filter = filter;
             dialog.FilterIndex = 1;
             System.Windows.Forms.DialogResult result = dialog.ShowDialog();
@@ -27,7 +30,7 @@ namespace CadCamProject.Pages
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 file.fileName = System.IO.Path.GetFileNameWithoutExtension(dialog.FileName);
-                file.directory = System.IO.Path.GetDirectoryName(dialog.FileName);
+                file.directory = System.IO.Path.GetDirectoryName(dialog.FileName)+"\\";
             }
             return file;
         }
@@ -40,7 +43,7 @@ namespace CadCamProject.Pages
 
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                directory = dialog.SelectedPath;
+                directory = dialog.SelectedPath+"\\";
                 
             }
             return directory;
@@ -160,7 +163,7 @@ namespace CadCamProject.Pages
     {
         public string directory { get; set; }
         public string fileName { get; set; }
-        public string extension { get; set; }
+        public extensionFiles extension { get; set; }
         
 
     }
