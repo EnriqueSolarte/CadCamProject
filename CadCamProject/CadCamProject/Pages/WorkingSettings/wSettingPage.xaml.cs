@@ -192,7 +192,7 @@ namespace CadCamProject.Pages
         private void buttonBrowsePath_Click(object sender, RoutedEventArgs e)
         {
             WindowsFunctions funtions = new WindowsFunctions();
-           
+
             if (radioButtonExistingFile.IsChecked == true)
             {
                 PathDefinition path = new PathDefinition();
@@ -239,7 +239,7 @@ namespace CadCamProject.Pages
         private void saveFileInformation()
         {
            
-            string fileName = textBoxLocalPath.Text + "\\" 
+            string fileName = textBoxLocalPath.Text 
                              + System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text) 
                              + workSettings.file.extension;
             //it is necessary create a method to create and staore the format in dataCOntent
@@ -370,11 +370,6 @@ namespace CadCamProject.Pages
             }
             return index;
         }
-
-
-
-
-
 
         #endregion
 

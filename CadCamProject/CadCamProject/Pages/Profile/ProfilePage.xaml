@@ -54,16 +54,16 @@
                     </DrawingBrush.Drawing>
                 </DrawingBrush>
             </Canvas.Background>
-            <ListView x:Name="listViewGeometries" Height="600" Canvas.Left="10" Canvas.Top="10" Width="150" SelectionMode="Single" SelectionChanged="listViewGeometries_SelectionChanged">
+            <ListView x:Name="listViewGeometries" Height="595" Canvas.Left="10" Canvas.Top="10" Width="95" SelectionMode="Single" SelectionChanged="listViewGeometries_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID" Width="30" DisplayMemberBinding="{Binding Path=id}"/>
-                        <GridViewColumn Header="Geometry" Width="110" DisplayMemberBinding="{Binding Path=typeGeometry}"/>
+                        <GridViewColumn Header="Geometry" Width="60" DisplayMemberBinding="{Binding Path=typeGeometry}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
         </Canvas>
-        <Button x:Name="buttonDelete" Content="Delete" Margin="10,0,790,10" Grid.Row="1" Grid.Column="1" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="buttonDelete" Content="Delete" Margin="10,0,850,5" Grid.Row="1" Grid.Column="1" Height="20" VerticalAlignment="Bottom"/>
         <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="25,146,0,0" TextWrapping="Wrap" Text="Profile Definition:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="150"/>
         <Label x:Name="labelInitialCoord1" Content="Xin" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="27" Margin="25,202,0,0" Grid.Row="1"/>
         <TextBox x:Name="textBoxInitialCoord1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="52,202,0,0" Grid.Row="1" Text="0.000"/>
@@ -116,7 +116,8 @@
         <CheckBox x:Name="checkBoxTransitionNext" Content="Transition to next geometry" HorizontalAlignment="Left" Margin="25,506,0,0" Grid.Row="1" VerticalAlignment="Top" Height="15" Width="166" Click="checkBoxTransitionNext_Clicked"/>
         <RadioButton x:Name="radioButtonAddLine" Content="Add Line" HorizontalAlignment="Left" Margin="134,147,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="True" Click="radioButtonAddLine_Clicked"/>
         <RadioButton x:Name="radioButtonAddArc" Content="Add Arc" HorizontalAlignment="Left" Margin="134,162,0,0" Grid.Row="1" VerticalAlignment="Top" Click="radioButtonAddArc_Clicked"/>
-        <Button x:Name="buttonEditGeometry" Content="Edit" Margin="151,0,24,25" Grid.Row="1" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="buttonEditGeometry" Content="Edit" Margin="10,0,850,30" Grid.Row="1" Height="20" VerticalAlignment="Bottom" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Hidden"/>
+        <Button x:Name="buttonLoadProfile" Content="Load Profile" Grid.Column="1" HorizontalAlignment="Left" Margin="830,40,0,0" VerticalAlignment="Top" Width="120" Click="buttonLoadProfile_Click"/>
 
     </Grid>
 </UserControl>

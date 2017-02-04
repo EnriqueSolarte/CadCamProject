@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace CadCamProject
 {
-   
+    public enum extensionFiles
+    {
+        opt,
+        opp,
+        prf,
+    }
+
     public enum StateToFile
     {
         Saving,
