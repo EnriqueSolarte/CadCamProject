@@ -29,7 +29,7 @@ namespace CadCamProject.Pages
 
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                file.fileName = System.IO.Path.GetFileNameWithoutExtension(dialog.FileName);
+                file.fileName = System.IO.Path.GetFileName(dialog.FileName);
                 file.directory = System.IO.Path.GetDirectoryName(dialog.FileName)+"\\";
             }
             return file;
@@ -158,14 +158,19 @@ namespace CadCamProject.Pages
             return Array;
         }
     }
-
+    [Serializable]
     public class PathDefinition
     {
         public string directory { get; set; }
-        public string fileName { get; set; }
-        public extensionFiles extension { get; set; }
+        public string fileName { get; set; }  
         
+        public string GetFullName()
+        {
 
+            string fullName;
+            fullName = directory + fileName;
+            return fullName;
+        }      
     }
 
     public class StatusBar

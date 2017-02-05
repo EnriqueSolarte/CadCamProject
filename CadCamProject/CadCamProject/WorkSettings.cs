@@ -8,6 +8,7 @@ using CadCamProject.Pages;
 
 namespace CadCamProject
 {
+    [Serializable]
     class WorkSettings
     {
         //General parameters
@@ -40,8 +41,7 @@ namespace CadCamProject
             stock = new BlackStock();
             file = new PathDefinition();
             file.directory = "C:\\";
-            file.fileName = "defaultName";
-            file.extension = extensionFiles.opt;
+            file.fileName = "defaultName."+ extensionFiles.CAMprog;
             duplicatedFilePrefix = "_duplicated";
             dataContent = "vamos por buen camino kikin";
         }
@@ -104,6 +104,7 @@ namespace CadCamProject
         }
     }
 
+    [Serializable]
     class WorkOffsetPointPosition
     {
         public string description { get; set; }
@@ -130,7 +131,7 @@ namespace CadCamProject
             Spindle_2 = 0;
         }
     }
-    
+    [Serializable]
     class Tool
     {
         public int localization { get; set; }
@@ -178,7 +179,7 @@ namespace CadCamProject
 
 
     }
-
+    [Serializable]
     class BlackStock
     {
         public double externalDiameter { get; set; }

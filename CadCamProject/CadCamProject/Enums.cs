@@ -8,8 +8,8 @@ namespace CadCamProject
 {
     public enum extensionFiles
     {
-        opt,
-        opp,
+        CAMprog,
+        wstt,
         prf,
     }
 

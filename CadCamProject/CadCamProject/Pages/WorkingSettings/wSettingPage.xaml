@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CadCamProject.Pages"
              mc:Ignorable="d" 
-             d:DesignHeight="800" d:DesignWidth="1280">
+             d:DesignHeight="760" d:DesignWidth="1280">
 
     <Grid Background="White" Margin="0,0,0,0" MouseMove="MouseMoveControl">
         <Label x:Name="label" Content="Working Settings" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265"/>
@@ -14,21 +14,15 @@
         <TabControl x:Name="tabControl" Margin="15,75,5,35" BorderBrush="#FFB0AFAF" TabStripPlacement="Left">
             <TabItem Header="General Settings" Width="120">
                 <Grid Background="White">
-                    <RadioButton x:Name="radioButtonExistingFile" Content="Existing fIle" HorizontalAlignment="Left" Margin="31,42,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked"/>
-                    <RadioButton x:Name="radioButtonNewFile" Content="Create a new fIle" HorizontalAlignment="Left" Margin="31,62,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked" IsChecked="True"/>
-                    <Button x:Name="buttonBrowsePath" Content="Browse" Margin="0,113,57,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="buttonBrowsePath_Click"/>
-                    <TextBox x:Name="textBoxLocalPath" Height="23" Margin="31,110,147,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="31,89,0,0" TextWrapping="Wrap" Text="Local Path:" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBoxFileName" Height="23" Margin="101,138,147,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                    <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="31,139,0,0" TextWrapping="Wrap" Text="File Name:" VerticalAlignment="Top"/>
-                    <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="32,196,0,0" TextWrapping="Wrap" Text="Load aditional Information:" VerticalAlignment="Top"/>
-                    <CheckBox x:Name="checkBoxSettingTools" Content="Setting Tools" HorizontalAlignment="Left" Margin="82,237,0,0" VerticalAlignment="Top" IsEnabled="False" IsChecked="True"/>
-                    <CheckBox x:Name="checkBoxWorkOffset" Content="Work Offset" HorizontalAlignment="Left" Margin="82,257,0,0" VerticalAlignment="Top" IsEnabled="False" IsChecked="True"/>
-                    <CheckBox x:Name="checkBoxOperations" Content="Operations" HorizontalAlignment="Left" Margin="82,277,0,0" VerticalAlignment="Top" IsEnabled="False" IsChecked="True"/>
-                    <CheckBox x:Name="checkBoxProfiles" Content="Profiles" HorizontalAlignment="Left" Margin="82,297,0,0" VerticalAlignment="Top" IsEnabled="False" IsChecked="True"/>
-                    <CheckBox x:Name="checkBoxBlanksDefinitions" Content="Blanks definitions" HorizontalAlignment="Left" Margin="82,317,0,0" VerticalAlignment="Top" IsEnabled="False" IsChecked="True"/>
-                    <Button x:Name="buttonLoadSave" Content="Save File" HorizontalAlignment="Left" Margin="32,352,0,0" VerticalAlignment="Top" Width="75" Click="buttonLoadSave_Click"/>
-                    <CheckBox x:Name="checkBoxDuplicateFile" Content="Use a duplicate file" HorizontalAlignment="Left" Margin="101,166,0,0" VerticalAlignment="Top" IsEnabled="False" Click="checkBoxDuplicateFile_clicked"/>
+                    <RadioButton x:Name="radioButtonExistingFile" Content="Existing fIle" HorizontalAlignment="Left" Margin="30,17,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked"/>
+                    <RadioButton x:Name="radioButtonNewFile" Content="Create a new fIle" HorizontalAlignment="Left" Margin="30,37,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked" IsChecked="True"/>
+                    <Button x:Name="buttonBrowsePath" Content="Browse" Margin="0,88,57,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="buttonBrowsePath_Click"/>
+                    <TextBox x:Name="textBoxLocalPath" Height="23" Margin="31,88,147,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="30,67,0,0" TextWrapping="Wrap" Text="Local Path:" VerticalAlignment="Top"/>
+                    <TextBox x:Name="textBoxFileName" Height="23" Margin="101,117,147,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="31,117,0,0" TextWrapping="Wrap" Text="File Name:" VerticalAlignment="Top"/>
+                    <Button x:Name="buttonLoadSave" Content="Save File" HorizontalAlignment="Left" Margin="30,177,0,0" VerticalAlignment="Top" Width="75" Click="buttonLoadSave_Click"/>
+                    <CheckBox x:Name="checkBoxDuplicateFile" Content="Use a duplicate file" HorizontalAlignment="Left" Margin="101,145,0,0" VerticalAlignment="Top" Click="checkBoxDuplicateFile_clicked"/>
                     <Label x:Name="label1" Content="Geometry Dimension" HorizontalAlignment="Left" Margin="30,398,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label2" Content="External Diameter" HorizontalAlignment="Left" Margin="65,425,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="textBoxExternalDiam" HorizontalAlignment="Left" Height="23" Margin="190,428,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
@@ -40,6 +34,14 @@
                     <TextBox x:Name="textBoxInitial_Z" HorizontalAlignment="Left" Height="23" Margin="190,486,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
                     <TextBox x:Name="textBoxFinal_Z" HorizontalAlignment="Left" Height="23" Margin="190,517,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
                     <TextBox x:Name="textBoxFinal_SZ" HorizontalAlignment="Left" Height="23" Margin="190,548,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
+                    <Viewbox x:Name="wAditionalLoadingParameters"  Stretch="Fill" HorizontalAlignment="Right" Width="147" Height="80" VerticalAlignment="Bottom" Margin="0,0,845,387">
+                        <Grid Height="80" Width="146.996666666667">
+                            <TextBlock x:Name="textBlock_Copy1" HorizontalAlignment="Left" Margin="0,0,-0.003,0" TextWrapping="Wrap" Text="Loading Parameters:" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="checkBoxSettingTools" Content="Setting Tools" Margin="0,25,0,0" IsChecked="True" Height="15" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88"/>
+                            <CheckBox x:Name="checkBoxWorkOffset" Content="Work Offset" HorizontalAlignment="Left" Margin="0,45,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                            <CheckBox x:Name="checkBoxWorkSettings" Content="Work Settings" HorizontalAlignment="Left" Margin="0,65,0,0" VerticalAlignment="Top" IsChecked="True"/>
+                        </Grid>
+                    </Viewbox>
                 </Grid>
             </TabItem>
             <TabItem Header="Work offset" Height="24" VerticalAlignment="Top">
