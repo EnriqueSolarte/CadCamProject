@@ -93,7 +93,6 @@ namespace CadCamProject.Pages
             profileOperation.Parameters = profileOperation.ShowingParameters(profileOperation);
 
            
-            function.WriteToBinaryFile<Profile>(profileOperation.Path + profileOperation.OperationName + "."+ extensionFiles.prf, profileOperation);
             MainPage.listViewOperations.Items.Insert(profileOperation.Index,
                 profileOperation.SetParameters(profileOperation, MainPage));
         }
@@ -369,19 +368,6 @@ namespace CadCamProject.Pages
 
         #endregion
 
-        private void buttonLoadProfile_Click(object sender, RoutedEventArgs e)
-        {
-           
-            WindowsFunctions fn = new WindowsFunctions();
-            ExportAndImportToFIle function = new ExportAndImportToFIle();
-            PathDefinition path = new PathDefinition();
-            path = fn.fileBrowser("Profile (.prf)|*.prf");
-
-            if (path.directory != null)
-            {
-                profileOperation = function.ReadFromBinaryFile<Profile>(path.directory + path.fileName + "." + extensionFiles.prf);
-                fillingParameters();
-            }
-        }
+        
     }
 }

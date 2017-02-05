@@ -40,7 +40,7 @@ namespace CadCamProject.Pages
             workSettings = workSettings.GetParameters(MainPage);
             fillingParameters();
         }
-
+         
         private void fillingParameters()
         {
             if (workSettings.version == null)
@@ -161,7 +161,7 @@ namespace CadCamProject.Pages
             {
 
                 checkBoxDuplicateFile.Visibility = Visibility.Visible;
-                wAditionalLoadingParameters.Visibility = Visibility.Visible;
+               
                 buttonLoadSave.Content = ButtonContents.Load;
              
                 if (checkBoxDuplicateFile.IsChecked == false)
@@ -171,7 +171,7 @@ namespace CadCamProject.Pages
             }
             else
             {
-                wAditionalLoadingParameters.Visibility = Visibility.Hidden;
+               
                 textBoxFileName.IsEnabled = true;
                 checkBoxDuplicateFile.Visibility = Visibility.Hidden;
                 buttonLoadSave.Content = ButtonContents.Save;
@@ -195,7 +195,7 @@ namespace CadCamProject.Pages
                     textBoxFileName.IsEnabled = true;
                     buttonLoadSave.Content = ButtonContents.Save;
                     textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text)
-                                         + workSettings.duplicatedFilePrefix + "." + extensionFiles.CAMprog;
+                                         + workSettings.duplicatedFilePrefix + "." + extensionFiles.wstt;
                 }
                 else
                 {
@@ -213,7 +213,7 @@ namespace CadCamProject.Pages
             if (radioButtonExistingFile.IsChecked == true)
             {
                 PathDefinition path = new PathDefinition();
-                path = funtions.fileBrowser("CAMprog(CAMprog)|*.CAMprog");
+                path = funtions.fileBrowser("Work Settings(wstt)|*.wstt");
                 
                 if (path.directory != null)
                 {
@@ -237,14 +237,15 @@ namespace CadCamProject.Pages
         private void buttonLoadSave_Click(object sender, RoutedEventArgs e)
         {
              
-                if (radioButtonExistingFile.IsChecked == true)
+                if (buttonLoadSave.Content.ToString() == ButtonContents.Load.ToString())
                 {
                     statusBarInformation.status = StateToFile.Loading;
                     loadFileInformation();
                 }
-                else
-                {
-                    statusBarInformation.status = StateToFile.Saving;
+            if (buttonLoadSave.Content.ToString() == ButtonContents.Save.ToString())
+
+               {
+                statusBarInformation.status = StateToFile.Saving;
                     saveFileInformation();
                 }
 
@@ -260,7 +261,7 @@ namespace CadCamProject.Pages
             ExportAndImportToFIle fnc = new ExportAndImportToFIle();
 
             workSettings.file.directory = textBoxLocalPath.Text;
-            workSettings.file.fileName = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text)+"." + extensionFiles.CAMprog;
+            workSettings.file.fileName = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text)+"." + extensionFiles.wstt;
             ControlStatusBar();
             statusBarInformation.version = workSettings.version;
             statusBarInformation.fileName = workSettings.file.fileName;

@@ -41,7 +41,7 @@ namespace CadCamProject
             stock = new BlackStock();
             file = new PathDefinition();
             file.directory = "C:\\";
-            file.fileName = "defaultName."+ extensionFiles.CAMprog;
+            file.fileName = "defaultName."+ extensionFiles.wstt;
             duplicatedFilePrefix = "_duplicated";
             dataContent = "vamos por buen camino kikin";
         }
