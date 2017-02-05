@@ -117,6 +117,7 @@ namespace CadCamProject
 
         }
     }
+
     [Serializable]
     public class TransitionGeometry
     {
@@ -125,6 +126,7 @@ namespace CadCamProject
         public double parameter { get; set; }
         
     }
+
     [Serializable]
     public class Arc
     {
@@ -182,6 +184,7 @@ namespace CadCamProject
             return cPoint;
         }
     }
+
     [Serializable]
     public class Line
     {
@@ -200,6 +203,7 @@ namespace CadCamProject
             finalPoint = new Point(final_coord1, final_coord2);
         }
     }
+
     [Serializable]
     public class Point
     {

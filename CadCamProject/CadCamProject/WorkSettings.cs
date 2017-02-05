@@ -48,7 +48,7 @@ namespace CadCamProject
 
         internal List<string> GettingWorkOffsets(List<WorkOffsetPointPosition> workOffsets)
         {
-            // gets the defined workoff sets by a list of strings to be used in a combobox
+            // gets the defined work offsets by a string list to be used in a combobox
             SpecialChart sCh = new SpecialChart();
             List<string> wOffsets = new List<string>();
             
