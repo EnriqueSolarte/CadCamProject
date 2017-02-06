@@ -50,7 +50,12 @@ namespace CadCamProject.Pages
             // Status Bar 
             statusBarInformation.fileName = wSettings.file.fileName;
             statusBarInformation.version = wSettings.version;
+            if(profileOperation.version == null)
+            {
+                profileOperation.version = wSettings.version;
+            }
             statusBarInformation.status = wSettings.status;
+            textBoxProfileName.Text = profileOperation.OperationName;
 
             //Work Offsets - PLane W
             comboBoxWorkOffsets.ItemsSource = wSettings.GettingWorkOffsets(wSettings.workOffsets);
@@ -89,7 +94,6 @@ namespace CadCamProject.Pages
             profileOperation.workOffset = wSettings.workOffsets[indexWO].Gcode;
             profileOperation.workOffsetIndex = indexWO;
             profileOperation.workingPlane = (wPlane)comboBoxWorkingPlane.SelectedItem;
-            profileOperation.Path = wSettings.file.directory;
             profileOperation.Parameters = profileOperation.ShowingParameters(profileOperation);
 
            
@@ -366,8 +370,57 @@ namespace CadCamProject.Pages
         }
 
 
+
         #endregion
 
-        
+        private void buttonExport_Click(object sender, RoutedEventArgs e)
+        {
+            //maybe this part shoud be change whith the main status of the MAIN WINDOWS
+
+            if (wSettings.status == StateToFile.Ready && statusBarInformation.status == StateToFile.Ready)
+            {
+                string path = wSettings.file.directory + textBoxProfileName.Text + " v" + wSettings.version + "." + extensionFiles.prf;
+                ExportingProfile(path);
+
+            }
+            else
+            {
+                if (statusBarInformation.status == StateToFile.Ready)
+                {
+                    WindowsFunctions wfnc = new WindowsFunctions();
+
+                    string path = wfnc.folderBrowser();
+                    if (path != null)
+                    {
+                        ExportingProfile(path);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You have to save the file before to try to export or define completely the current profile");
+
+                }
+            }
+        }
+
+        private void ExportingProfile(string path)
+        {
+            ExportAndImportToFIle fnc = new ExportAndImportToFIle();
+            WindowsFunctions wfnc = new WindowsFunctions();
+            fnc.WriteToBinaryFile<Profile>(path, profileOperation);
+            wfnc.animateProgressBar(progressBar, 1.5);
+        }
+
+        private void buttonImportProfile_Click(object sender, RoutedEventArgs e)
+        {
+            
+                ExportAndImportToFIle fnc = new ExportAndImportToFIle();
+                WindowsFunctions wfnc = new WindowsFunctions();
+                PathDefinition path = new PathDefinition();
+                path = wfnc.fileBrowser("Profile file(prf)|*.prf");
+                profileOperation = fnc.ReadFromBinaryFile<Profile>(path.GetFullName());
+                wfnc.animateProgressBar(progressBar, 1.5);
+            fillingParameters();
+        }
     } 
 }

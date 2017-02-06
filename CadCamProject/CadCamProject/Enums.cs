@@ -24,6 +24,7 @@ namespace CadCamProject
         Fail,
         Ready,
         Without_Name,
+        Exporting,
 
     }
 

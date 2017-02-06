@@ -18,9 +18,9 @@ namespace CadCamProject
         public string Parameters { get; set; }
         public int Index { get; set; }
         public string dataContent { get; set; }
-        public string Path { get; set; }
-
+        public string version { get; set; }
         
+
 
         //Specific parameters
         public string OperationName { get; set; }
@@ -37,8 +37,7 @@ namespace CadCamProject
             workingPlane = wPlane.XZ;
             workOffsetIndex = 0;
             geometry = new List<Geometry>();
-
-
+           
             dataContent = "vamos por buen camino kikin";
         }
 

@@ -17,10 +17,10 @@ namespace CadCamProject
         public string Parameters { get; set; }
         public int Index { get; set; }     
         public string dataContent { get; set; }
-
-        //Specific parameters
         public string version { get; set; }
         public StateToFile status { get; set; }
+
+        //Specific parameters
         public PathDefinition file { get; set; }
         public string duplicatedFilePrefix { get; }
         public List<WorkOffsetPointPosition> workOffsets { get; set; }
