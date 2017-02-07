@@ -73,6 +73,7 @@ namespace CadCamProject.Pages
 
             //Binding ListView Geometry with list Geometry
             listViewGeometries.ItemsSource = profileOperation.geometry;
+            listViewGeometries.Items.Refresh();
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
@@ -88,7 +89,14 @@ namespace CadCamProject.Pages
 
         private void Definition()
         {
-            ExportAndImportToFIle function = new ExportAndImportToFIle();
+            refreshData();
+            MainPage.listViewOperations.Items.Insert(profileOperation.Index,
+                profileOperation.SetParameters(profileOperation, MainPage));
+        }
+
+        private void refreshData()
+        {
+           
             profileOperation.OperationName = textBoxProfileName.Text;
             int indexWO = comboBoxWorkOffsets.SelectedIndex;
             profileOperation.workOffset = wSettings.workOffsets[indexWO].Gcode;
@@ -96,9 +104,6 @@ namespace CadCamProject.Pages
             profileOperation.workingPlane = (wPlane)comboBoxWorkingPlane.SelectedItem;
             profileOperation.Parameters = profileOperation.ShowingParameters(profileOperation);
 
-           
-            MainPage.listViewOperations.Items.Insert(profileOperation.Index,
-                profileOperation.SetParameters(profileOperation, MainPage));
         }
 
         private void ControlStatusBar()
@@ -108,12 +113,23 @@ namespace CadCamProject.Pages
             if (statusBarInformation.ready)
             {
                 //state ready
-                buttonAccept.IsEnabled = true;
+                buttonAccept.IsEnabled = true;                
             }
             else
             {
                 //state no ready
                 buttonAccept.IsEnabled = false;
+            }
+            #endregion
+
+            #region statusBar Status = ready
+            if (statusBarInformation.status == StateToFile.Ready)
+            {
+                buttonExportProfile.IsEnabled = true;
+
+            }else
+            {
+                buttonExportProfile.IsEnabled = false;
             }
             #endregion
 
@@ -231,7 +247,7 @@ namespace CadCamProject.Pages
         {
             if (textBoxProfileName.Text == "")
             {
-                statusBarInformation.status = StateToFile.Without_Name;
+                statusBarInformation.status = StateToFile.MissingData;
                 statusBarInformation.ready = false;
 
             }
@@ -373,34 +389,18 @@ namespace CadCamProject.Pages
 
         #endregion
 
+        #region Export and Import file
         private void buttonExport_Click(object sender, RoutedEventArgs e)
         {
             //maybe this part shoud be change whith the main status of the MAIN WINDOWS
 
-            if (wSettings.status == StateToFile.Ready && statusBarInformation.status == StateToFile.Ready)
+            if (statusBarInformation.status == StateToFile.Ready)
             {
                 string path = wSettings.file.directory + textBoxProfileName.Text + " v" + wSettings.version + "." + extensionFiles.prf;
+                refreshData();
                 ExportingProfile(path);
-
             }
-            else
-            {
-                if (statusBarInformation.status == StateToFile.Ready)
-                {
-                    WindowsFunctions wfnc = new WindowsFunctions();
-
-                    string path = wfnc.folderBrowser();
-                    if (path != null)
-                    {
-                        ExportingProfile(path);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("You have to save the file before to try to export or define completely the current profile");
-
-                }
-            }
+            
         }
 
         private void ExportingProfile(string path)
@@ -418,9 +418,26 @@ namespace CadCamProject.Pages
                 WindowsFunctions wfnc = new WindowsFunctions();
                 PathDefinition path = new PathDefinition();
                 path = wfnc.fileBrowser("Profile file(prf)|*.prf");
+            int savedIndex = profileOperation.Index;
                 profileOperation = fnc.ReadFromBinaryFile<Profile>(path.GetFullName());
+            profileOperation.Index = savedIndex;
                 wfnc.animateProgressBar(progressBar, 1.5);
             fillingParameters();
         }
-    } 
+        #endregion
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            LineSegment line = new LineSegment();
+            ArcSegment arc = new ArcSegment();
+            arc.Point = new System.Windows.Point(500, 500);
+            arc.Size = new Size(50, 50);
+            arc.SweepDirection = SweepDirection.Clockwise;
+            line.Point = new System.Windows.Point(250, 250);
+
+            RealProfile.Segments.Add(arc);
+            RealProfile.Segments.Add(line);
+            
+        }
+    }
 }

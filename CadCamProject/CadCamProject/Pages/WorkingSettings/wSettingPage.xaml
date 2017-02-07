@@ -36,9 +36,9 @@
                     <TextBox x:Name="textBoxFinal_SZ" HorizontalAlignment="Left" Height="23" Margin="190,548,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Work offset" Height="24" VerticalAlignment="Top">
+            <TabItem Header="Work offset" Margin="-2,-2,0,2">
                 <Grid Background="White">
-                    <ListView x:Name="listViewWorkOffset" Margin="30,35,42,30" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionMode="Single">
+                    <ListView x:Name="listViewWorkOffset" Margin="30,35,27,30" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionMode="Single">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Description" Width="300">
@@ -100,7 +100,7 @@
             </TabItem>
             <TabItem Header="Tools Settings">
                 <Grid Background="White">
-                    <ListView x:Name="listViewToolSettings" Margin="30,35,42,30" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionMode="Single">
+                    <ListView x:Name="listViewToolSettings" Margin="30,35,27,30" ScrollViewer.HorizontalScrollBarVisibility="Hidden" SelectionMode="Single">
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn Header="Loc." Width="30" DisplayMemberBinding="{Binding Path=localization}"/>
@@ -112,10 +112,10 @@
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>
-                                <GridViewColumn Header="Tool Name" Width="230">
+                                <GridViewColumn Header="Tool Name" Width="200">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBox Text="{Binding Path=toolName}" Width="215"/>
+                                            <TextBox Text="{Binding Path=toolName}" Width="185"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>

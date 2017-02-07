@@ -23,7 +23,7 @@ namespace CadCamProject
         Error,
         Fail,
         Ready,
-        Without_Name,
+        MissingData,
         Exporting,
 
     }

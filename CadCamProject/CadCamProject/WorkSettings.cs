@@ -124,11 +124,11 @@ namespace CadCamProject
     
             GcodeArray = functions.GcodeArrayWorkOfset();
             Gcode =Gcode.G54;
-            Xpos = 543.231;
-            Ypos = 0.00;
-            Zpos = 285.235;
-            Spindle_1 = 0;
-            Spindle_2 = 0;
+            Xpos = 0.000;
+            Ypos = 0.000;
+            Zpos = 0.000;
+            Spindle_1 = 0.000;
+            Spindle_2 = 0.000;
         }
     }
     [Serializable]
