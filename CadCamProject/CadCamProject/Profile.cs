@@ -222,5 +222,12 @@ namespace CadCamProject
         }
     }
 
+    public class ProfilePath
+    {
 
+        public ProfilePath(List<Geometry> geometry)
+        {
+           
+        }
+    }
 }
