@@ -84,7 +84,12 @@ namespace CadCamProject
         Round,
         Chamfer,
     }
-   
+    
+    public enum TypeGeometry
+    {
+        Line,
+        Arc,
+    }
 
     public enum ReferenceToolDirection
     {
@@ -122,7 +127,7 @@ namespace CadCamProject
 
     public enum WorkingPlane
     {
-        XZ,
+        ZX,
         XY,
     }
     public enum LabelCoordinate

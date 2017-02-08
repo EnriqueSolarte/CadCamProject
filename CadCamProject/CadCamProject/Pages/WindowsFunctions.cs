@@ -79,7 +79,7 @@ namespace CadCamProject.Pages
             WorkingPlane[] strArray =
             {
               WorkingPlane.XY,
-              WorkingPlane.XZ,
+              WorkingPlane.ZX,
             };
             return strArray;
         }

@@ -29,16 +29,16 @@ namespace CadCamProject
         public Gcode workOffset { get; set; }
         public WorkingPlane workingPlane { get; set; }
         public List<Geometry> geometry { get; set; }
-        
+        public Drawing drawing { get; set; }
 
         public Profile()
         {
             TypeImagineOperation = "/Images/Profile.png";
             TypeOperation = Operations.Profile;
-            workingPlane = WorkingPlane.XZ;
+            workingPlane = WorkingPlane.ZX;
             workOffsetIndex = 0;
             geometry = new List<Geometry>();
-           
+            drawing = new Drawing(new Point(750, 330));
             
             dataContent = "vamos por buen camino kikin";
         }
@@ -84,6 +84,7 @@ namespace CadCamProject
 
     }
 
+    #region Class Geometry Transition Arc Line Point
     [Serializable]
     public class Geometry
     {
@@ -120,6 +121,12 @@ namespace CadCamProject
 
             
         }
+
+        public Geometry()
+        {
+            line = new Line();
+            arc = new Arc();
+        }
     }
 
     [Serializable]
@@ -153,6 +160,11 @@ namespace CadCamProject
             finalPoint = new CoordinatePoint();
             centerPoint = new CoordinatePoint();
             radius = 0.000;
+
+            arcSegment = new ArcSegment();
+            arcSegment.Point = finalPoint.ToPoint();
+            arcSegment.Size = GetSize();
+            arcSegment.SweepDirection = GetSweepDirection();
         }
 
         public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double _radius, ArcDirection _arcDirection)
@@ -256,7 +268,7 @@ namespace CadCamProject
         {
             coord1 = 0.00;
             coord2 = 0.00;
-            point = new Point(coord1, coord2);
+            point = new Point(coord2, coord1);
         }
     
 
@@ -264,15 +276,69 @@ namespace CadCamProject
         {
             coord1 = _coord1;
             coord2 = _coord2;
-            point = new Point(coord1, coord2);
+            point = new Point(coord2, coord1);
         }
 
         public Point ToPoint()
         {
-            point = new Point(coord1, coord2);
+            point = new Point(coord2, coord1);
             return point;
         }
     }
+    #endregion
 
-    
+    [Serializable]
+    public class Drawing
+    {
+        public Point Startpoint { get; set; }
+        public List<Geometry> drawingGeometry { get; set; }
+        public double scale { get; set; }
+
+        public Drawing(Point point)
+        {
+            Startpoint = point;
+            drawingGeometry = new List<Geometry>();
+            scale = 2;
+        }
+
+        internal void DrawPath(List<Geometry> geometry)
+        {
+            int count = geometry.Count;
+            drawingGeometry.Clear();
+            for (int i = 0; i < count; i++)
+            {
+                if (geometry[i].transition.enableTransition)
+                {
+
+                }
+                else
+                {
+                    drawingGeometry.Add(GetDataDrawing(geometry[i]));
+                }
+            }
+        }
+
+        private Geometry GetDataDrawing(Geometry geometry)
+        {
+            Geometry _geometry = new Geometry() ;
+
+            if(geometry.typeGeometry.Name == TypeGeometry.Line.ToString())
+            {
+                
+                _geometry.typeGeometry = _geometry.line.GetType(); 
+                _geometry.line.lineSegment.Point = Point.Add(new Point(scale* geometry.line.lineSegment.Point.X, -1* scale * geometry.line.lineSegment.Point.Y), ((Vector)Startpoint));
+                
+            }
+            else
+            {
+                _geometry.typeGeometry = _geometry.arc.GetType();
+                _geometry.arc.arcSegment.Point = Point.Add(new Point(scale * geometry.arc.arcSegment.Point.X, -1 * scale * geometry.arc.arcSegment.Point.Y), ((Vector)Startpoint));
+                _geometry.arc.arcSegment.Size = new Size(scale * geometry.arc.radius, scale * geometry.arc.radius);
+                _geometry.arc.arcSegment.SweepDirection = geometry.arc.arcSegment.SweepDirection;
+            }
+
+            return _geometry;
+        }
+    }
+
 }
