@@ -74,12 +74,12 @@ namespace CadCamProject.Pages
             return strArray;
         }
 
-        public wPlane[] wPlaneArray()
+        public WorkingPlane[] wPlaneArray()
         {
-            wPlane[] strArray =
+            WorkingPlane[] strArray =
             {
-              wPlane.XY,
-              wPlane.XZ,
+              WorkingPlane.XY,
+              WorkingPlane.XZ,
             };
             return strArray;
         }

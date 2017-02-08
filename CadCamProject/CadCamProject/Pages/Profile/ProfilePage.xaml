@@ -58,7 +58,7 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID" Width="30" DisplayMemberBinding="{Binding Path=id}"/>
-                        <GridViewColumn Header="Geometry" Width="60" DisplayMemberBinding="{Binding Path=typeGeometry}"/>
+                        <GridViewColumn Header="Geometry" Width="60" DisplayMemberBinding="{Binding Path=typeGeometry.Name}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -66,10 +66,10 @@
                 <Path.Data>
                     <PathGeometry>
                         <PathGeometry.Figures>
-                            <PathFigure x:Name="RealProfile" StartPoint="920,330" IsClosed="False">
+                            <PathFigure x:Name="ProfilePath" StartPoint="920,330" IsClosed="False">
                                 <LineSegment Point="920,280"></LineSegment>
                             </PathFigure>
-                            
+
 
                         </PathGeometry.Figures>
                     </PathGeometry>
@@ -109,9 +109,8 @@
         </Viewbox>
         <Viewbox x:Name="wTransitionParameters" Margin="25,493,126,114" Grid.Row="1" Stretch="Fill">
             <Grid Height="53" Width="144">
-                <ComboBox x:Name="comboBoxTransitionNext" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Height="22" RenderTransformOrigin="0.516,5.364" SelectionChanged="comboBoxTransitionNext_SelectionChanged" Margin="0,33,0,-2"/>
-                <Label x:Name="labelTransitionParameter" Content="R" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="39" Margin="0,60,0,-33"/>
-                <TextBox x:Name="textBoxValueTransitionParameter" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="39,60,0,-30" Text="0.000"/>
+                <ComboBox x:Name="comboBoxTransitionNext" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="23" RenderTransformOrigin="0.516,5.364" Margin="0,32,0,-2"/>
+                <TextBox x:Name="textBoxValueTransitionParameter" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" Margin="104,32,-40,-2" Text="0.000"/>
             </Grid>
         </Viewbox>
         <Button x:Name="buttonDefineGeometry" Content="Define" Margin="25,0,150,25" Grid.Row="1" Height="20" VerticalAlignment="Bottom" Click="buttonDefineGeometry_Click"/>

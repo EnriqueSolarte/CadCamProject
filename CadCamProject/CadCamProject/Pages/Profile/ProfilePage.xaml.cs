@@ -101,7 +101,7 @@ namespace CadCamProject.Pages
             int indexWO = comboBoxWorkOffsets.SelectedIndex;
             profileOperation.workOffset = wSettings.workOffsets[indexWO].Gcode;
             profileOperation.workOffsetIndex = indexWO;
-            profileOperation.workingPlane = (wPlane)comboBoxWorkingPlane.SelectedItem;
+            profileOperation.workingPlane = (WorkingPlane)comboBoxWorkingPlane.SelectedItem;
             profileOperation.Parameters = profileOperation.ShowingParameters(profileOperation);
 
         }
@@ -203,17 +203,7 @@ namespace CadCamProject.Pages
             CheckingDefinitionGeometry();
         }
 
-        private void comboBoxTransitionNext_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if ((TypeTransitionGeometry)comboBoxTransitionNext.SelectedItem == TypeTransitionGeometry.Round)
-            {
-                labelTransitionParameter.Content = TransitionParameter.Rnd;
-            }
-            else
-            {
-                labelTransitionParameter.Content = TransitionParameter.Chm;
-            }
-        }
+       
         private void checkBoxTransitionNext_Clicked(object sender, RoutedEventArgs e)
         {
             wTransitionParameters.IsEnabled = (bool)checkBoxTransitionNext.IsChecked;
@@ -223,7 +213,7 @@ namespace CadCamProject.Pages
         {
             CheckingDefinitionGeometry();
 
-            if ((wPlane)comboBoxWorkingPlane.SelectedItem == wPlane.XY)
+            if ((WorkingPlane)comboBoxWorkingPlane.SelectedItem == WorkingPlane.XY)
             {
                 labelInitialCoord1.Content = labelFinalCoord1.Content = LabelCoordinate.X;
                 labelInitialCoord2.Content = labelFinalCoord2.Content = LabelCoordinate.Y;
@@ -272,19 +262,19 @@ namespace CadCamProject.Pages
             {
                 //Geometry type Arc
                 Arc arc = GettingArc();
-                geometry = new Geometry(arc, transition, TypeGeometry.Arc, profileOperation.geometry.Count);
+                geometry = new Geometry(arc, transition, profileOperation.geometry.Count);
                 profileOperation.geometry.Add(geometry);
             }
             else
             {
                 //Geometry type Line
                 Line line = GeetingLine();
-                geometry = new Geometry(line, transition, TypeGeometry.Line, profileOperation.geometry.Count);
+                geometry = new Geometry(line, transition, profileOperation.geometry.Count);
                 profileOperation.geometry.Add(geometry);
             }
             listViewGeometries.Items.Refresh();
-            DrawGeometry(geometry);
-            settingIntialGeometryPoint();
+            
+            settingIntialGeometryPoint(); //get the initial point for the next geometry
         }
 
         private void settingIntialGeometryPoint()
@@ -314,9 +304,10 @@ namespace CadCamProject.Pages
             }
         }
 
-        private void DrawGeometry(Geometry geometry)
+        private void DrawGeometry()
         {
-            //Draw the geometry defined in event buttom define 
+          
+           
         }
 
         private Line GeetingLine()
@@ -363,6 +354,7 @@ namespace CadCamProject.Pages
             transition.typeTransition = (TypeTransitionGeometry)comboBoxTransitionNext.SelectedItem;
             double.TryParse(textBoxValueTransitionParameter.Text, out transitionParameter);
             transition.parameter = transitionParameter;
+            transition.enableTransition = checkBoxTransitionNext.IsChecked.Value;
             return transition;
         }
        
@@ -418,11 +410,14 @@ namespace CadCamProject.Pages
                 WindowsFunctions wfnc = new WindowsFunctions();
                 PathDefinition path = new PathDefinition();
                 path = wfnc.fileBrowser("Profile file(prf)|*.prf");
-            int savedIndex = profileOperation.Index;
+            if (path.GetFullName() != "")
+            {
+                int savedIndex = profileOperation.Index;
                 profileOperation = fnc.ReadFromBinaryFile<Profile>(path.GetFullName());
-            profileOperation.Index = savedIndex;
+                profileOperation.Index = savedIndex;
                 wfnc.animateProgressBar(progressBar, 1.5);
-            fillingParameters();
+                fillingParameters();
+            }
         }
         #endregion
 
@@ -434,10 +429,24 @@ namespace CadCamProject.Pages
             arc.Size = new Size(50, 50);
             arc.SweepDirection = SweepDirection.Clockwise;
             line.Point = new System.Windows.Point(250, 250);
-
-            RealProfile.Segments.Add(arc);
-            RealProfile.Segments.Add(line);
             
+
+            ProfilePath.Segments.Add(arc);
+
+            
+
+            Vector vbase = new Vector(10, 0);
+            Vector vector2 = new Vector(10, 10);
+            Vector vector1 = new Vector(0, 10);
+
+            double a = Vector.AngleBetween(vbase, vector1);
+            double a2 = Vector.AngleBetween(vbase, vector2);
+            double x = (a + a2)/2;
+            double l = 2.5*1/(Math.Tan(x * Math.PI / 180));
+            vector2.Normalize();
+            Vector test = Vector.Multiply(l, vector2);
+
         }
+        
     }
 }

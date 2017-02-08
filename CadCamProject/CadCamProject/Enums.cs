@@ -57,12 +57,6 @@ namespace CadCamProject
         M5,
     }
 
-    public enum wPlane
-    {
-        XZ,
-        XY,
-    }
-
     public enum ArcDirection
     {
         CW,
@@ -90,11 +84,7 @@ namespace CadCamProject
         Round,
         Chamfer,
     }
-    public enum TransitionParameter
-    {
-        Rnd,
-        Chm,
-    }
+   
 
     public enum ReferenceToolDirection
     {
@@ -145,9 +135,5 @@ namespace CadCamProject
         K,
     }
 
-    public enum TypeGeometry
-    {
-        Line,
-        Arc,
-    }
+    
 }
