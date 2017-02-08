@@ -20,7 +20,7 @@ namespace CadCamProject
         public int Index { get; set; }
         public string dataContent { get; set; }
         public string version { get; set; }
-        
+
 
 
         //Specific parameters
@@ -29,7 +29,7 @@ namespace CadCamProject
         public Gcode workOffset { get; set; }
         public WorkingPlane workingPlane { get; set; }
         public List<Geometry> geometry { get; set; }
-        
+       
 
         public Profile()
         {
@@ -38,7 +38,7 @@ namespace CadCamProject
             workingPlane = WorkingPlane.ZX;
             workOffsetIndex = 0;
             geometry = new List<Geometry>();
-           
+            
             
             dataContent = "vamos por buen camino kikin";
         }
@@ -273,65 +273,69 @@ namespace CadCamProject
 
         public Point ToPoint()
         {
+            point = new Point(coord2, coord1);
             return point;
         }
         
     }
     #endregion
 
-
+    
     public class Drawing
     {
-        public Point Startpoint { get; set; }
-        public List<Geometry> drawingGeometry { get; set; }
-        public double scale { get; set; }
+        public Point startPoint { get; }
+        public double scale { get;}
+        public LineSegment line { get; }
+        public ArcSegment Arc { get;}
+        public Type type { get; }
+        public List<Drawing> listDrawing { get; set; }
+       
 
-        public Drawing(Point point)
+        public Drawing(List<Geometry> geometry,Point _startPoint, double _scale)
         {
-            Startpoint = point;
-            drawingGeometry = new List<Geometry>();
-            scale = 2;
-        }
+            listDrawing = new List<Drawing>();
+            startPoint = _startPoint;
+            scale = _scale;
 
-        internal void DrawPath(List<Geometry> geometry)
-        {
-            int count = geometry.Count;
-            drawingGeometry.Clear();
-            for (int i = 0; i < count; i++)
+            foreach(Geometry _geometry in geometry)
             {
-                if (geometry[i].transition.enableTransition)
+               
+                if (_geometry.transition.enableTransition)
                 {
+                    //With transition 
 
-                }
-                else
+                }else
                 {
-                    drawingGeometry.Add(GetDataDrawing(geometry[i]));
+                    //Without transition
+                    Drawing draw = new Drawing(_geometry.typeGeometry);
+                    if (_geometry.typeGeometry.Name == TypeGeometry.Line.ToString())
+                    {
+                        
+                        draw.line.Point = Point.Add(new Point(scale*_geometry.line.finalPoint.ToPoint().X,
+                                                              -1*scale*_geometry.line.finalPoint.ToPoint().Y), 
+                                                              (Vector)startPoint);
+                    }else
+                    {
+                     
+                        draw.Arc.Point = Point.Add(new Point(scale*_geometry.arc.finalPoint.ToPoint().X,
+                                                             -1*scale*_geometry.arc.finalPoint.ToPoint().Y),
+                                                              (Vector)startPoint);
+                        draw.Arc.Size = _geometry.arc.GetSize();
+                        draw.Arc.SweepDirection = _geometry.arc.GetSweepDirection();
+                    }
+                    listDrawing.Add(draw);
                 }
+
             }
+
         }
 
-        private Geometry GetDataDrawing(Geometry geometry)
+        public Drawing(Type _type)
         {
-            Geometry _geometry = new Geometry() ;
-
-            //if(geometry.typeGeometry.Name == TypeGeometry.Line.ToString())
-            //{
-                
-            //    _geometry.typeGeometry = _geometry.line.GetType(); 
-            //    _geometry.line.lineSegment.Point = Point.Add(new Point(scale* geometry.line.lineSegment.Point.X, -1* scale * geometry.line.lineSegment.Point.Y), ((Vector)Startpoint));
-                
-            //}
-            //else
-            //{
-            //    _geometry.typeGeometry = _geometry.arc.GetType();
-            //    _geometry.arc.arcSegment.Point = Point.Add(new Point(scale * geometry.arc.arcSegment.Point.X, -1 * scale * geometry.arc.arcSegment.Point.Y), ((Vector)Startpoint));
-            //    _geometry.arc.arcSegment.Size = new Size(scale * geometry.arc.radius, scale * geometry.arc.radius);
-            //    _geometry.arc.arcSegment.SweepDirection = geometry.arc.arcSegment.SweepDirection;
-            //}
-
-            return _geometry;
+            line = new LineSegment();
+            Arc = new ArcSegment();
+            type = _type;
         }
-        //
     }
 
 
