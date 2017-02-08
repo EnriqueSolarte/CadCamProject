@@ -307,22 +307,22 @@ namespace CadCamProject.Pages
 
         private void DrawGeometry()
         {
-            ProfilePath.StartPoint = profileOperation.drawing.Startpoint;
-            ProfilePath.Segments.Clear();
+            //ProfilePath.StartPoint = profileOperation.drawing.Startpoint;
+            //ProfilePath.Segments.Clear();
 
-            profileOperation.drawing.DrawPath(profileOperation.geometry);
+            //profileOperation.drawing.DrawPath(profileOperation.geometry);
           
-            int count = profileOperation.drawing.drawingGeometry.Count;
-            for (int i=0; i < count; i++)
-            {
-                if (profileOperation.drawing.drawingGeometry[i].typeGeometry.Name == TypeGeometry.Line.ToString())
-                {
-                    ProfilePath.Segments.Add(profileOperation.drawing.drawingGeometry[i].line.lineSegment);
-                }else
-                {
-                    ProfilePath.Segments.Add(profileOperation.drawing.drawingGeometry[i].arc.arcSegment);
-                }
-            }
+            //int count = profileOperation.drawing.drawingGeometry.Count;
+            //for (int i=0; i < count; i++)
+            //{
+            //    if (profileOperation.drawing.drawingGeometry[i].typeGeometry.Name == TypeGeometry.Line.ToString())
+            //    {
+            //        ProfilePath.Segments.Add(profileOperation.drawing.drawingGeometry[i].line.lineSegment);
+            //    }else
+            //    {
+            //        ProfilePath.Segments.Add(profileOperation.drawing.drawingGeometry[i].arc.arcSegment);
+            //    }
+            //}
 
         }
 

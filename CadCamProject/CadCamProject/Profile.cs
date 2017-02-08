@@ -29,7 +29,7 @@ namespace CadCamProject
         public Gcode workOffset { get; set; }
         public WorkingPlane workingPlane { get; set; }
         public List<Geometry> geometry { get; set; }
-        public Drawing drawing { get; set; }
+        
 
         public Profile()
         {
@@ -38,7 +38,7 @@ namespace CadCamProject
             workingPlane = WorkingPlane.ZX;
             workOffsetIndex = 0;
             geometry = new List<Geometry>();
-            drawing = new Drawing(new Point(750, 330));
+           
             
             dataContent = "vamos por buen camino kikin";
         }
@@ -148,8 +148,9 @@ namespace CadCamProject
         public double radius { get; set; }
         public ArcDirection arcDirection { get; set; }
 
+
     
-        public ArcSegment arcSegment { get; set; }
+        
         
         public Arc()
         {
@@ -161,10 +162,7 @@ namespace CadCamProject
             centerPoint = new CoordinatePoint();
             radius = 0.000;
 
-            arcSegment = new ArcSegment();
-            arcSegment.Point = finalPoint.ToPoint();
-            arcSegment.Size = GetSize();
-            arcSegment.SweepDirection = GetSweepDirection();
+            
         }
 
         public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double _radius, ArcDirection _arcDirection)
@@ -179,10 +177,7 @@ namespace CadCamProject
 
             centerPoint = gettingArcParameters(initialPoint, finalPoint, radius);
 
-            arcSegment = new ArcSegment();
-            arcSegment.Point = finalPoint.ToPoint();
-            arcSegment.Size = GetSize();
-            arcSegment.SweepDirection = GetSweepDirection();
+           
         }
 
         public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double center_coord1, double center_coord2, ArcDirection _arcDirection)
@@ -196,10 +191,7 @@ namespace CadCamProject
 
             radius = gettingArcParameters(initialPoint, finalPoint, centerPoint);
 
-            arcSegment = new ArcSegment();
-            arcSegment.Point = finalPoint.ToPoint();
-            arcSegment.Size = GetSize();
-            arcSegment.SweepDirection = GetSweepDirection();
+          
         }
 
         private double gettingArcParameters(CoordinatePoint initialPoint, CoordinatePoint finalPoint, CoordinatePoint centerPoint)
@@ -237,23 +229,23 @@ namespace CadCamProject
     {
         public CoordinatePoint initialPoint { get; set; }
         public CoordinatePoint finalPoint { get; set; }
-        public LineSegment lineSegment { get; set; }
+      
 
         public Line()
         {
-            lineSegment = new LineSegment();
+            
             initialPoint = new CoordinatePoint();
             finalPoint = new CoordinatePoint();
-            lineSegment.Point = finalPoint.ToPoint();
+           
         }
 
         public Line(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2)
         {
-            lineSegment = new LineSegment();
+         
             initialPoint = new CoordinatePoint(initial_coord1, initial_coord2);
             finalPoint = new CoordinatePoint(final_coord1, final_coord2);
 
-            lineSegment.Point = finalPoint.ToPoint();
+            
         }
     }
 
@@ -262,7 +254,7 @@ namespace CadCamProject
     {
         public double coord1 { get; set; }
         public double coord2 { get; set; }
-        private Point point { get; set; }
+        private Point point { get; set; } 
 
         public CoordinatePoint()
         {
@@ -281,14 +273,13 @@ namespace CadCamProject
 
         public Point ToPoint()
         {
-            point = new Point(coord2, coord1);
             return point;
         }
+        
     }
     #endregion
 
 
-    [Serializable]
     public class Drawing
     {
         public Point Startpoint { get; set; }
@@ -323,20 +314,20 @@ namespace CadCamProject
         {
             Geometry _geometry = new Geometry() ;
 
-            if(geometry.typeGeometry.Name == TypeGeometry.Line.ToString())
-            {
+            //if(geometry.typeGeometry.Name == TypeGeometry.Line.ToString())
+            //{
                 
-                _geometry.typeGeometry = _geometry.line.GetType(); 
-                _geometry.line.lineSegment.Point = Point.Add(new Point(scale* geometry.line.lineSegment.Point.X, -1* scale * geometry.line.lineSegment.Point.Y), ((Vector)Startpoint));
+            //    _geometry.typeGeometry = _geometry.line.GetType(); 
+            //    _geometry.line.lineSegment.Point = Point.Add(new Point(scale* geometry.line.lineSegment.Point.X, -1* scale * geometry.line.lineSegment.Point.Y), ((Vector)Startpoint));
                 
-            }
-            else
-            {
-                _geometry.typeGeometry = _geometry.arc.GetType();
-                _geometry.arc.arcSegment.Point = Point.Add(new Point(scale * geometry.arc.arcSegment.Point.X, -1 * scale * geometry.arc.arcSegment.Point.Y), ((Vector)Startpoint));
-                _geometry.arc.arcSegment.Size = new Size(scale * geometry.arc.radius, scale * geometry.arc.radius);
-                _geometry.arc.arcSegment.SweepDirection = geometry.arc.arcSegment.SweepDirection;
-            }
+            //}
+            //else
+            //{
+            //    _geometry.typeGeometry = _geometry.arc.GetType();
+            //    _geometry.arc.arcSegment.Point = Point.Add(new Point(scale * geometry.arc.arcSegment.Point.X, -1 * scale * geometry.arc.arcSegment.Point.Y), ((Vector)Startpoint));
+            //    _geometry.arc.arcSegment.Size = new Size(scale * geometry.arc.radius, scale * geometry.arc.radius);
+            //    _geometry.arc.arcSegment.SweepDirection = geometry.arc.arcSegment.SweepDirection;
+            //}
 
             return _geometry;
         }
