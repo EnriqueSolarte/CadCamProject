@@ -287,6 +287,7 @@ namespace CadCamProject
     }
     #endregion
 
+
     [Serializable]
     public class Drawing
     {
@@ -340,5 +341,6 @@ namespace CadCamProject
             return _geometry;
         }
     }
+
 
 }
