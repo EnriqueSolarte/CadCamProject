@@ -260,7 +260,7 @@ namespace CadCamProject
         {
             coord1 = 0.00;
             coord2 = 0.00;
-            point = new Point(coord2, coord1);
+            point = new Point(coord2, -coord1);
         }
     
 
@@ -268,12 +268,12 @@ namespace CadCamProject
         {
             coord1 = _coord1;
             coord2 = _coord2;
-            point = new Point(coord2, coord1);
+            point = new Point(coord2, -coord1);
         }
 
         public Point ToPoint()
         {
-            point = new Point(coord2, coord1);
+            point = new Point(coord2, -coord1);
             return point;
         }
         
@@ -283,51 +283,263 @@ namespace CadCamProject
     
     public class Drawing
     {
-        public Point startPoint { get; }
-        public double scale { get;}
+        public Point ProfileStartPoint { get; }
+        public Point StockStartPoint { get; }
+        public Point A_ChuckStartPoint { get; }
+        public Point B_ChuckStartPoint { get; }
+        public double scale { get; }
+        public double scaleOrigin { get;}
+
         public LineSegment line { get; }
         public ArcSegment Arc { get;}
         public Type type { get; }
-        public List<Drawing> listDrawing { get; set; }
+        public List<Drawing> listProfileDrawing { get; }
+        public List<LineSegment> listExtStockDrawing { get; }
+        public List<LineSegment> listIntStockDrawing { get; }
+        public List<LineSegment> list_A_ChuckDrawing { get; }
+        public List<LineSegment> list_B_ChuckDrawing { get; }
+
+        private double chuckWidth { get; }
+        private double chuckHight { get; }
+        public string scaleLabel { get; }
+
+        private double drawExternalDiameter { get; }
+        private double drawInternalDiameter { get; }
+        private double drawLenthStock{ get; }
+        private double drawPositionChuck { get; }
        
 
-        public Drawing(List<Geometry> geometry,Point _startPoint, double _scale)
+        public Drawing(BlackStock stock)
         {
-            listDrawing = new List<Drawing>();
-            startPoint = _startPoint;
-            scale = _scale;
+            Point middlePoint = new Point(485, 330);
+            double _chuckWidth = 40;
+            double lenthZ = stock.initialPosition - stock.finalPosition;
 
-            foreach(Geometry _geometry in geometry)
+            scale = GetScale(lenthZ, stock.externalDiameter+_chuckWidth,650);
+            scaleLabel = "1:" + (Math.Pow(scale,-1)*10).ToString("0.000") + "mm";
+
+
+            chuckWidth = 40* scale;
+            chuckHight = 0.5*chuckWidth;
+            drawLenthStock = scale * lenthZ;
+            drawInternalDiameter = scale * stock.internalDiameter;
+            drawExternalDiameter = scale * stock.externalDiameter;
+            drawPositionChuck = scale * (stock.initialPosition - stock.splindleLimit);
+            
+            scaleOrigin = scale;
+
+            ProfileStartPoint = new Point(middlePoint.X + drawLenthStock / 2 - scale * stock.initialPosition, middlePoint.Y);
+            StockStartPoint = new Point(middlePoint.X + drawLenthStock / 2, middlePoint.Y);
+            B_ChuckStartPoint = new Point((middlePoint.X + drawLenthStock / 2) - drawPositionChuck, middlePoint.Y + drawExternalDiameter / 2);
+            A_ChuckStartPoint = new Point((middlePoint.X + drawLenthStock / 2) - drawPositionChuck, middlePoint.Y - drawExternalDiameter / 2);
+
+
+            listProfileDrawing = new List<Drawing>();
+           
+            listExtStockDrawing = new List<LineSegment>();
+            listIntStockDrawing = new List<LineSegment>();
+            SetListStockDrawing();
+
+            list_A_ChuckDrawing = new List<LineSegment>();
+            list_B_ChuckDrawing = new List<LineSegment>();
+            SetListChickDrawing();
+        }
+
+        private void SetListChickDrawing()
+        {
+            #region Chuck A
+            {
+                LineSegment line = new LineSegment();
+                line.Point = new Point(A_ChuckStartPoint.X, A_ChuckStartPoint.Y- chuckHight);
+                list_A_ChuckDrawing.Add(line);
+            }
+            {
+                LineSegment line = new LineSegment();
+                line.Point = new Point(A_ChuckStartPoint.X - chuckWidth, A_ChuckStartPoint.Y - chuckHight);
+                list_A_ChuckDrawing.Add(line);
+            }
+            {
+                LineSegment line = new LineSegment();
+                line.Point = new Point(A_ChuckStartPoint.X-chuckWidth, A_ChuckStartPoint.Y);
+                list_A_ChuckDrawing.Add(line);
+            }
+      
+            #endregion
+
+            #region Chuck B
+            {
+                LineSegment line = new LineSegment();
+                line.Point = new Point(B_ChuckStartPoint.X, B_ChuckStartPoint.Y + chuckHight);
+                list_B_ChuckDrawing.Add(line);
+            }
+            {
+                LineSegment line = new LineSegment();
+                line.Point = new Point(B_ChuckStartPoint.X - chuckWidth, B_ChuckStartPoint.Y + chuckHight);
+                list_B_ChuckDrawing.Add(line);
+            }
+            {
+                LineSegment line = new LineSegment();
+                line.Point = new Point(B_ChuckStartPoint.X - chuckWidth, B_ChuckStartPoint.Y);
+                list_B_ChuckDrawing.Add(line);
+            }
+            #endregion
+        }
+
+        private void SetListStockDrawing()
+        {
+            #region External Stock
+            {
+                LineSegment line = new LineSegment();
+                line.Point = new Point(StockStartPoint.X, StockStartPoint.Y + drawExternalDiameter / 2);
+                listExtStockDrawing.Add(line);
+            }
+            {
+                LineSegment line = new LineSegment();
+                line.Point = new Point(StockStartPoint.X - drawLenthStock, StockStartPoint.Y + drawExternalDiameter / 2);
+                listExtStockDrawing.Add(line);
+            }
+            {
+                LineSegment line = new LineSegment();
+                line.Point = new Point(StockStartPoint.X - drawLenthStock, StockStartPoint.Y - drawExternalDiameter / 2);
+                listExtStockDrawing.Add(line);
+            }
+            {
+                LineSegment line = new LineSegment();
+                line.Point = new Point(StockStartPoint.X, StockStartPoint.Y - drawExternalDiameter / 2);
+                listExtStockDrawing.Add(line);
+            }
+            #endregion
+
+            #region Internal Stock
+            if (drawInternalDiameter != 0)
+            {
+                {
+                    LineSegment line = new LineSegment();
+                    line.Point = new Point(StockStartPoint.X, StockStartPoint.Y + drawInternalDiameter / 2);
+                    listIntStockDrawing.Add(line);
+                }
+                {
+                    LineSegment line = new LineSegment();
+                    line.Point = new Point(StockStartPoint.X - drawLenthStock, StockStartPoint.Y + drawInternalDiameter / 2);
+                    listIntStockDrawing.Add(line);
+                }
+                {
+                    LineSegment line = new LineSegment();
+                    line.Point = new Point(StockStartPoint.X - drawLenthStock, StockStartPoint.Y - drawInternalDiameter / 2);
+                    listIntStockDrawing.Add(line);
+                }
+                {
+                    LineSegment line = new LineSegment();
+                    line.Point = new Point(StockStartPoint.X, StockStartPoint.Y - drawInternalDiameter / 2);
+                    listIntStockDrawing.Add(line);
+                }
+            }
+            #endregion
+        }
+
+        private double GetScale(double lenthZ, double externalDiameter,double ratio)
+        {
+            double _scale;
+            if(lenthZ > externalDiameter)
+            {
+                _scale = ratio / lenthZ;
+            }else
+            {
+                _scale = ratio*0.9/ externalDiameter;
+            }
+
+         
+            return _scale;
+        }
+
+        public void SetListProfileDrawing(List<Geometry> geometry, WorkingPlane wPlane)
+        {
+            double cX;
+            double cY;
+            if (wPlane == WorkingPlane.ZX)
+            {
+                 cX = 1;
+                 cY = 0.5;
+            }else
+            {
+                 cX = 1;
+                 cY = 1;
+            }
+
+            listProfileDrawing.Clear();
+            foreach (Geometry _geometry in geometry)
             {
                
                 if (_geometry.transition.enableTransition)
                 {
-                    //With transition 
+                    #region With transition
 
-                }else
-                {
-                    //Without transition
-                    Drawing draw = new Drawing(_geometry.typeGeometry);
-                    if (_geometry.typeGeometry.Name == TypeGeometry.Line.ToString())
+                    int nextIndex=0;
+                    if (_geometry.id + 1 < geometry.Count)
                     {
-                        
-                        draw.line.Point = Point.Add(new Point(scale*_geometry.line.finalPoint.ToPoint().X,
-                                                              -1*scale*_geometry.line.finalPoint.ToPoint().Y), 
-                                                              (Vector)startPoint);
-                    }else
-                    {
-                     
-                        draw.Arc.Point = Point.Add(new Point(scale*_geometry.arc.finalPoint.ToPoint().X,
-                                                             -1*scale*_geometry.arc.finalPoint.ToPoint().Y),
-                                                              (Vector)startPoint);
-                        draw.Arc.Size = _geometry.arc.GetSize();
-                        draw.Arc.SweepDirection = _geometry.arc.GetSweepDirection();
+                        nextIndex = _geometry.id + 1;
                     }
-                    listDrawing.Add(draw);
+
+                    if (nextIndex != 0)
+                    {
+                        Drawing draw = DrawingWithOutTransition(cX, cY, _geometry);
+                        listProfileDrawing.Add(draw);
+                    }
+                    else
+                    {
+                        Drawing draw = new Drawing(_geometry.typeGeometry);
+                        if (_geometry.typeGeometry.Name == TypeGeometry.Line.ToString())
+                        {
+                            Vector vbase = new Vector(_geometry.initialPosition.coord2, _geometry.initialPosition.coord1);
+                            Vector vector_curr = new Vector(_geometry.finalPosition.coord2, _geometry.finalPosition.coord1);
+                            Vector vector_next = new Vector(geometry[nextIndex].finalPosition.coord2, geometry[nextIndex].finalPosition.coord1);
+
+
+
+                        }
+                        else
+                        {
+
+                           
+                        }
+                    }
+                       
+                   
+                    #endregion
+                    
+
+
+                }
+                else
+                {
+                    Drawing draw = DrawingWithOutTransition(cX, cY, _geometry);
+                    listProfileDrawing.Add(draw);
                 }
 
             }
 
+        }
+
+        private Drawing DrawingWithOutTransition(double cX, double cY, Geometry _geometry)
+        {
+            #region Without transition
+            Drawing draw = new Drawing(_geometry.typeGeometry);
+            if (_geometry.typeGeometry.Name == TypeGeometry.Line.ToString())
+            {
+
+                draw.line.Point = new Point(cX * scale * _geometry.line.finalPoint.ToPoint().X + ProfileStartPoint.X,
+                                             cY * scale * _geometry.line.finalPoint.ToPoint().Y + ProfileStartPoint.Y);
+            }
+            else
+            {
+
+                draw.Arc.Point = new Point(cX * scale * _geometry.arc.finalPoint.ToPoint().X + ProfileStartPoint.X,
+                                             cY * scale * _geometry.arc.finalPoint.ToPoint().Y + ProfileStartPoint.Y);
+                draw.Arc.Size = new Size(_geometry.arc.GetSize().Height * scale, _geometry.arc.GetSize().Width * scale);
+                draw.Arc.SweepDirection = _geometry.arc.GetSweepDirection();
+            }
+            #endregion
+            return draw;
         }
 
         public Drawing(Type _type)
@@ -335,6 +547,12 @@ namespace CadCamProject
             line = new LineSegment();
             Arc = new ArcSegment();
             type = _type;
+        }
+
+        public Drawing()
+        {
+            line = new LineSegment();
+            Arc = new ArcSegment();
         }
     }
 

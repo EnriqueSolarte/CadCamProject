@@ -180,7 +180,7 @@ namespace CadCamProject
 
     }
     [Serializable]
-    class BlackStock
+    public class BlackStock
     {
         public double externalDiameter { get; set; }
         public double internalDiameter { get; set; }
@@ -194,8 +194,10 @@ namespace CadCamProject
             internalDiameter = 0.000;
             initialPosition = 0.000;
             finalPosition = -80.000;
-            splindleLimit = 10.000;
+            splindleLimit = -50.000;
     }
+        
+
 }
 
     

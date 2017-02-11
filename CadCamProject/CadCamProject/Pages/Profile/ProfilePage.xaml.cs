@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,6 +28,8 @@ namespace CadCamProject.Pages
         StatusBar statusBarInformation;
         SpecialChart specialChart;
         WorkSettings wSettings;
+        Drawing drawing;
+       
 
         public ProfilePage(Main main, int index)
         {
@@ -41,6 +44,93 @@ namespace CadCamProject.Pages
             wSettings = wSettings.GetParameters(MainPage);
 
             fillingParameters();
+
+            drawing = new Drawing(wSettings.stock);
+            SetUpDrawing();
+        }
+
+        private void SetUpDrawing()
+        {
+            labelScale.Content = drawing.scaleLabel;
+            SettingOriginDraw(drawing.ProfileStartPoint, drawing.scaleOrigin); // method of this class ProfilePage
+            ProfilePath.StartPoint = drawing.ProfileStartPoint;
+
+            DrawStockGeometry();
+            DrawChuckGeometry();
+            
+        }
+
+        private void DrawChuckGeometry()
+        {
+            chuckA.StartPoint = drawing.A_ChuckStartPoint;
+            chuckB.StartPoint = drawing.B_ChuckStartPoint;
+            chuckA.Segments.Clear();
+            chuckB.Segments.Clear();
+
+            foreach(LineSegment line in drawing.list_A_ChuckDrawing)
+            {
+                chuckA.Segments.Add(line);
+            }
+
+            foreach(LineSegment line in drawing.list_B_ChuckDrawing)
+            {
+                chuckB.Segments.Add(line);
+            }
+        }
+
+        private void DrawStockGeometry()
+        {
+            Point startPoint = drawing.StockStartPoint;
+            externalStock.StartPoint = startPoint;
+            internalStock.StartPoint = startPoint;
+
+            externalStock.Segments.Clear();
+            internalStock.Segments.Clear();
+            foreach (LineSegment line in drawing.listExtStockDrawing)
+            {
+                externalStock.Segments.Add(line);
+            }
+
+            foreach (LineSegment line in drawing.listIntStockDrawing)
+            {
+                internalStock.Segments.Add(line);
+            }
+        }
+
+        private void SettingOriginDraw(Point _startPoint, double _size)
+        {
+
+
+            Point pOrigin1 = new Point(_startPoint.X + _size, _startPoint.Y);
+            Point pOrigin2 = new Point(_startPoint.X, _startPoint.Y - _size);
+            Point pOrigin3 = new Point(_startPoint.X - _size, _startPoint.Y);
+            Point pOrigin4 = new Point(_startPoint.X, _startPoint.Y + _size);
+
+            Point point1 = new Point(_startPoint.X, _startPoint.Y - _size);
+            Point point2 = new Point(_startPoint.X - _size, _startPoint.Y);
+            Point point3 = new Point(_startPoint.X, _startPoint.Y + _size);
+            Point point4 = new Point(_startPoint.X + _size, _startPoint.Y);
+
+            Size size = new Size(_size, _size);
+
+            Origin1.StartPoint = pOrigin1;
+            Origin2.StartPoint = pOrigin2;
+            Origin3.StartPoint = pOrigin3;
+            Origin4.StartPoint = pOrigin4;
+
+            arc1.Point = point1;
+            arc1.Size = size;
+            arc2.Point = point2;
+            arc2.Size = size;
+            arc3.Point = point3;
+            arc3.Size = size;
+            arc4.Point = point4;
+            arc4.Size = size;
+
+            line1.Point = _startPoint;
+            line2.Point = _startPoint;
+            line3.Point = _startPoint;
+            line4.Point = _startPoint;
         }
 
         #region General Data Manage
@@ -274,9 +364,10 @@ namespace CadCamProject.Pages
             }
             listViewGeometries.Items.Refresh();
 
-            DrawGeometry();
+            DrawProfileGeometry();
             settingIntialGeometryPoint(); //get the initial point for the next geometry
         }
+        //difiniendo AQUI
 
         private void settingIntialGeometryPoint()
         {
@@ -305,15 +396,21 @@ namespace CadCamProject.Pages
             }
         }
 
-        private void DrawGeometry()
+        private void DrawProfileGeometry()
         {
-            Point startPoint = ProfilePath.StartPoint = new Point(750,330) ;
-            double scale = 1;
-            
-            Drawing drawing = new Drawing(profileOperation.geometry,startPoint,scale);
 
+            Point startPoint = drawing.ProfileStartPoint;
+            Point initialPoint = profileOperation.geometry[0].initialPosition.ToPoint();
+
+            ProfilePath.StartPoint = new Point(startPoint.X + drawing.scale * initialPoint.X,
+                                               startPoint.Y + drawing.scale * initialPoint.Y);
+                                        
+            drawing.SetListProfileDrawing(profileOperation.geometry,(WorkingPlane)comboBoxWorkingPlane.SelectedItem);
+           
             ProfilePath.Segments.Clear();
-            foreach(Drawing draw in drawing.listDrawing)
+
+            #region Drawing Profile
+            foreach (Drawing draw in drawing.listProfileDrawing)
             {
                 if(draw.type.Name == TypeGeometry.Line.ToString())
                 {
@@ -323,7 +420,7 @@ namespace CadCamProject.Pages
                     ProfilePath.Segments.Add(draw.Arc);
                 }
             }
-           
+            #endregion 
 
         }
 
@@ -464,6 +561,8 @@ namespace CadCamProject.Pages
             Vector test = Vector.Multiply(l, vector2);
 
         }
-        
+
+       
+       
     }
 }
