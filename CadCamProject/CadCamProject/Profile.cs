@@ -147,6 +147,7 @@ namespace CadCamProject
         public CoordinatePoint centerPoint { get; set; }
         public double radius { get; set; }
         public ArcDirection arcDirection { get; set; }
+        public bool largeArc { get; set; }
             
         public Arc()
         {
@@ -170,13 +171,11 @@ namespace CadCamProject
             initialPoint = new CoordinatePoint(initial_coord1, initial_coord2);
             finalPoint = new CoordinatePoint(final_coord1, final_coord2);
             radius = _radius;
-           // centerPoint = new CoordinatePoint();
-            SettingCenterPoint();
-
-           
+            largeArc = false;
+          
         }
 
-        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double center_coord1, double center_coord2, ArcDirection _arcDirection)
+        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double center_coord1, double center_coord2, ArcDirection _arcDirection, bool _isLargeArc)
         {
 
             arcDirection = _arcDirection;
@@ -184,15 +183,9 @@ namespace CadCamProject
             initialPoint = new CoordinatePoint(initial_coord1, initial_coord2);
             finalPoint = new CoordinatePoint(final_coord1, final_coord2);
             centerPoint = new CoordinatePoint(center_coord1, center_coord2);
-
-           // SettingRadius();
-
-          
-        }
-
-        private void SettingRadius()
-        {
-            radius = Math.Sqrt(Math.Pow(initialPoint.coord1 - centerPoint.coord1, 2) + Math.Pow(finalPoint.coord2 - centerPoint.coord2, 2));
+            Vector _centerVector = new Vector(centerPoint.coord1, centerPoint.coord2);
+            radius = _centerVector.Length;
+            largeArc = _isLargeArc;
         }
 
         public Size GetSize()
@@ -212,29 +205,52 @@ namespace CadCamProject
             }
         }
 
-        private void SettingCenterPoint()
+        public Point GetCenterCircule(WorkingPlane wPlane)
         {
-            double x1 = initialPoint.coord1;
-            double y1 = initialPoint.coord2;
-            double x2 = finalPoint.coord1;
-            double y2 = finalPoint.coord2;
-            double _radius = radius;
+            Point _centerPoint;
+            Vector chordVector = Vector.Subtract(finalPoint.GetVector(wPlane), initialPoint.GetVector(wPlane));
+            if (radiusDefinition == RadiusDefinition.byRadius)
+            {
+                double apothem = 0.5 * Math.Sqrt(4*Math.Pow(radius,2)-Math.Pow(chordVector.Length,2));
+                Vector halfChordVector = Vector.Multiply(0.5, chordVector);
+                double halfChord = halfChordVector.Length;
 
-            double radsq = _radius * _radius;
-            double q = Math.Sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
-            double x3 = (x1 + x2) / 2;
+                halfChordVector.Normalize();
+                Vector apothemVector;
+                if (arcDirection == ArcDirection.CCW)
+                {
+                    // -
+                    apothemVector = new Vector(-halfChordVector.Y, halfChordVector.X);
+                }
+                else
+                {
+                    // +
+                    apothemVector = new Vector(halfChordVector.Y, -halfChordVector.X);
+                }
+
+                halfChordVector = Vector.Multiply(halfChord, halfChordVector);
+                apothemVector = Vector.Multiply(apothem, apothemVector);
+
+                Vector center = Vector.Add(initialPoint.GetVector(wPlane), halfChordVector);
+                center = Vector.Add(center,apothemVector);
+
+                _centerPoint = new Point(center.X, center.Y);
+ 
+            }
+            else
+            {
+                Vector center = new Vector(initialPoint.GetVector(wPlane).X + centerPoint.GetPoint(wPlane).X,
+                                           initialPoint.GetVector(wPlane).Y + centerPoint.GetPoint(wPlane).Y);
+
+                _centerPoint = new Point(center.X, center.Y);
+
+            }
 
 
-            centerPoint.coord2 = x3 + Math.Sqrt(radsq - ((q / 2) * (q / 2))) * ((y1 - y2) / q);
 
-
-            q = Math.Sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
-
-            double y3 = (y1 + y2) / 2;
-
-            centerPoint.coord1 = y3 + Math.Sqrt(radsq - ((q / 2) * (q / 2))) * ((x2 - x1) / q);
+            return _centerPoint;
         }
-        
+
     }
    
     [Serializable]
@@ -272,7 +288,7 @@ namespace CadCamProject
         {
             double _m,_b;
             
-            _m=(finalPoint.GetPoint(wPlane).Y - initialPoint.GetPoint(wPlane).Y /(finalPoint.GetPoint(wPlane).X -initialPoint.GetPoint(wPlane).X));
+            _m=(finalPoint.GetPoint(wPlane).Y - initialPoint.GetPoint(wPlane).Y )/(finalPoint.GetPoint(wPlane).X -initialPoint.GetPoint(wPlane).X);
             _b = finalPoint.GetPoint(wPlane).Y - _m * finalPoint.GetPoint(wPlane).X;
             double[] constants =
             {
@@ -438,23 +454,63 @@ namespace CadCamProject
                             int sgn;
                             if (geometry[nextIndex].arc.arcDirection == ArcDirection.CCW)
                             {
-                                sgn = 1;
+                                sgn = -1;
                             }else
                             {
-                                sgn = -1;
+                                sgn = 1;
                             }
                             double[] constantsParallelLine =
                             {
-                                constantsLine[0],
-                                (constantsLine[1]-sgn*_geometry.transition.parameter*epsilon),
+                                -constantsLine[0],
+                                -(constantsLine[1]-sgn*_geometry.transition.parameter*epsilon),
                             };
+
+                            Point centerArc = geometry[nextIndex].arc.GetCenterCircule(wPlane);
+                            double _radius = geometry[nextIndex].arc.radius;
+                            double _round = _geometry.transition.parameter;
+
+                            // ax^2 + bx +c >>>> x = -b+-srq(b^2 - 4ac) / 2a
+                            double _a = 1 + Math.Pow(constantsParallelLine[0],2);
+                            double _b = -2 * centerArc.X + 2 * constantsParallelLine[0] * constantsParallelLine[1] - 2 * centerArc.Y*constantsParallelLine[0];
+                            double _c = Math.Pow(centerArc.X, 2) + Math.Pow(centerArc.Y, 2) - Math.Pow(_radius+_round, 2) - 2 * centerArc.Y * constantsParallelLine[1]+constantsParallelLine[1]* constantsParallelLine[1];
 
                             double[] x_result =
                             {
-                                // ax^2 + bx +c >>>> x = -b+-srq(b^2 - 4ac) / 2a
 
-                               
+                               (-_b + Math.Sqrt(_b*_b-4*_a*_c))/ (2 * _a),
+                               (-_b - Math.Sqrt(_b*_b-4*_a*_c))/ (2 * _a),
                             };
+
+                            double[] y_result =
+                            {
+                                constantsParallelLine[0]*x_result[0]+constantsParallelLine[1],
+
+                                constantsParallelLine[0]*x_result[1]+constantsParallelLine[1],
+                            };
+
+                            Vector[] roundResults =
+                            {
+                                new Vector(x_result[0],y_result[0]),
+                                new Vector(x_result[1],y_result[1]),
+                            };
+
+                            double[] distancies =
+                            {
+                                Vector.Subtract(roundResults[0],_geometry.finalPosition.GetVector(wPlane)).Length +
+                                Vector.Subtract(roundResults[0],_geometry.initialPosition.GetVector(wPlane)).Length,
+
+                                Vector.Subtract(roundResults[1],_geometry.finalPosition.GetVector(wPlane)).Length +
+                                Vector.Subtract(roundResults[1],_geometry.initialPosition.GetVector(wPlane)).Length,
+                            };
+
+                            if (distancies[0] < distancies[1])
+                            {
+                                Vector centerRound = roundResults[0];
+                            }else
+                            {
+                                Vector centerRound = roundResults[1];
+                            }
+
                         }
                         }
 
@@ -563,6 +619,7 @@ namespace CadCamProject
                                            ProfileStartPoint.Y - scale * _geometry.arc.finalPoint.GetPoint(_wPlane).Y);
                 draw.arc.Size = new Size(_geometry.arc.GetSize().Height * scale, _geometry.arc.GetSize().Width * scale);
                 draw.arc.SweepDirection = _geometry.arc.GetSweepDirection();
+                draw.arc.IsLargeArc = _geometry.arc.largeArc;
             }
             #endregion
             return draw;

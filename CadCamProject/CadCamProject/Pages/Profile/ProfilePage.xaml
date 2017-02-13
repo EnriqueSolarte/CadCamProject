@@ -196,6 +196,7 @@
             <Grid Height="26" Width="122">
                 <Label x:Name="labelCenterPosCoord2" Content="K" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="29" Margin="-12,0,0,0"/>
                 <TextBox x:Name="textBoxCenterPosCoord2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="17,0,0,0" Text="0.000"/>
+                <CheckBox x:Name="checkBoxIsLargeArc" Content="Large Arc" HorizontalAlignment="Left" Margin="145,31,-104,-22" VerticalAlignment="Top" Width="81" Height="17" RenderTransformOrigin="0.5,0.5"/>
             </Grid>
         </Viewbox>
         <Viewbox x:Name="wTransitionParameters" Margin="25,493,126,114" Grid.Row="1" Stretch="Fill">

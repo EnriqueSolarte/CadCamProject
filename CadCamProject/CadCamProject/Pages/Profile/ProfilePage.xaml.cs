@@ -457,9 +457,10 @@ namespace CadCamProject.Pages
             }
             else
             {
-                arc = new Arc(initalCoord1,initalCoord2,finalCoord1,finalCoord2,centerCoord1,centerCoord2,(ArcDirection)comboBoxArcDirection.SelectedItem);
-            }
+                arc = new Arc(initalCoord1,initalCoord2,finalCoord1,finalCoord2,centerCoord1,centerCoord2,(ArcDirection)comboBoxArcDirection.SelectedItem,(bool)checkBoxIsLargeArc.IsChecked);
 
+            }
+            //Point center = arc.GetCenterCircule((WorkingPlane)comboBoxWorkingPlane.SelectedItem);
             return arc;
         }
 
@@ -541,5 +542,7 @@ namespace CadCamProject.Pages
             DrawProfileGeometry();
             wfnc.animateProgressBar(progressBar, 1.5);
         }
+
+      
     }
 }
