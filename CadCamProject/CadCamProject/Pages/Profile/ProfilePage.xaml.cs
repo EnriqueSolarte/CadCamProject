@@ -45,7 +45,7 @@ namespace CadCamProject.Pages
 
             fillingParameters();
 
-            drawing = new Drawing(wSettings.stock);
+            drawing = new Drawing(wSettings.stock, 650, new Point(485, 330));
             SetUpDrawing();
         }
 
@@ -62,17 +62,17 @@ namespace CadCamProject.Pages
 
         private void DrawChuckGeometry()
         {
-            chuckA.StartPoint = drawing.A_ChuckStartPoint;
-            chuckB.StartPoint = drawing.B_ChuckStartPoint;
+            chuckA.StartPoint = drawing.drawingStock.A_ChuckStartPoint;
+            chuckB.StartPoint = drawing.drawingStock.B_ChuckStartPoint;
             chuckA.Segments.Clear();
             chuckB.Segments.Clear();
 
-            foreach(LineSegment line in drawing.list_A_ChuckDrawing)
+            foreach(LineSegment line in drawing.drawingStock.list_A_ChuckDrawing)
             {
                 chuckA.Segments.Add(line);
             }
 
-            foreach(LineSegment line in drawing.list_B_ChuckDrawing)
+            foreach(LineSegment line in drawing.drawingStock.list_B_ChuckDrawing)
             {
                 chuckB.Segments.Add(line);
             }
@@ -80,18 +80,18 @@ namespace CadCamProject.Pages
 
         private void DrawStockGeometry()
         {
-            Point startPoint = drawing.StockStartPoint;
+            Point startPoint = drawing.drawingStock.StockStartPoint;
             externalStock.StartPoint = startPoint;
             internalStock.StartPoint = startPoint;
 
             externalStock.Segments.Clear();
             internalStock.Segments.Clear();
-            foreach (LineSegment line in drawing.listExtStockDrawing)
+            foreach (LineSegment line in drawing.drawingStock.listExtStockDrawing)
             {
                 externalStock.Segments.Add(line);
             }
 
-            foreach (LineSegment line in drawing.listIntStockDrawing)
+            foreach (LineSegment line in drawing.drawingStock.listIntStockDrawing)
             {
                 internalStock.Segments.Add(line);
             }
@@ -345,7 +345,7 @@ namespace CadCamProject.Pages
         private void buttonDefineGeometry_Click(object sender, RoutedEventArgs e)
         {
             TransitionGeometry transition = GettingTransitionGeometry();
-            
+            checkBoxTransitionNext.IsChecked = false;
 
             Geometry geometry;
             if (radioButtonAddArc.IsChecked.Value)
@@ -398,30 +398,32 @@ namespace CadCamProject.Pages
 
         private void DrawProfileGeometry()
         {
-
-            Point startPoint = drawing.ProfileStartPoint;
-            Point initialPoint = profileOperation.geometry[0].initialPosition.ToPoint();
-
-            ProfilePath.StartPoint = new Point(startPoint.X + drawing.scale * initialPoint.X,
-                                               startPoint.Y + drawing.scale * initialPoint.Y);
-                                        
-            drawing.SetListProfileDrawing(profileOperation.geometry,(WorkingPlane)comboBoxWorkingPlane.SelectedItem);
-           
-            ProfilePath.Segments.Clear();
-
-            #region Drawing Profile
-            foreach (Drawing draw in drawing.listProfileDrawing)
+            if (profileOperation.geometry.Count > 0)
             {
-                if(draw.type.Name == TypeGeometry.Line.ToString())
-                {
-                    ProfilePath.Segments.Add(draw.line);
-                }else
-                {
-                    ProfilePath.Segments.Add(draw.Arc);
-                }
-            }
-            #endregion 
+                Point startPoint = drawing.ProfileStartPoint;
+                Point initialPoint = profileOperation.geometry[0].initialPosition.GetPoint((WorkingPlane)comboBoxWorkingPlane.SelectedItem);
 
+                ProfilePath.StartPoint = new Point(startPoint.X + drawing.scale * initialPoint.X,
+                                                   startPoint.Y - drawing.scale * initialPoint.Y);
+
+                drawing.SetListProfileDrawing(profileOperation.geometry, (WorkingPlane)comboBoxWorkingPlane.SelectedItem);
+
+                ProfilePath.Segments.Clear();
+
+                #region Drawing Profile
+                foreach (Drawing draw in drawing.listProfileDrawing)
+                {
+                    if (draw.type.Name == TypeGeometry.Line.ToString())
+                    {
+                        ProfilePath.Segments.Add(draw.line);
+                    }
+                    else
+                    {
+                        ProfilePath.Segments.Add(draw.arc);
+                    }
+                }
+                #endregion
+            }
         }
 
         private Line GeetingLine()
@@ -491,8 +493,6 @@ namespace CadCamProject.Pages
             }
         }
 
-
-
         #endregion
 
         #region Export and Import file
@@ -533,36 +533,13 @@ namespace CadCamProject.Pages
                 fillingParameters();
             }
         }
-        #endregion
+        #endregion   
 
-        private void button_Click(object sender, RoutedEventArgs e)
+        private void buttonRefreshDrawing_Click(object sender, RoutedEventArgs e)
         {
-            LineSegment line = new LineSegment();
-            ArcSegment arc = new ArcSegment();
-            arc.Point = new System.Windows.Point(500, 500);
-            arc.Size = new Size(50, 50);
-            arc.SweepDirection = SweepDirection.Clockwise;
-            line.Point = new System.Windows.Point(250, 250);
-            
-
-            ProfilePath.Segments.Add(arc);
-
-            
-
-            Vector vbase = new Vector(10, 0);
-            Vector vector2 = new Vector(10, 10);
-            Vector vector1 = new Vector(0, 10);
-
-            double a = Vector.AngleBetween(vbase, vector1);
-            double a2 = Vector.AngleBetween(vbase, vector2);
-            double x = (a + a2)/2;
-            double l = 2.5*1/(Math.Tan(x * Math.PI / 180));
-            vector2.Normalize();
-            Vector test = Vector.Multiply(l, vector2);
-
+            WindowsFunctions wfnc = new WindowsFunctions();
+            DrawProfileGeometry();
+            wfnc.animateProgressBar(progressBar, 1.5);
         }
-
-       
-       
     }
 }

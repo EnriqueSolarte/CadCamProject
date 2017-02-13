@@ -165,6 +165,7 @@
 
                 </Grid>
             </Viewbox>
+            <Button x:Name="buttonRefreshDrawing" Content="Refresh Drawing" Canvas.Left="574" Canvas.Top="-25" Width="110" Click="buttonRefreshDrawing_Click"/>
 
         </Canvas>
         <Button x:Name="buttonDelete" Content="Delete" Margin="10,0,815,5" Grid.Row="1" Grid.Column="1" Height="20" VerticalAlignment="Bottom" Background="#7FDDDDDD"/>
