@@ -240,8 +240,6 @@ namespace CadCamProject
 
             }
 
-
-
             return _centerPoint;
         }
 
@@ -277,7 +275,6 @@ namespace CadCamProject
             return result;
         }
         
-
         public double[] GetConstantsLine(WorkingPlane wPlane)
         {
             double _m,_b;
@@ -515,23 +512,24 @@ namespace CadCamProject
 
                             Vector newfinalLineVector = Vector.Subtract(centerRound, lineToRound);
 
-                            Vector arcToRound = Vector.Subtract(new Vector(centerArc.X, centerArc.Y), centerRound);
-                            Vector newInitialArcVector = Vector.Multiply((_radius / (_radius + _round)), arcToRound);
+                            Vector arcToRound = Vector.Subtract(centerRound, new Vector(centerArc.X, centerArc.Y));
+                            arcToRound.Normalize();
+                            Vector newInitialArcVector = Vector.Add(Vector.Multiply(_radius, arcToRound),(Vector)centerArc);
 
                             LineSegment _line = new LineSegment();
                             _line.Point = new Point(ProfileStartPoint.X + scale * newfinalLineVector.X,
-                                                    ProfileStartPoint.Y + scale * newfinalLineVector.Y);
+                                                    ProfileStartPoint.Y - scale * newfinalLineVector.Y);
                             draw = new Drawing(_line);
 
                             ArcSegment _arc = new ArcSegment();
                             _arc.Point = new Point(ProfileStartPoint.X + scale * newInitialArcVector.X,
-                                                   ProfileStartPoint.Y + scale * newInitialArcVector.Y);
+                                                   ProfileStartPoint.Y - scale * newInitialArcVector.Y);
                             _arc.Size = new Size(scale*_round, scale*_round);
 
                             if (geometry[nextIndex].arc.arcDirection == ArcDirection.CCW)
                             {
                                 _arc.SweepDirection = SweepDirection.Clockwise;
-                            }
+                            }else
                             {
                                 _arc.SweepDirection = SweepDirection.Counterclockwise;
                             }
