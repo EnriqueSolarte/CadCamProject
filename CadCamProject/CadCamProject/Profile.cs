@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using CadCamProject.Pages;
 using System.Windows;
 using System.Windows.Media;
+using CadCamProject;
 
 namespace CadCamProject
 {
@@ -217,16 +218,9 @@ namespace CadCamProject
 
                 halfChordVector.Normalize();
                 Vector apothemVector;
-                if (arcDirection == ArcDirection.CCW)
-                {
-                    // -
-                    apothemVector = new Vector(-halfChordVector.Y, halfChordVector.X);
-                }
-                else
-                {
-                    // +
-                    apothemVector = new Vector(halfChordVector.Y, -halfChordVector.X);
-                }
+
+                apothemVector = halfChordVector.GetNormalVector_AR(arcDirection);
+                
 
                 halfChordVector = Vector.Multiply(halfChord, halfChordVector);
                 apothemVector = Vector.Multiply(apothem, apothemVector);
@@ -450,19 +444,20 @@ namespace CadCamProject
                         {
 
                             double[] constantsLine = _geometry.line.GetConstantsLine(wPlane);
-                            double epsilon = Math.Sqrt(1+Math.Pow(constantsLine[0],2));
+                            double epsilon = Math.Sqrt(1 + Math.Pow(constantsLine[0], 2));
                             int sgn;
                             if (geometry[nextIndex].arc.arcDirection == ArcDirection.CCW)
                             {
-                                sgn = -1;
-                            }else
-                            {
                                 sgn = 1;
+                            }
+                            else
+                            {
+                                sgn = -1;
                             }
                             double[] constantsParallelLine =
                             {
                                 -constantsLine[0],
-                                -(constantsLine[1]-sgn*_geometry.transition.parameter*epsilon),
+                                -constantsLine[1]+sgn*_geometry.transition.parameter*epsilon,
                             };
 
                             Point centerArc = geometry[nextIndex].arc.GetCenterCircule(wPlane);
@@ -470,9 +465,9 @@ namespace CadCamProject
                             double _round = _geometry.transition.parameter;
 
                             // ax^2 + bx +c >>>> x = -b+-srq(b^2 - 4ac) / 2a
-                            double _a = 1 + Math.Pow(constantsParallelLine[0],2);
-                            double _b = -2 * centerArc.X + 2 * constantsParallelLine[0] * constantsParallelLine[1] - 2 * centerArc.Y*constantsParallelLine[0];
-                            double _c = Math.Pow(centerArc.X, 2) + Math.Pow(centerArc.Y, 2) - Math.Pow(_radius+_round, 2) - 2 * centerArc.Y * constantsParallelLine[1]+constantsParallelLine[1]* constantsParallelLine[1];
+                            double _a = 1 + Math.Pow(constantsParallelLine[0], 2);
+                            double _b = -2 * centerArc.X + 2 * constantsParallelLine[0] * constantsParallelLine[1] - 2 * centerArc.Y * constantsParallelLine[0];
+                            double _c = Math.Pow(centerArc.X, 2) + Math.Pow(centerArc.Y, 2) - Math.Pow(_radius + _round, 2) - 2 * centerArc.Y * constantsParallelLine[1] + constantsParallelLine[1] * constantsParallelLine[1];
 
                             double[] x_result =
                             {
@@ -502,14 +497,49 @@ namespace CadCamProject
                                 Vector.Subtract(roundResults[1],_geometry.finalPosition.GetVector(wPlane)).Length +
                                 Vector.Subtract(roundResults[1],_geometry.initialPosition.GetVector(wPlane)).Length,
                             };
-
+                            Vector centerRound;
                             if (distancies[0] < distancies[1])
                             {
-                                Vector centerRound = roundResults[0];
-                            }else
-                            {
-                                Vector centerRound = roundResults[1];
+                                centerRound = roundResults[0];
                             }
+                            else
+                            {
+                                centerRound = roundResults[1];
+                            }
+
+                            Vector lineVector = _geometry.line.ToVector(wPlane);
+                            lineVector.Normalize();
+
+                            Vector lineToRound = lineVector.GetNormalVector_RA(geometry[nextIndex].arc.arcDirection);
+                            lineToRound = Vector.Multiply(_geometry.transition.parameter, lineToRound);
+
+                            Vector newfinalLineVector = Vector.Subtract(centerRound, lineToRound);
+
+                            Vector arcToRound = Vector.Subtract(new Vector(centerArc.X, centerArc.Y), centerRound);
+                            Vector newInitialArcVector = Vector.Multiply((_radius / (_radius + _round)), arcToRound);
+
+                            LineSegment _line = new LineSegment();
+                            _line.Point = new Point(ProfileStartPoint.X + scale * newfinalLineVector.X,
+                                                    ProfileStartPoint.Y + scale * newfinalLineVector.Y);
+                            draw = new Drawing(_line);
+
+                            ArcSegment _arc = new ArcSegment();
+                            _arc.Point = new Point(ProfileStartPoint.X + scale * newInitialArcVector.X,
+                                                   ProfileStartPoint.Y + scale * newInitialArcVector.Y);
+                            _arc.Size = new Size(scale*_round, scale*_round);
+
+                            if (geometry[nextIndex].arc.arcDirection == ArcDirection.CCW)
+                            {
+                                _arc.SweepDirection = SweepDirection.Clockwise;
+                            }
+                            {
+                                _arc.SweepDirection = SweepDirection.Counterclockwise;
+                            }
+
+                            drawtransition = new Drawing(_arc);
+
+                            listProfileDrawing.Add(draw);
+                            listProfileDrawing.Add(drawtransition);
 
                         }
                         }

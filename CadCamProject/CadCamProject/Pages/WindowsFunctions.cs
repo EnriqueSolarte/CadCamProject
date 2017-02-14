@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 
 namespace CadCamProject.Pages
 {
-    class WindowsFunctions
+    public class WindowsFunctions
     {
 
         public PathDefinition fileBrowser(string filter)
@@ -185,5 +185,40 @@ namespace CadCamProject.Pages
             status = StateToFile.Unsaved;
             ready = true;
         }
+    }
+
+    public static class MyExtensions
+    {
+        public static Vector GetNormalVector_RA(this Vector _vector, ArcDirection _direction)
+        {
+            Vector normalVector;
+            if (_direction == ArcDirection.CW)
+            {
+
+                normalVector = new Vector(-_vector.Y, _vector.X);
+            }
+            else
+            {
+              
+                normalVector = new Vector(_vector.Y, -_vector.X);
+            }
+            return normalVector;
+        }
+
+        public static Vector GetNormalVector_AR(this Vector _vector, ArcDirection _direction)
+        {
+            Vector normalVector;
+            if (_direction == ArcDirection.CCW)
+            {
+                normalVector = new Vector(-_vector.Y, _vector.X);
+            }
+            else
+            {
+                normalVector = new Vector(_vector.Y, -_vector.X);
+            }
+            return normalVector;
+        }
+
+
     }
 }
