@@ -8,26 +8,25 @@ using System.Windows.Controls;
 
 namespace CadCamProject
 {
-    public  class Operation
+    public  class Turning
     {
         //General Parameters
         public string TypeImagineOperation { get; set; }
-        public Operations TypeOperation { get; set; }
+        public TypeOperations TypeOperation { get; set; }
         public string Parameters { get; set; }
         public int Index { get; set; }
-        public string dataContent { get; set; }
-
+     
         //Common Parameters
         public string OperationName { get; set; }
         public string version { get; set; }
 
-        public Operation()
+        public Turning()
         {
             TypeImagineOperation = "/Images/Profile.png";
-            TypeOperation = Operations.Profile;
+            TypeOperation = TypeOperations.Profile;
 
 
-            dataContent = "vamos por buen camino kikin";
+            
         }
 
         public Operation GetParameters(Main MainPage, int index)

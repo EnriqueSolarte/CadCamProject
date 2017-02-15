@@ -12,7 +12,7 @@ namespace CadCamProject
     {
         //General Parameters
         public string TypeImagineOperation { get; set; }
-        public Operations TypeOperation { get; set; }
+        public TypeOperations TypeOperation { get; set; }
         public string Parameters { get; set; }
         public int Index { get; set; }
         public string dataContent { get; set; }
@@ -24,7 +24,7 @@ namespace CadCamProject
         public Operation()
         {
             TypeImagineOperation = "/Images/Profile.png";
-            TypeOperation = Operations.Profile;
+            TypeOperation = TypeOperations.Profile;
 
 
             dataContent = "vamos por buen camino kikin";

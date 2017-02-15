@@ -15,7 +15,7 @@ namespace CadCamProject
     {
         //General Parameters
         public string TypeImagineOperation { get; set; }
-        public Operations TypeOperation { get; set; }
+        public TypeOperations TypeOperation { get; set; }
         public string Parameters { get; set; }
         public int Index { get; set; }       
         public string version { get; set; }
@@ -33,7 +33,7 @@ namespace CadCamProject
         public Profile()
         {
             TypeImagineOperation = "/Images/Profile.png";
-            TypeOperation = Operations.Profile;
+            TypeOperation = TypeOperations.Profile;
             workingPlane = WorkingPlane.ZX;
             workOffsetIndex = 0;
             geometry = new List<Geometry>();

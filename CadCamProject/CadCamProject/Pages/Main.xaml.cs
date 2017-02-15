@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,10 +45,15 @@ namespace CadCamProject
         private void doubleCLlick(object sender, MouseButtonEventArgs e)
         {
             int index = this.listViewOperations.SelectedIndex;
-            
-            if (index != 0)
+
+            var selectedItem = (dynamic)listViewOperations.SelectedItems[index];
+            TypeOperations op = (TypeOperations) selectedItem[0].TypeOperation;
+
+
+
+            if (index != -1 && index != 0)
             {
-                MessageBox.Show("It is not implement yet");
+                
             }
             else {
                 gotoWorkSettings();
@@ -60,7 +66,7 @@ namespace CadCamProject
             Switcher.Switch(new wSettingPage(this));
         }
 
-        private void EditingOperation(Operations typeOperation)
+        private void EditingOperation(TypeOperations typeOperation)
         {
             // over this function is gonna be implemented the code to access again to the data saved in each operation already created
             MessageBox.Show("Is no implement yet :>>"+typeOperation);

@@ -22,7 +22,7 @@
             <ColumnDefinition Width="Auto" MinWidth="929"/>
             <ColumnDefinition Width="Auto" MinWidth="55"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="label" Content="Profile Settings" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265" Grid.RowSpan="2"/>
+        <Label x:Name="label" Content="Tunring Operation" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265" Grid.RowSpan="2"/>
         <Button x:Name="buttonAccept" Content="Accept" Margin="26,0,0,0" Click="buttonAccept_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120" Grid.Row="1"/>
         <Button x:Name="buttonCancel" Content="Cancel" Margin="151,0,24,0" Click="buttonCancel_Click" Height="20" VerticalAlignment="Bottom" Grid.Row="1"/>
         <DockPanel Grid.Column="1" Grid.Row="2">

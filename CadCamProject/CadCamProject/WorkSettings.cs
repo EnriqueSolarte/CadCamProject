@@ -13,7 +13,7 @@ namespace CadCamProject
     {
         //General parameters
         public string TypeImagineOperation { get; set; }
-        public Operations TypeOperation { get; set; }
+        public TypeOperations typeOperation { get; set; }
         public string Parameters { get; set; }
         public int Index { get; set; }     
         public string dataContent { get; set; }
@@ -32,7 +32,7 @@ namespace CadCamProject
         public WorkSettings()
         {
             TypeImagineOperation = "/Images/WorkSettigs.png";
-            TypeOperation = Operations.Work_Settings;
+            typeOperation = TypeOperations.Work_Settings;
             workOffsets = new List<WorkOffsetPointPosition>();
             workOffsets.Add(new WorkOffsetPointPosition(0));
             toolSettings = new List<Tool>();

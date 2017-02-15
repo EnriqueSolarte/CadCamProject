@@ -58,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="Enums.cs" />
     <Compile Include="ExportAndImportToFIle.cs" />
+    <Compile Include="Turning.cs" />
     <Compile Include="Pages\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>

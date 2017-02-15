@@ -119,7 +119,7 @@ namespace CadCamProject
         }
     } 
 
-    public enum Operations
+    public enum TypeOperations
     {
         Work_Settings,
         Profile, 
