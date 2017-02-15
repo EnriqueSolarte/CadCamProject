@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CadCamProject"
-             xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="CadCamProject.ProfilePage"
+             xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="CadCamProject.TurningPage"
              mc:Ignorable="d" 
              d:DesignHeight="760" d:DesignWidth="1280">
     <UserControl.Resources>

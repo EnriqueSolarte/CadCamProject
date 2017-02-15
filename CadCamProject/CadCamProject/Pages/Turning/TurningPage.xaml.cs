@@ -20,7 +20,7 @@ using System.Xml.Serialization;
 namespace CadCamProject
 {
 
-    public partial class ProfilePage : UserControl
+    public partial class TurningPage : UserControl
     {
         UserControl Main;
         Main MainPage;
@@ -31,7 +31,7 @@ namespace CadCamProject
         Drawing drawing;
        
 
-        public ProfilePage(Main main, int index)
+        public TurningPage(Main main, int index)
         {
             Main = main;
             MainPage = main;

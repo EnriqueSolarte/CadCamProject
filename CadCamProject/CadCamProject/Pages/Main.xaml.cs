@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 
-namespace CadCamProject.Pages
+namespace CadCamProject
 {
   
     public partial class Main : UserControl
