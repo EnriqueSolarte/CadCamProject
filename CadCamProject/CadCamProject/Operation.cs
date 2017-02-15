@@ -10,13 +10,25 @@ namespace CadCamProject
 {
     public  class Operation
     {
+        //General Parameters
         public string TypeImagineOperation { get; set; }
-        public string TypeOperation { get; set; }
+        public Operations TypeOperation { get; set; }
         public string Parameters { get; set; }
-
         public int Index { get; set; }
+        public string dataContent { get; set; }
 
-        public string upDate { get; set; }
+        //Common Parameters
+        public string OperationName { get; set; }
+        public string version { get; set; }
+
+        public Operation()
+        {
+            TypeImagineOperation = "/Images/Profile.png";
+            TypeOperation = Operations.Profile;
+
+
+            dataContent = "vamos por buen camino kikin";
+        }
 
         public Operation GetParameters(Main MainPage, int index)
         {
