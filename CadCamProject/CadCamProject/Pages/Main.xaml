@@ -29,12 +29,11 @@
             </ListView.View>
         </ListView>
         <Button x:Name="buttonProfile" Content="Profiles" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,89,0,0" Click="buttonProfile_Click"/>
-        <Button x:Name="buttonExternalTurning" Content="External Turning" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,115,0,0"/>
-        <Button x:Name="buttonInternalTurning" Content="Internal Turning" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,140,0,0"/>
-        <Button x:Name="buttonGrooving" Content="Grooving" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,165,0,0"/>
-        <Button x:Name="buttonThreading" Content="Threading" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,190,0,0"/>
-        <Button x:Name="buttonDrilling" Content="Drilling" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,215,0,0"/>
-        <Button x:Name="buttonTrasnferSpindle" Content="Transfer Spindle" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,240,0,0"/>
+        <Button x:Name="buttonTurning" Content="Turning" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,114,0,0" Click="buttonTurning_Click"/>
+        <Button x:Name="buttonGrooving" Content="Grooving" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,139,0,0"/>
+        <Button x:Name="buttonThreading" Content="Threading" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,164,0,0"/>
+        <Button x:Name="buttonDrilling" Content="Drilling" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,189,0,0"/>
+        <Button x:Name="buttonTrasnferSpindle" Content="Transfer Spindle" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,225,0,0"/>
         <Button x:Name="buttonRadialMilling" Content="Radial Milling" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,265,0,0"/>
         <Button x:Name="buttonAxialMilling" Content="Axial Milling" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,290,0,0"/>
         <Label x:Name="labelTime" Content="" Grid.Column="1" Margin="10,0,10,10" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>

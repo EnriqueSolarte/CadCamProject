@@ -57,7 +57,8 @@ namespace CadCamProject
 
             DrawStockGeometry();
             DrawChuckGeometry();
-            
+            DrawProfileGeometry();
+
         }
 
         private void DrawChuckGeometry()
@@ -533,6 +534,7 @@ namespace CadCamProject
                 wfnc.animateProgressBar(progressBar, 1.5);
                 fillingParameters();
             }
+            DrawProfileGeometry();
         }
         #endregion   
 

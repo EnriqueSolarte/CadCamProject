@@ -97,6 +97,7 @@ namespace CadCamProject
                              sCh.chLF + "WO " + wSettings.workOffsets.Count.ToString() + sCh.chRH +
                              sCh.chLF + "TS " + wSettings.toolSettings.Count.ToString() + sCh.chRH +
                              sCh.chLF + "BK " + wSettings.stock.externalDiameter.ToString() + sCh.blank +
+                             wSettings.stock.internalDiameter.ToString() + sCh.blank +
                              wSettings.stock.finalPosition.ToString() + sCh.blank +
                              wSettings.stock.splindleLimit.ToString() + sCh.chRH +
                              sCh.chLF + "V" + wSettings.version + sCh.chRH;

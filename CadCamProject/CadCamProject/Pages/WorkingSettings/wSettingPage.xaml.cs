@@ -88,6 +88,7 @@ namespace CadCamProject
         {
             double externalDiameter, internalDiameter, initialPosition, finalPosition, splindleLimit;
             WindowsFunctions funtions = new WindowsFunctions();
+
             double.TryParse(textBoxExternalDiam.Text,out externalDiameter);
             workSettings.stock.externalDiameter = externalDiameter;
 

@@ -12,7 +12,7 @@ namespace CadCamProject
     {
         //General Parameters
         public string TypeImagineOperation { get; set; }
-        public TypeOperations TypeOperation { get; set; }
+        public TypeOperations typeOperation { get; set; }
         public string Parameters { get; set; }
         public int Index { get; set; }
      
@@ -22,20 +22,18 @@ namespace CadCamProject
 
         public Turning()
         {
-            TypeImagineOperation = "/Images/Profile.png";
-            TypeOperation = TypeOperations.Profile;
-
-
-            
+            TypeImagineOperation = "/Images/Turning.png";
+            typeOperation = TypeOperations.Turning;
+        
         }
 
-        public Operation GetParameters(Main MainPage, int index)
+        public Turning GetParameters(Main MainPage, int index)
         {
-            Operation op = new Operation();
+            Turning op = new Turning();
 
             if (index <= MainPage.listViewOperations.Items.Count)
             {
-                var listOperation = MainPage.listViewOperations.Items.GetItemAt(index) as List<Operation>;
+                var listOperation = MainPage.listViewOperations.Items.GetItemAt(index) as List<Turning>;
                 op = listOperation.Last();
             }
             else
@@ -45,9 +43,9 @@ namespace CadCamProject
             return op;
         }
 
-        public List<Operation> SetParameters(Operation opParameters, Main MainPage)
+        public List<Turning> SetParameters(Turning opParameters, Main MainPage)
         {
-            List<Operation> listOperation = new List<Operation>();
+            List<Turning> listOperation = new List<Turning>();
             listOperation.Add(opParameters);
             if (opParameters.Index != MainPage.listViewOperations.Items.Count)
             {

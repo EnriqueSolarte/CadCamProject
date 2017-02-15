@@ -123,6 +123,7 @@ namespace CadCamProject
     {
         Work_Settings,
         Profile, 
+        Turning,
     }
 
     public enum WorkingPlane
