@@ -24,7 +24,7 @@ namespace CadCamProject
         public Main()
         {
             InitializeComponent();
-            this.labelTime.Content = DateTime.Now.ToString();
+            this.labelTime.Content = "V 2.15.17";
             Buttons(false);
         }
 

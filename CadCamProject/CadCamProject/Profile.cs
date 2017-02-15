@@ -17,8 +17,7 @@ namespace CadCamProject
         public string TypeImagineOperation { get; set; }
         public Operations TypeOperation { get; set; }
         public string Parameters { get; set; }
-        public int Index { get; set; }
-        public string dataContent { get; set; }
+        public int Index { get; set; }       
         public string version { get; set; }
 
 
@@ -40,7 +39,7 @@ namespace CadCamProject
             geometry = new List<Geometry>();
             
             
-            dataContent = "vamos por buen camino kikin";
+            
         }
 
         public Profile GetParameters(Main MainPage, int index)

@@ -69,7 +69,7 @@ namespace CadCamProject
                 Gcode.G57,
                 Gcode.G58,
                 Gcode.G59,
-                Gcode.CPP,
+                Gcode.CP,
             };
             return strArray;
         }

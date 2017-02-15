@@ -46,7 +46,7 @@ namespace CadCamProject
         G57,
         G58,
         G59,
-        CPP,   
+        CP,   
 
     }
 
