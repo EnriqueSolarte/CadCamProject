@@ -8,6 +8,7 @@ using CadCamProject.Pages;
 
 namespace CadCamProject
 {
+    [Serializable]
     class WorkSettings
     {
         //General parameters
@@ -16,10 +17,10 @@ namespace CadCamProject
         public string Parameters { get; set; }
         public int Index { get; set; }     
         public string dataContent { get; set; }
-
-        //Specific parameters
         public string version { get; set; }
         public StateToFile status { get; set; }
+
+        //Specific parameters
         public PathDefinition file { get; set; }
         public string duplicatedFilePrefix { get; }
         public List<WorkOffsetPointPosition> workOffsets { get; set; }
@@ -40,15 +41,14 @@ namespace CadCamProject
             stock = new BlackStock();
             file = new PathDefinition();
             file.directory = "C:\\";
-            file.fileName = "defaultName";
-            file.extension = extensionFiles.opt;
+            file.fileName = "defaultName."+ extensionFiles.wstt;
             duplicatedFilePrefix = "_duplicated";
             dataContent = "vamos por buen camino kikin";
         }
 
         internal List<string> GettingWorkOffsets(List<WorkOffsetPointPosition> workOffsets)
         {
-            // gets the defined workoff sets by a list of strings to be used in a combobox
+            // gets the defined work offsets by a string list to be used in a combobox
             SpecialChart sCh = new SpecialChart();
             List<string> wOffsets = new List<string>();
             
@@ -104,6 +104,7 @@ namespace CadCamProject
         }
     }
 
+    [Serializable]
     class WorkOffsetPointPosition
     {
         public string description { get; set; }
@@ -123,14 +124,14 @@ namespace CadCamProject
     
             GcodeArray = functions.GcodeArrayWorkOfset();
             Gcode =Gcode.G54;
-            Xpos = 543.231;
-            Ypos = 0.00;
-            Zpos = 285.235;
-            Spindle_1 = 0;
-            Spindle_2 = 0;
+            Xpos = 0.000;
+            Ypos = 0.000;
+            Zpos = 0.000;
+            Spindle_1 = 0.000;
+            Spindle_2 = 0.000;
         }
     }
-    
+    [Serializable]
     class Tool
     {
         public int localization { get; set; }
@@ -178,8 +179,8 @@ namespace CadCamProject
 
 
     }
-
-    class BlackStock
+    [Serializable]
+    public class BlackStock
     {
         public double externalDiameter { get; set; }
         public double internalDiameter { get; set; }
@@ -193,8 +194,10 @@ namespace CadCamProject
             internalDiameter = 0.000;
             initialPosition = 0.000;
             finalPosition = -80.000;
-            splindleLimit = 10.000;
+            splindleLimit = -50.000;
     }
+        
+
 }
 
     

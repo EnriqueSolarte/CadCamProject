@@ -40,7 +40,7 @@ namespace CadCamProject.Pages
             workSettings = workSettings.GetParameters(MainPage);
             fillingParameters();
         }
-
+         
         private void fillingParameters()
         {
             if (workSettings.version == null)
@@ -49,7 +49,14 @@ namespace CadCamProject.Pages
                 workSettings.version = DateTime.Now.ToString("ddMMyy.hhmmss");
                 workSettings.status = statusBarInformation.status;
                 statusBarInformation.ready = false;
+            }else
+            {
+                radioButtonExistingFile.IsChecked = true;
+                
             }
+
+            
+            RadioButtonsBehaivor();
 
             // If the file is not new is gonna change worksettings
             //changing listViews
@@ -63,7 +70,7 @@ namespace CadCamProject.Pages
             textBoxFinal_SZ.Text = workSettings.stock.splindleLimit.ToString();
             
             //Filling file information
-            textBoxFileName.Text = workSettings.file.fileName + workSettings.file.extension;
+            textBoxFileName.Text = workSettings.file.fileName;
             textBoxLocalPath.Text = workSettings.file.directory;
             statusBarInformation.fileName = workSettings.file.fileName;
             statusBarInformation.version = workSettings.version;
@@ -144,49 +151,59 @@ namespace CadCamProject.Pages
         #region Worksettings
         private void radioButtonFiles_Clicked(object sender, RoutedEventArgs e)
         {
-            bool stateCheckBox = false;
+            RadioButtonsBehaivor();
+
+        }
+
+        private void RadioButtonsBehaivor()
+        {
             if (radioButtonExistingFile.IsChecked == true)
             {
-                stateCheckBox = true;
-                checkBoxDuplicateFile.IsEnabled = true;
-                checkBoxDuplicateFile_clicked(sender, e);
-              
-            }
-            else
-            {
 
-                stateCheckBox = false;
-                checkBoxDuplicateFile.IsEnabled = false;
-                buttonLoadSave.Content = ButtonContents.Save;
+                checkBoxDuplicateFile.Visibility = Visibility.Visible;
+               
+                buttonLoadSave.Content = ButtonContents.Load;
+             
                 if (checkBoxDuplicateFile.IsChecked == false)
                 {
                     textBoxFileName.IsEnabled = true;
                 }
             }
+            else
+            {
+               
+                textBoxFileName.IsEnabled = true;
+                checkBoxDuplicateFile.Visibility = Visibility.Hidden;
+                buttonLoadSave.Content = ButtonContents.Save;
+                
+            }
+            CheckBoxDuplicateFileBehaivor();
 
-            checkBoxOperations.IsEnabled = stateCheckBox;
-            checkBoxProfiles.IsEnabled = stateCheckBox;
-            checkBoxBlanksDefinitions.IsEnabled = stateCheckBox;
-            checkBoxSettingTools.IsEnabled = stateCheckBox;
-            checkBoxWorkOffset.IsEnabled = stateCheckBox;
         }
 
         private void checkBoxDuplicateFile_clicked(object sender, RoutedEventArgs e)
-        {
-            if (checkBoxDuplicateFile.IsChecked == true)
-            {
-                textBoxFileName.IsEnabled = true;
-                buttonLoadSave.Content = ButtonContents.Save;
-                textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(workSettings.file.fileName)
-                                     + workSettings.duplicatedFilePrefix+workSettings.file.extension;
-            }else
-            {
-                textBoxFileName.IsEnabled = false;
-                buttonLoadSave.Content = ButtonContents.Load;
-                textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(workSettings.file.fileName)  
-                                    + workSettings.file.extension;
-            }
+        {           
+                CheckBoxDuplicateFileBehaivor();
+        }
 
+        private void CheckBoxDuplicateFileBehaivor()
+        {
+            if (radioButtonExistingFile.IsChecked == true)
+            {
+                if (checkBoxDuplicateFile.IsChecked == true)
+                {
+                    textBoxFileName.IsEnabled = true;
+                    buttonLoadSave.Content = ButtonContents.Save;
+                    textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text)
+                                         + workSettings.duplicatedFilePrefix + "." + extensionFiles.wstt;
+                }
+                else
+                {
+                    textBoxFileName.IsEnabled = false;
+                    buttonLoadSave.Content = ButtonContents.Load;
+                    textBoxFileName.Text = workSettings.file.fileName;
+                }
+            }
         }
 
         private void buttonBrowsePath_Click(object sender, RoutedEventArgs e)
@@ -196,7 +213,7 @@ namespace CadCamProject.Pages
             if (radioButtonExistingFile.IsChecked == true)
             {
                 PathDefinition path = new PathDefinition();
-                path = funtions.fileBrowser("CAM prog (.opt)|*.opt");
+                path = funtions.fileBrowser("Work Settings(wstt)|*.wstt");
                 
                 if (path.directory != null)
                 {
@@ -220,14 +237,15 @@ namespace CadCamProject.Pages
         private void buttonLoadSave_Click(object sender, RoutedEventArgs e)
         {
              
-                if (radioButtonExistingFile.IsChecked == true)
+                if (buttonLoadSave.Content.ToString() == ButtonContents.Load.ToString())
                 {
                     statusBarInformation.status = StateToFile.Loading;
                     loadFileInformation();
                 }
-                else
-                {
-                    statusBarInformation.status = StateToFile.Saving;
+            if (buttonLoadSave.Content.ToString() == ButtonContents.Save.ToString())
+
+               {
+                statusBarInformation.status = StateToFile.Saving;
                     saveFileInformation();
                 }
 
@@ -238,25 +256,26 @@ namespace CadCamProject.Pages
 
         private void saveFileInformation()
         {
-           
-            string fileName = textBoxLocalPath.Text 
-                             + System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text) 
-                             + workSettings.file.extension;
-            //it is necessary create a method to create and staore the format in dataCOntent
-            //MessageBox.Show("It is necessary create a method to save");
-            File.WriteAllText(fileName, workSettings.dataContent);
 
-            ControlStatusBar();
+
+            ExportAndImportToFIle fnc = new ExportAndImportToFIle();
+
             workSettings.file.directory = textBoxLocalPath.Text;
-            workSettings.file.fileName = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text);
-
+            workSettings.file.fileName = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text)+"." + extensionFiles.wstt;
+            ControlStatusBar();
             statusBarInformation.version = workSettings.version;
             statusBarInformation.fileName = workSettings.file.fileName;
+
+            fnc.WriteToBinaryFile<WorkSettings>(workSettings.file.GetFullName(),workSettings);
         } 
 
         private void loadFileInformation()
         {
-            MessageBox.Show("Is not implement yet >> :-)");
+
+            ExportAndImportToFIle fnc = new ExportAndImportToFIle();
+            string path = textBoxLocalPath.Text + textBoxFileName.Text;
+            workSettings = fnc.ReadFromBinaryFile<WorkSettings>(path);
+            fillingParameters();
         }
 
         #endregion

@@ -13,7 +13,7 @@ using System.Xml.Serialization;
 
 namespace CadCamProject.Pages
 {
-    class WindowsFunctions
+    public class WindowsFunctions
     {
 
         public PathDefinition fileBrowser(string filter)
@@ -29,7 +29,7 @@ namespace CadCamProject.Pages
 
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                file.fileName = System.IO.Path.GetFileNameWithoutExtension(dialog.FileName);
+                file.fileName = System.IO.Path.GetFileName(dialog.FileName);
                 file.directory = System.IO.Path.GetDirectoryName(dialog.FileName)+"\\";
             }
             return file;
@@ -74,12 +74,12 @@ namespace CadCamProject.Pages
             return strArray;
         }
 
-        public wPlane[] wPlaneArray()
+        public WorkingPlane[] wPlaneArray()
         {
-            wPlane[] strArray =
+            WorkingPlane[] strArray =
             {
-              wPlane.XY,
-              wPlane.XZ,
+              WorkingPlane.XY,
+              WorkingPlane.ZX,
             };
             return strArray;
         }
@@ -158,14 +158,19 @@ namespace CadCamProject.Pages
             return Array;
         }
     }
-
+    [Serializable]
     public class PathDefinition
     {
         public string directory { get; set; }
-        public string fileName { get; set; }
-        public extensionFiles extension { get; set; }
+        public string fileName { get; set; }  
         
+        public string GetFullName()
+        {
 
+            string fullName;
+            fullName = directory + fileName;
+            return fullName;
+        }      
     }
 
     public class StatusBar
@@ -180,5 +185,40 @@ namespace CadCamProject.Pages
             status = StateToFile.Unsaved;
             ready = true;
         }
+    }
+
+    public static class MyExtensions
+    {
+        public static Vector GetNormalVector_RA(this Vector _vector, ArcDirection _direction)
+        {
+            Vector normalVector;
+            if (_direction == ArcDirection.CW)
+            {
+
+                normalVector = new Vector(-_vector.Y, _vector.X);
+            }
+            else
+            {
+              
+                normalVector = new Vector(_vector.Y, -_vector.X);
+            }
+            return normalVector;
+        }
+
+        public static Vector GetNormalVector_AR(this Vector _vector, ArcDirection _direction)
+        {
+            Vector normalVector;
+            if (_direction == ArcDirection.CCW)
+            {
+                normalVector = new Vector(-_vector.Y, _vector.X);
+            }
+            else
+            {
+                normalVector = new Vector(_vector.Y, -_vector.X);
+            }
+            return normalVector;
+        }
+
+
     }
 }

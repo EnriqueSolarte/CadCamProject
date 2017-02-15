@@ -8,8 +8,8 @@ namespace CadCamProject
 {
     public enum extensionFiles
     {
-        opt,
-        opp,
+        CAMprog,
+        wstt,
         prf,
     }
 
@@ -23,7 +23,8 @@ namespace CadCamProject
         Error,
         Fail,
         Ready,
-        Without_Name,
+        MissingData,
+        Exporting,
 
     }
 
@@ -56,12 +57,6 @@ namespace CadCamProject
         M5,
     }
 
-    public enum wPlane
-    {
-        XZ,
-        XY,
-    }
-
     public enum ArcDirection
     {
         CW,
@@ -89,10 +84,11 @@ namespace CadCamProject
         Round,
         Chamfer,
     }
-    public enum TransitionParameter
+    
+    public enum TypeGeometry
     {
-        Rnd,
-        Chm,
+        Line,
+        Arc,
     }
 
     public enum ReferenceToolDirection
@@ -131,7 +127,7 @@ namespace CadCamProject
 
     public enum WorkingPlane
     {
-        XZ,
+        ZX,
         XY,
     }
     public enum LabelCoordinate
@@ -144,9 +140,5 @@ namespace CadCamProject
         K,
     }
 
-    public enum TypeGeometry
-    {
-        Line,
-        Arc,
-    }
+    
 }
