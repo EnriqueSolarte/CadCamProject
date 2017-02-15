@@ -23,7 +23,7 @@ namespace CadCamProject
         {
             InitializeComponent();
             Switcher.window = this;
-            Switcher.Switch(new Pages.Main());
+            Switcher.Switch(new Main());
 
             
         }

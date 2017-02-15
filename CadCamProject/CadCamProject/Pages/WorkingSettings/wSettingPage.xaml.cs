@@ -17,7 +17,7 @@ using System.Threading;
 using System.Windows.Media.Animation;
 using System.Globalization;
 
-namespace CadCamProject.Pages
+namespace CadCamProject
 {
 
     public partial class wSettingPage : UserControl
