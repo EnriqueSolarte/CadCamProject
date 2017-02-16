@@ -173,11 +173,11 @@ namespace CadCamProject
 
         #endregion
 
-
         #region General Methods
         private void fillingParameters()
         {
-            
+            turningOperation.profileList = GetListProfile();
+
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
@@ -217,12 +217,12 @@ namespace CadCamProject
             #region statusBar Status = ready
             if (statusBarInformation.status == StateToFile.Ready)
             {
-                buttonExportProfile.IsEnabled = true;
+               
 
             }
             else
             {
-                buttonExportProfile.IsEnabled = false;
+         
             }
             #endregion
 
@@ -250,6 +250,15 @@ namespace CadCamProject
         {
             List<Profile> _listProfile = new List<Profile>();
 
+            int count = MainPage.listViewOperations.Items.Count;
+
+            foreach(var operation in (dynamic)MainPage.listViewOperations.Items)
+            {
+                if(operation[0].typeOperation == TypeOperations.Profile)
+                {
+                    _listProfile.Add((Profile)operation[0]);
+                }
+            }
 
             return _listProfile;
         }

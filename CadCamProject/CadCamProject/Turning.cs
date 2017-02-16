@@ -18,7 +18,7 @@ namespace CadCamProject
         public string version { get; set; }
 
         //Common Parameters
-
+         public List<Profile> profileList { get; set; }
 
 
         public Turning()
