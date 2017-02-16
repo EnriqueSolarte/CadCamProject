@@ -30,14 +30,7 @@ namespace WpfApplication1
 
         private string GetAngule()
         {
-            CadCamProject.Line line1 = new CadCamProject.Line(10, 25, 30,45);
-            Vector vector1 = new Vector(10, 25);
-            Vector vector2 = new Vector(30, 45);
             
-
-            Vector R = Vector.Subtract(vector2, vector1);
-            R = line1.ToVector();
-            return R.ToString();
         }
     }
 }

@@ -36,7 +36,7 @@
         <Button x:Name="buttonTrasnferSpindle" Content="Transfer Spindle" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,225,0,0"/>
         <Button x:Name="buttonRadialMilling" Content="Radial Milling" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,265,0,0"/>
         <Button x:Name="buttonAxialMilling" Content="Axial Milling" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,290,0,0"/>
-        <Label x:Name="labelTime" Content="" Grid.Column="1" Margin="10,0,10,10" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        <Label x:Name="labelTime" Content="Verision" Grid.Column="1" Margin="10,0,10,10" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         <Button x:Name="buttonWorkSetting" Content="Work Settings" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Grid.Column="1" Margin="0,35,0,0" Click="buttonWorkSettings_Click"/>
 
     </Grid>
