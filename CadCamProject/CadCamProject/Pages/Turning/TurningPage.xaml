@@ -155,9 +155,6 @@
             </Viewbox>
             
         </Canvas>
-        
-        <Button x:Name="buttonImportProfile" Content="Import Profile" Grid.Column="1" Margin="809,40,0,0" VerticalAlignment="Top" Height="20" Click="buttonImportProfile_Click"/>
-        <Button x:Name="buttonExportProfile" Content="Export Profile" Grid.Column="1" Margin="689,40,125,0" VerticalAlignment="Top" Background="#FFDDDDDD" Height="20" Click="buttonExport_Click"/>
 
     </Grid>
 </UserControl>

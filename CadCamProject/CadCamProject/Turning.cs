@@ -15,10 +15,11 @@ namespace CadCamProject
         public TypeOperations typeOperation { get; set; }
         public string Parameters { get; set; }
         public int Index { get; set; }
-     
-        //Common Parameters
-        public string OperationName { get; set; }
         public string version { get; set; }
+
+        //Common Parameters
+
+
 
         public Turning()
         {

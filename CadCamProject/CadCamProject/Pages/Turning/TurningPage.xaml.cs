@@ -40,6 +40,7 @@ namespace CadCamProject
             statusBarInformation = new StatusBar();
 
             turningOperation = turningOperation.GetParameters(MainPage, index);
+
             wSettings = new WorkSettings();
             wSettings = wSettings.GetParameters(MainPage);
 
@@ -48,7 +49,7 @@ namespace CadCamProject
             drawing = new Drawing(wSettings.stock, 650, new Point(485, 330));
             SetUpDrawing();
         }
-
+        #region Drawing
         private void SetUpDrawing()
         {
             labelScale.Content = drawing.scaleLabel;
@@ -133,9 +134,50 @@ namespace CadCamProject
             line4.Point = _startPoint;
         }
 
+        private void DrawProfileGeometry()
+        {
+            //if (profileOperation.geometry.Count > 0)
+            //{
+            //    Point startPoint = drawing.ProfileStartPoint;
+            //    Point initialPoint = profileOperation.geometry[0].initialPosition.GetPoint((WorkingPlane)comboBoxWorkingPlane.SelectedItem);
+
+            //    ProfilePath.StartPoint = new Point(startPoint.X + drawing.scale * initialPoint.X,
+            //                                       startPoint.Y - drawing.scale * initialPoint.Y);
+
+            //    drawing.SetListProfileDrawing(profileOperation.geometry, (WorkingPlane)comboBoxWorkingPlane.SelectedItem);
+
+            //    ProfilePath.Segments.Clear();
+
+            //    #region Drawing Profile
+            //    foreach (Drawing draw in drawing.listProfileDrawing)
+            //    {
+            //        if (draw.type.Name == TypeGeometry.Line.ToString())
+            //        {
+            //            ProfilePath.Segments.Add(draw.line);
+            //        }
+            //        else
+            //        {
+            //            ProfilePath.Segments.Add(draw.arc);
+            //        }
+            //    }
+            //    #endregion
+            //}
+        }
+
+        private void buttonRefreshDrawing_Click(object sender, RoutedEventArgs e)
+        {
+            WindowsFunctions wfnc = new WindowsFunctions();
+            DrawProfileGeometry();
+            wfnc.animateProgressBar(progressBar, 1.5);
+        }
+
+        #endregion
+
+
+        #region General Methods
         private void fillingParameters()
         {
-
+            
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
@@ -202,86 +244,17 @@ namespace CadCamProject
 
         }
 
-        private void DrawProfileGeometry()
+        #endregion
+
+        private List<Profile> GetListProfile()
         {
-            //if (profileOperation.geometry.Count > 0)
-            //{
-            //    Point startPoint = drawing.ProfileStartPoint;
-            //    Point initialPoint = profileOperation.geometry[0].initialPosition.GetPoint((WorkingPlane)comboBoxWorkingPlane.SelectedItem);
+            List<Profile> _listProfile = new List<Profile>();
 
-            //    ProfilePath.StartPoint = new Point(startPoint.X + drawing.scale * initialPoint.X,
-            //                                       startPoint.Y - drawing.scale * initialPoint.Y);
 
-            //    drawing.SetListProfileDrawing(profileOperation.geometry, (WorkingPlane)comboBoxWorkingPlane.SelectedItem);
-
-            //    ProfilePath.Segments.Clear();
-
-            //    #region Drawing Profile
-            //    foreach (Drawing draw in drawing.listProfileDrawing)
-            //    {
-            //        if (draw.type.Name == TypeGeometry.Line.ToString())
-            //        {
-            //            ProfilePath.Segments.Add(draw.line);
-            //        }
-            //        else
-            //        {
-            //            ProfilePath.Segments.Add(draw.arc);
-            //        }
-            //    }
-            //    #endregion
-            //}
+            return _listProfile;
         }
 
 
 
-        #region Export and Import file
-        private void buttonExport_Click(object sender, RoutedEventArgs e)
-        {
-            //maybe this part shoud be change whith the main status of the MAIN WINDOWS
-
-            //if (statusBarInformation.status == StateToFile.Ready)
-            //{
-            //    string path = wSettings.file.directory + textBoxProfileName.Text + " v" + wSettings.version + "." + extensionFiles.prf;
-
-            //    ExportingProfile(path);
-            //}
-
-        }
-
-        private void ExportingProfile(string path)
-        {
-            //ExportAndImportToFIle fnc = new ExportAndImportToFIle();
-            //WindowsFunctions wfnc = new WindowsFunctions();
-            //fnc.WriteToBinaryFile<Profile>(path, profileOperation);
-            //wfnc.animateProgressBar(progressBar, 1.5);
-        }
-
-        private void buttonImportProfile_Click(object sender, RoutedEventArgs e)
-        {
-            ////{
-
-            ////        ExportAndImportToFIle fnc = new ExportAndImportToFIle();
-            ////        WindowsFunctions wfnc = new WindowsFunctions();
-            ////        PathDefinition path = new PathDefinition();
-            ////        path = wfnc.fileBrowser("Profile file(prf)|*.prf");
-            ////    if (path.GetFullName() != "")
-            ////    {
-            ////        int savedIndex = profileOperation.Index;
-            ////        profileOperation = fnc.ReadFromBinaryFile<Profile>(path.GetFullName());
-            ////        profileOperation.Index = savedIndex;
-            ////        wfnc.animateProgressBar(progressBar, 1.5);
-            ////        fillingParameters();
-            ////    }
-        }
-        #endregion   
-
-        private void buttonRefreshDrawing_Click(object sender, RoutedEventArgs e)
-        {
-            WindowsFunctions wfnc = new WindowsFunctions();
-            DrawProfileGeometry();
-            wfnc.animateProgressBar(progressBar, 1.5);
-        }
-
-       
     }
 }
