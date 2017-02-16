@@ -18,8 +18,8 @@ namespace CadCamProject
         public string version { get; set; }
 
         //Common Parameters
-         public List<Profile> profileList { get; set; }
-
+        public List<Profile> profileList { get; set; }
+        
 
         public Turning()
         {
@@ -55,5 +55,22 @@ namespace CadCamProject
             return listOperation;
         }
 
+        public List<string> GetStringProfileList()
+        {
+            List<string> _profileList = new List<string>();
+            SpecialChart sCh = new SpecialChart();
+
+            foreach (Profile _profile in profileList)
+            {
+                string data;
+                data = _profile.OperationName + sCh.blank + sCh.chLF +
+                        _profile.workingPlane.ToString() + sCh.blank +
+                        _profile.workOffset + sCh.chRH;
+                _profileList.Add(data);    
+            }
+            
+
+            return _profileList;
+        }
     }
 }

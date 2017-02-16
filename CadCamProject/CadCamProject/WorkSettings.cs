@@ -106,7 +106,7 @@ namespace CadCamProject
     }
 
     [Serializable]
-    class WorkOffsetPointPosition
+    public  class WorkOffsetPointPosition
     {
         public string description { get; set; }
       
@@ -133,7 +133,7 @@ namespace CadCamProject
         }
     }
     [Serializable]
-    class Tool
+    public class Tool
     {
         public int localization { get; set; }
         public CuttingToolType[] cuttingToolTypeArray { get; set; }

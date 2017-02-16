@@ -176,7 +176,10 @@ namespace CadCamProject
         #region General Methods
         private void fillingParameters()
         {
-            turningOperation.profileList = GetListProfile();
+            GettingInformation get = new GettingInformation();
+            turningOperation.profileList = get.GetListProfiles(MainPage);
+            comboBoxProfiles.ItemsSource = turningOperation.GetStringProfileList();
+            comboBoxProfiles.SelectedIndex = 1;
 
         }
 
@@ -246,22 +249,7 @@ namespace CadCamProject
 
         #endregion
 
-        private List<Profile> GetListProfile()
-        {
-            List<Profile> _listProfile = new List<Profile>();
-
-            int count = MainPage.listViewOperations.Items.Count;
-
-            foreach(var operation in (dynamic)MainPage.listViewOperations.Items)
-            {
-                if(operation[0].typeOperation == TypeOperations.Profile)
-                {
-                    _listProfile.Add((Profile)operation[0]);
-                }
-            }
-
-            return _listProfile;
-        }
+       
 
 
 

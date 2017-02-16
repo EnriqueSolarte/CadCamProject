@@ -36,7 +36,7 @@
             </StatusBar>
         </DockPanel>
 
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="25,5,0,0" TextWrapping="Wrap" Text="Profile Name:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="71"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="25,7,0,0" TextWrapping="Wrap" Text="Profile" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="40"/>
         <Border BorderThickness="1" BorderBrush="Black"  Grid.Row="1" Grid.Column="1" />
         <Canvas Grid.Column="1" Grid.Row="1" >
             <Canvas.Background>
@@ -54,7 +54,7 @@
                     </DrawingBrush.Drawing>
                 </DrawingBrush>
             </Canvas.Background>
-           
+
             <Path Stroke="Black" StrokeThickness="1" Canvas.Left="0" Canvas.Top="0" Fill="Black">
                 <Path.Data>
                     <PathGeometry x:Name="Origin">
@@ -153,8 +153,9 @@
 
                 </Grid>
             </Viewbox>
-            
+
         </Canvas>
+        <ComboBox x:Name="comboBoxProfiles" HorizontalAlignment="Left" Margin="70,5,0,0" Grid.Row="1" VerticalAlignment="Top" Width="216"/>
 
     </Grid>
 </UserControl>

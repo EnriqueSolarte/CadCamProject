@@ -157,6 +157,9 @@ namespace CadCamProject
             };
             return Array;
         }
+
+        
+
     }
     [Serializable]
     public class PathDefinition
@@ -253,6 +256,23 @@ namespace CadCamProject
 
     public class GettingInformation
     {
+        public List<Profile> GetListProfiles(Main MainPage)
+        {
+            List<Profile> _listProfile = new List<Profile>();
 
+            int count = MainPage.listViewOperations.Items.Count;
+
+            foreach (var operation in (dynamic)MainPage.listViewOperations.Items)
+            {
+                if (operation[0].typeOperation == TypeOperations.Profile)
+                {
+                    _listProfile.Add((Profile)operation[0]);
+                }
+            }
+
+            return _listProfile;
+        }
+
+      
     }
 }
