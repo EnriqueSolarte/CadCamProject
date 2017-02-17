@@ -177,11 +177,20 @@ namespace CadCamProject
         private void fillingParameters()
         {
             GettingInformation getInformation = new GettingInformation();
+            WindowsFunctions fnc = new WindowsFunctions();
+
             profileList = getInformation.GetListProfiles(MainPage);
             comboBoxProfiles.ItemsSource = getInformation.GetStringProfileList(profileList);
             comboBoxProfiles.SelectedIndex = 0;
             turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
+            comboBoxTools.ItemsSource = wSettings.GetToolSettings();
+            comboBoxTools.SelectedIndex = 0;
 
+            comboBoxMachiningRemovalType.ItemsSource = fnc.TurningRemovalTypeArray();
+            comboBoxMachiningRemovalType.SelectedIndex = 0;
+
+            comboBoxTuringType.ItemsSource = fnc.TurningTypeArray();
+            comboBoxTuringType.SelectedIndex = 0;
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
@@ -197,11 +206,27 @@ namespace CadCamProject
 
         private void Definition()
         {
-
+            refreshData();
             MainPage.listViewOperations.Items.Insert(turningOperation.Index,
                 turningOperation.SetParameters(turningOperation, MainPage));
         }
 
+        private void refreshData()
+        {
+
+
+            turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
+            turningOperation.tool = wSettings.toolSettings[comboBoxTools.SelectedIndex];
+            double _feedRate, _cuttingSpeed, _allowanceX, _allowanceZ; 
+            double.TryParse(textBoxFeedRate.Text, out _feedRate);
+            double.TryParse(textBoxCuttingSpeed.Text, out _cuttingSpeed);
+            double.TryParse(textBoxAllowanceX.Text, out _allowanceX);
+            double.TryParse(textBoxAllowanceZ.Text, out _allowanceZ);
+            turningOperation.turningType = (TurningType)comboBoxTuringType.SelectedItem;
+            turningOperation.turningRemovalType = (TurningRemovaltype)comboBoxMachiningRemovalType.SelectedItem;
+            turningOperation.Parameters = turningOperation.ShowingParameters();
+
+        }
         private void ControlStatusBar()
         {
 
@@ -259,5 +284,9 @@ namespace CadCamProject
             turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
             DrawProfileGeometry();
         }
+
+       
+
+       
     }
 }

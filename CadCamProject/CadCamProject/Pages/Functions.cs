@@ -158,7 +158,25 @@ namespace CadCamProject
             return Array;
         }
 
-        
+        public TurningRemovaltype[] TurningRemovalTypeArray()
+        {
+            TurningRemovaltype[] Array =
+            {
+               TurningRemovaltype.byLongitudinal,
+               TurningRemovaltype.byTransverse,
+               TurningRemovaltype.byFollowingContour,
+            };
+            return Array;
+        } 
+        public TurningType[] TurningTypeArray()
+        {
+            TurningType[] data =
+            {
+                TurningType.externalTurning,
+                TurningType.internalTurning,
+            };
+            return data;
+        }
 
     }
     [Serializable]

@@ -159,7 +159,7 @@ namespace CadCamProject
 
         public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double _radius, ArcDirection _arcDirection)
         {
-
+            //by radius
             arcDirection = _arcDirection;
             radiusDefinition = RadiusDefinition.byRadius;
 
@@ -170,9 +170,10 @@ namespace CadCamProject
           
         }
 
-        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double center_coord1, double center_coord2, ArcDirection _arcDirection, bool _isLargeArc)
+        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2,
+                double center_coord1, double center_coord2, ArcDirection _arcDirection)
         {
-
+            // by center point
             arcDirection = _arcDirection;
             radiusDefinition = RadiusDefinition.byCoordinateCenter;
             initialPoint = new CoordinatePoint(initial_coord1, initial_coord2);
@@ -180,7 +181,6 @@ namespace CadCamProject
             centerPoint = new CoordinatePoint(center_coord1, center_coord2);
             Vector _centerVector = new Vector(centerPoint.coord1, centerPoint.coord2);
             radius = _centerVector.Length;
-            largeArc = _isLargeArc;
         }
 
         public Size GetSize()
@@ -391,8 +391,7 @@ namespace CadCamProject
 
         public void SetListProfileDrawing(List<Geometry> geometry, WorkingPlane wPlane)
         {
-           
-
+          
             listProfileDrawing.Clear();
             foreach (Geometry _geometry in geometry)
             {

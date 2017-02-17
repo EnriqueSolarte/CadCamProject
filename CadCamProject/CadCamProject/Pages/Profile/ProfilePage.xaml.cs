@@ -149,7 +149,7 @@ namespace CadCamProject
             textBoxProfileName.Text = profileOperation.OperationName;
 
             //Work Offsets - PLane W
-            comboBoxWorkOffsets.ItemsSource = wSettings.GettingWorkOffsets(wSettings.workOffsets);
+            comboBoxWorkOffsets.ItemsSource = wSettings.GetWorkOffsets();
             comboBoxWorkOffsets.SelectedIndex = profileOperation.workOffsetIndex;
             comboBoxWorkingPlane.ItemsSource = function.wPlaneArray();
             comboBoxWorkingPlane.SelectedItem = profileOperation.workingPlane;
@@ -459,7 +459,7 @@ namespace CadCamProject
             }
             else
             {
-                arc = new Arc(initalCoord1,initalCoord2,finalCoord1,finalCoord2,centerCoord1,centerCoord2,(ArcDirection)comboBoxArcDirection.SelectedItem,(bool)checkBoxIsLargeArc.IsChecked);
+                arc = new Arc(initalCoord1,initalCoord2,finalCoord1,finalCoord2,centerCoord1,centerCoord2,(ArcDirection)comboBoxArcDirection.SelectedItem);
 
             }
             //Point center = arc.GetCenterCircule((WorkingPlane)comboBoxWorkingPlane.SelectedItem);

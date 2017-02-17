@@ -141,5 +141,16 @@ namespace CadCamProject
         K,
     }
 
-    
+    public enum TurningRemovaltype
+    {
+        byLongitudinal, 
+        byTransverse,
+        byFollowingContour,
+    }
+
+    public enum TurningType
+    {
+        externalTurning,
+        internalTurning,
+    }
 }

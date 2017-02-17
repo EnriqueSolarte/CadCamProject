@@ -19,7 +19,16 @@ namespace CadCamProject
 
         //Common Parameters
         public Profile profile { get; set; }
-        
+        public Tool tool { get; set; }
+        public double feedRate { get; set; }
+        public double cuttingSpeed { get; set; }
+
+        public TurningType turningType { get; set; }
+        public double allowanceX { get; set; }
+        public double allowanceZ { get; set; }
+
+        public TurningRemovaltype turningRemovalType { get; set; }
+
 
         public Turning()
         {
@@ -54,6 +63,16 @@ namespace CadCamProject
             }
             return listOperation;
         }
-      
+
+        internal string ShowingParameters()
+        {
+            SpecialChart sCh = new SpecialChart();
+            string dataOut = sCh.chLF + turningType.ToString() + sCh.chRH +
+                             sCh.chLF + "PRF " + profile.OperationName + sCh.blank + profile.workOffset + sCh.chRH +
+                             sCh.chLF + turningRemovalType.ToString() + sCh.chRH;
+                          
+            return dataOut;
+        }
+
     }
 }

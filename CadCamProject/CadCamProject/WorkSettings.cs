@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CadCamProject
 {
     [Serializable]
-    class WorkSettings
+    public class WorkSettings
     {
         //General parameters
         public string TypeImagineOperation { get; set; }
@@ -46,7 +46,7 @@ namespace CadCamProject
             dataContent = "vamos por buen camino kikin";
         }
 
-        internal List<string> GettingWorkOffsets(List<WorkOffsetPointPosition> workOffsets)
+        internal List<string> GetWorkOffsets()
         {
             // gets the defined work offsets by a string list to be used in a combobox
             SpecialChart sCh = new SpecialChart();
@@ -58,6 +58,18 @@ namespace CadCamProject
             }
 
             return wOffsets;
+        }
+        internal List<string> GetToolSettings()
+        {
+            SpecialChart sCh = new SpecialChart();
+            List<string> _toolSettings = new List<string>();
+            foreach(Tool _tool in toolSettings)
+            {
+                string data = _tool.toolName + sCh.blank + sCh.chLF +
+                               _tool.localization + sCh.blank + _tool.toolSet + sCh.chRH;
+                _toolSettings.Add(data);
+            }
+            return _toolSettings;
         }
 
         internal WorkSettings GetParameters(Main MainPage)
