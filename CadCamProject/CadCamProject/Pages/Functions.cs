@@ -273,6 +273,23 @@ namespace CadCamProject
             return _listProfile;
         }
 
-      
+        public List<string> GetStringProfileList(List<Profile> profileList)
+        {
+            List<string> _profileList = new List<string>();
+            SpecialChart sCh = new SpecialChart();
+
+            foreach (Profile _profile in profileList)
+            {
+                string data;
+                data = _profile.OperationName + sCh.blank + sCh.chLF +
+                        _profile.workingPlane.ToString() + sCh.blank +
+                        _profile.workOffset + sCh.chRH;
+                _profileList.Add(data);
+            }
+
+
+            return _profileList;
+        }
+
     }
 }

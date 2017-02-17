@@ -20,8 +20,6 @@ namespace CadCamProject
         public int Index { get; set; }       
         public string version { get; set; }
 
-
-
         //Specific parameters
         public string OperationName { get; set; }
         public int workOffsetIndex { get; set; }

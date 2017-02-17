@@ -27,9 +27,9 @@ namespace CadCamProject
         Turning turningOperation;
         StatusBar statusBarInformation;
 
+        List<Profile> profileList;
         WorkSettings wSettings;
         Drawing drawing;
-
 
         public TurningPage(Main main, int index)
         {
@@ -44,9 +44,8 @@ namespace CadCamProject
             wSettings = new WorkSettings();
             wSettings = wSettings.GetParameters(MainPage);
 
+            drawing = new Drawing(wSettings.stock, 680, new Point(450, 330));
             fillingParameters();
-
-            drawing = new Drawing(wSettings.stock, 650, new Point(485, 330));
             SetUpDrawing();
         }
         #region Drawing
@@ -136,32 +135,33 @@ namespace CadCamProject
 
         private void DrawProfileGeometry()
         {
-            //if (profileOperation.geometry.Count > 0)
-            //{
-            //    Point startPoint = drawing.ProfileStartPoint;
-            //    Point initialPoint = profileOperation.geometry[0].initialPosition.GetPoint((WorkingPlane)comboBoxWorkingPlane.SelectedItem);
+            Profile profileOperation = turningOperation.profile;
+            if (profileOperation.geometry.Count > 0)
+            {
+                Point startPoint = drawing.ProfileStartPoint;
+                Point initialPoint = profileOperation.geometry[0].initialPosition.GetPoint(profileOperation.workingPlane);
 
-            //    ProfilePath.StartPoint = new Point(startPoint.X + drawing.scale * initialPoint.X,
-            //                                       startPoint.Y - drawing.scale * initialPoint.Y);
+                ProfilePath.StartPoint = new Point(startPoint.X + drawing.scale * initialPoint.X,
+                                                   startPoint.Y - drawing.scale * initialPoint.Y);
 
-            //    drawing.SetListProfileDrawing(profileOperation.geometry, (WorkingPlane)comboBoxWorkingPlane.SelectedItem);
+                drawing.SetListProfileDrawing(profileOperation.geometry, profileOperation.workingPlane);
 
-            //    ProfilePath.Segments.Clear();
+                ProfilePath.Segments.Clear();
 
-            //    #region Drawing Profile
-            //    foreach (Drawing draw in drawing.listProfileDrawing)
-            //    {
-            //        if (draw.type.Name == TypeGeometry.Line.ToString())
-            //        {
-            //            ProfilePath.Segments.Add(draw.line);
-            //        }
-            //        else
-            //        {
-            //            ProfilePath.Segments.Add(draw.arc);
-            //        }
-            //    }
-            //    #endregion
-            //}
+                #region Drawing Profile
+                foreach (Drawing draw in drawing.listProfileDrawing)
+                {
+                    if (draw.type.Name == TypeGeometry.Line.ToString())
+                    {
+                        ProfilePath.Segments.Add(draw.line);
+                    }
+                    else
+                    {
+                        ProfilePath.Segments.Add(draw.arc);
+                    }
+                }
+                #endregion
+            }
         }
 
         private void buttonRefreshDrawing_Click(object sender, RoutedEventArgs e)
@@ -176,10 +176,11 @@ namespace CadCamProject
         #region General Methods
         private void fillingParameters()
         {
-            GettingInformation get = new GettingInformation();
-            turningOperation.profileList = get.GetListProfiles(MainPage);
-            comboBoxProfiles.ItemsSource = turningOperation.GetStringProfileList();
-            comboBoxProfiles.SelectedIndex = 1;
+            GettingInformation getInformation = new GettingInformation();
+            profileList = getInformation.GetListProfiles(MainPage);
+            comboBoxProfiles.ItemsSource = getInformation.GetStringProfileList(profileList);
+            comboBoxProfiles.SelectedIndex = 0;
+            turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
 
         }
 
@@ -247,11 +248,16 @@ namespace CadCamProject
 
         }
 
+
+
+
+
         #endregion
 
-       
-
-
-
+        private void comboBoxProfiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
+            DrawProfileGeometry();
+        }
     }
 }

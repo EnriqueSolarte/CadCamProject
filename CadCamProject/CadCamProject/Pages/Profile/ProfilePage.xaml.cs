@@ -246,6 +246,7 @@ namespace CadCamProject
             ChekingListViewSelection();
             settingIntialGeometryPoint();
             CheckingProfileFileName();
+            DrawProfileGeometry();
         }
         #endregion
 
@@ -485,12 +486,12 @@ namespace CadCamProject
         {
            if(listViewGeometries.SelectedItem != null)
             {
-                buttonEditGeometry.IsEnabled = true;
+            
                 buttonDelete.IsEnabled = true;
             }
             else
             {
-                buttonEditGeometry.IsEnabled = false;
+        
                 buttonDelete.IsEnabled = false;
             }
         }
