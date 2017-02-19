@@ -221,6 +221,10 @@ namespace CadCamProject
                     textBoxFileName.Text = path.fileName;
                     textBoxLocalPath.Text = path.directory;
                     statusBarInformation.ready = true;
+                    statusBarInformation.status = StateToFile.Loading;
+                    loadFileInformation();
+                    WindowsFunctions function = new WindowsFunctions();
+                    function.animateProgressBar(progressBar, 1);
                 }
             }
             else
@@ -230,6 +234,8 @@ namespace CadCamProject
                 {
                     textBoxLocalPath.Text = auxPath;
                     statusBarInformation.ready = true;
+                  
+
                 }
             }         
 
@@ -238,11 +244,7 @@ namespace CadCamProject
         private void buttonLoadSave_Click(object sender, RoutedEventArgs e)
         {
              
-                if (buttonLoadSave.Content.ToString() == ButtonContents.Load.ToString())
-                {
-                    statusBarInformation.status = StateToFile.Loading;
-                    loadFileInformation();
-                }
+                
             if (buttonLoadSave.Content.ToString() == ButtonContents.Save.ToString())
 
                {
