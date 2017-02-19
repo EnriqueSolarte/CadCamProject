@@ -126,12 +126,12 @@ namespace CadCamProject
             #region statusBar ready
             if (statusBarInformation.ready)
             {
-                buttonLoadSave.IsEnabled = true;
+                buttonSave.IsEnabled = true;
                 workSettings.status = statusBarInformation.status;
             }
             else
             {
-                buttonLoadSave.IsEnabled = false;
+                buttonSave.IsEnabled = false;
 
             }
             #endregion
@@ -153,59 +153,26 @@ namespace CadCamProject
         private void radioButtonFiles_Clicked(object sender, RoutedEventArgs e)
         {
             RadioButtonsBehaivor();
-
         }
 
         private void RadioButtonsBehaivor()
         {
             if (radioButtonExistingFile.IsChecked == true)
-            {
-
-                checkBoxDuplicateFile.Visibility = Visibility.Visible;
-               
-                buttonLoadSave.Content = ButtonContents.Load;
-             
-                if (checkBoxDuplicateFile.IsChecked == false)
-                {
-                    textBoxFileName.IsEnabled = true;
-                }
+            { 
+                buttonSave.Visibility = Visibility.Hidden;
+                textBoxFileName.IsEnabled = false;
+              
             }
             else
             {
-               
+               buttonSave.Visibility = Visibility.Visible;
                 textBoxFileName.IsEnabled = true;
-                checkBoxDuplicateFile.Visibility = Visibility.Hidden;
-                buttonLoadSave.Content = ButtonContents.Save;
-                
             }
-            CheckBoxDuplicateFileBehaivor();
+           
 
         }
 
-        private void checkBoxDuplicateFile_clicked(object sender, RoutedEventArgs e)
-        {           
-                CheckBoxDuplicateFileBehaivor();
-        }
-
-        private void CheckBoxDuplicateFileBehaivor()
-        {
-            if (radioButtonExistingFile.IsChecked == true)
-            {
-                if (checkBoxDuplicateFile.IsChecked == true)
-                {
-                    textBoxFileName.IsEnabled = true;
-                    buttonLoadSave.Content = ButtonContents.Save;
-                    textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text)
-                                         + workSettings.duplicatedFilePrefix + "." + extensionFiles.wstt;
-                }
-                else
-                {
-                    textBoxFileName.IsEnabled = false;
-                    buttonLoadSave.Content = ButtonContents.Load;
-                    textBoxFileName.Text = workSettings.file.fileName;
-                }
-            }
-        }
+       
 
         private void buttonBrowsePath_Click(object sender, RoutedEventArgs e)
         {
@@ -245,12 +212,10 @@ namespace CadCamProject
         {
              
                 
-            if (buttonLoadSave.Content.ToString() == ButtonContents.Save.ToString())
-
-               {
+          
                 statusBarInformation.status = StateToFile.Saving;
-                    saveFileInformation();
-                }
+                saveFileInformation();
+            
 
             WindowsFunctions function = new WindowsFunctions();
             function.animateProgressBar(progressBar, 1);
@@ -393,10 +358,11 @@ namespace CadCamProject
             return index;
         }
 
+
         #endregion
 
         
-      }
+    }
 
     
 }

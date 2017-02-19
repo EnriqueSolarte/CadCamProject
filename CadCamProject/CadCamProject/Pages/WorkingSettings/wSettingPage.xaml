@@ -14,15 +14,14 @@
         <TabControl x:Name="tabControl" Margin="25,75,35,35" BorderBrush="#FFB0AFAF" TabStripPlacement="Left">
             <TabItem Header="General Settings" Width="120">
                 <Grid Background="White" Margin="0,0,0,0">
-                    <RadioButton x:Name="radioButtonExistingFile" Content="Existing fIle" HorizontalAlignment="Left" Margin="30,17,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked"/>
-                    <RadioButton x:Name="radioButtonNewFile" Content="Create a new fIle" HorizontalAlignment="Left" Margin="30,37,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked" IsChecked="True"/>
+                    <RadioButton x:Name="radioButtonExistingFile" Content="Existing fIle" HorizontalAlignment="Left" Margin="30,17,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked" IsChecked="True"/>
+                    <RadioButton x:Name="radioButtonNewFile" Content="Create a new fIle" HorizontalAlignment="Left" Margin="30,37,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked"/>
                     <Button x:Name="buttonBrowsePath" Content="Browse" Margin="0,88,57,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="buttonBrowsePath_Click"/>
                     <TextBox x:Name="textBoxLocalPath" Height="23" Margin="31,88,147,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
                     <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="30,67,0,0" TextWrapping="Wrap" Text="Local Path:" VerticalAlignment="Top"/>
                     <TextBox x:Name="textBoxFileName" Height="23" Margin="101,117,147,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
                     <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="31,117,0,0" TextWrapping="Wrap" Text="File Name:" VerticalAlignment="Top"/>
-                    <Button x:Name="buttonLoadSave" Content="Save File" HorizontalAlignment="Left" Margin="30,177,0,0" VerticalAlignment="Top" Width="75" Click="buttonLoadSave_Click"/>
-                    <CheckBox x:Name="checkBoxDuplicateFile" Content="Use a duplicate file" HorizontalAlignment="Left" Margin="101,145,0,0" VerticalAlignment="Top" Click="checkBoxDuplicateFile_clicked"/>
+                    <Button x:Name="buttonSave" Content="Save File" HorizontalAlignment="Left" Margin="30,177,0,0" VerticalAlignment="Top" Width="75" Click="buttonLoadSave_Click" Visibility="Hidden"/>
                     <Label x:Name="label1" Content="Geometry Dimension" HorizontalAlignment="Left" Margin="30,398,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="label2" Content="External Diameter" HorizontalAlignment="Left" Margin="65,425,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="textBoxExternalDiam" HorizontalAlignment="Left" Height="23" Margin="190,428,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
