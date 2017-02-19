@@ -27,7 +27,6 @@ namespace CadCamProject
         public WorkingPlane workingPlane { get; set; }
         public List<Geometry> geometry { get; set; }
        
-
         public Profile()
         {
             TypeImagineOperation = "/Images/Profile.png";
@@ -58,6 +57,7 @@ namespace CadCamProject
 
         public List<Profile> SetParameters(Profile opParameters, Main MainPage)
         {
+
             List<Profile> listOperation = new List<Profile>();
             listOperation.Add(opParameters);
             if (opParameters.Index != MainPage.listViewOperations.Items.Count)
@@ -77,6 +77,17 @@ namespace CadCamProject
             return dataOut;
         }
 
+        internal string GetDataString()
+        {
+            string data;
+            SpecialChart sCh = new SpecialChart();
+
+            data = OperationName + sCh.blank + sCh.chLF +
+                    workingPlane.ToString() + sCh.blank +
+                    workOffset + sCh.chRH;
+
+            return data;
+        }
     }
 
     #region Class Geometry Transition Arc Line Point

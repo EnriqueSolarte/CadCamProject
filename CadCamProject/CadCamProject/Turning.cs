@@ -20,6 +20,7 @@ namespace CadCamProject
         //Common Parameters
         public Profile profile { get; set; }
         public Tool tool { get; set; }
+ 
         public double feedRate { get; set; }
         public double cuttingSpeed { get; set; }
 
@@ -28,13 +29,21 @@ namespace CadCamProject
         public double allowanceZ { get; set; }
 
         public TurningRemovaltype turningRemovalType { get; set; }
-
+        public CoordinatePoint apprachingPoint { get; set; }
 
         public Turning()
         {
             TypeImagineOperation = "/Images/Turning.png";
             typeOperation = TypeOperations.Turning;
+                             
+            feedRate = 0.25;
+            cuttingSpeed = 240;
             profile = new Profile();
+            tool = new Tool(0);
+            allowanceX = 0.1;
+            allowanceZ = 0.05;
+            turningType = TurningType.externalTurning;
+            turningRemovalType = TurningRemovaltype.byLongitudinal;
         }
 
         public Turning GetParameters(Main MainPage, int index)

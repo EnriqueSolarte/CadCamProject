@@ -64,10 +64,8 @@ namespace CadCamProject
             SpecialChart sCh = new SpecialChart();
             List<string> _toolSettings = new List<string>();
             foreach(Tool _tool in toolSettings)
-            {
-                string data = _tool.toolName + sCh.blank + sCh.chLF +
-                               _tool.localization + sCh.blank + _tool.toolSet + sCh.chRH;
-                _toolSettings.Add(data);
+            {            
+                _toolSettings.Add(_tool.GetDataString());
             }
             return _toolSettings;
         }
@@ -190,6 +188,15 @@ namespace CadCamProject
             definedSetTools = 1;
         }
 
+        internal string GetDataString()
+        {
+            SpecialChart sCh = new SpecialChart();
+            string data = toolName + sCh.blank + sCh.chLF +
+                          localization + sCh.blank + 
+                           toolSet + sCh.chRH;
+
+            return data;
+        }
 
     }
     [Serializable]

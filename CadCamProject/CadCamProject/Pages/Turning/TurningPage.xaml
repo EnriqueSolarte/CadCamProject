@@ -175,26 +175,33 @@
         <ComboBox x:Name="comboBoxProfiles" Margin="70,5,25,0" Grid.Row="1" VerticalAlignment="Top" SelectionChanged="comboBoxProfiles_SelectionChanged"/>
         <TextBlock x:Name="textBlockTools" HorizontalAlignment="Left" Margin="27,38,0,0" TextWrapping="Wrap" Text="Tool" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="40"/>
         <ComboBox x:Name="comboBoxTools" Margin="71,36,24,0" Grid.Row="1" VerticalAlignment="Top" SelectionChanged="comboBoxProfiles_SelectionChanged"/>
-        <TextBox x:Name="textBoxFeedRate" HorizontalAlignment="Left" Height="23" Margin="130,75,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.25" VerticalAlignment="Top" Width="45"/>
-        <TextBlock x:Name="textBlockFeedRate" HorizontalAlignment="Left" Margin="27,76,0,0" TextWrapping="Wrap" Text="Feed Rate" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
-        <TextBlock x:Name="textBlockFeedRate_Copy" HorizontalAlignment="Left" Margin="180,76,0,0" TextWrapping="Wrap" Text="mm/rev" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
-        <TextBox x:Name="textBoxCuttingSpeed" HorizontalAlignment="Left" Height="23" Margin="130,103,0,0" Grid.Row="1" TextWrapping="Wrap" Text="240" VerticalAlignment="Top" Width="45"/>
-        <TextBlock x:Name="textBlockFeedRate_Copy1" HorizontalAlignment="Left" Margin="26,104,0,0" TextWrapping="Wrap" Text="Cutting speed" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="84"/>
-        <TextBlock x:Name="textBlockFeedRate_Copy2" HorizontalAlignment="Left" Margin="180,104,0,0" TextWrapping="Wrap" Text="m/min" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
-        <TextBox x:Name="textBoxAllowanceX" HorizontalAlignment="Left" Height="23" Margin="130,186,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.2" VerticalAlignment="Top" Width="45"/>
-        <TextBlock x:Name="textBlockFeedRate_Copy3" HorizontalAlignment="Left" Margin="26,188,0,0" TextWrapping="Wrap" Text="Allowance" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
-        <TextBlock x:Name="textBlockFeedRate_Copy4" HorizontalAlignment="Left" Margin="180,188,0,0" TextWrapping="Wrap" Text="mm" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
-        <TextBox x:Name="textBoxAllowanceZ" HorizontalAlignment="Left" Height="23" Margin="130,214,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.2" VerticalAlignment="Top" Width="45"/>
-        <TextBlock x:Name="textBlockFeedRate_Copy5" HorizontalAlignment="Left" Margin="26,215,0,0" TextWrapping="Wrap" Text="Allowance" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
-        <TextBlock x:Name="textBlockFeedRate_Copy6" HorizontalAlignment="Left" Margin="180,215,0,0" TextWrapping="Wrap" Text="mm" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
-        <TextBlock x:Name="textBlockAllowanceCoord1" HorizontalAlignment="Left" Margin="91,188,0,0" TextWrapping="Wrap" Text="X" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="15"/>
-        <TextBlock x:Name="textBlockAllowanceCoord2" HorizontalAlignment="Left" Margin="91,215,0,0" TextWrapping="Wrap" Text="Z" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="15"/>
-        <TextBlock x:Name="textBlockTools_Copy" HorizontalAlignment="Left" Margin="25,145,0,0" TextWrapping="Wrap" Text="Turning Type" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="84"/>
-        <ComboBox x:Name="comboBoxTuringType" Margin="130,143,25,0" Grid.Row="1" VerticalAlignment="Top" SelectionChanged="comboBoxProfiles_SelectionChanged"/>
-        <TextBlock x:Name="textBlockTools_Copy1" HorizontalAlignment="Left" Margin="27,258,0,0" TextWrapping="Wrap" Text="Machining Removal Type" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="164"/>
-        <ComboBox x:Name="comboBoxMachiningRemovalType" Margin="26,278,121,0" Grid.Row="1" VerticalAlignment="Top" SelectionChanged="comboBoxProfiles_SelectionChanged"/>
-        <CheckBox x:Name="checkBoxRoughing" Content="Roughing Machining" HorizontalAlignment="Left" Margin="25,310,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="True"/>
-        <CheckBox x:Name="checkBoxFinishing" Content="Finishing Machining" HorizontalAlignment="Left" Margin="25,330,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="True"/>
+        <TextBox x:Name="textBoxFeedRate" HorizontalAlignment="Left" Height="23" Margin="130,187,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.25" VerticalAlignment="Top" Width="45"/>
+        <TextBlock x:Name="textBlockFeedRate" HorizontalAlignment="Left" Margin="27,190,0,0" TextWrapping="Wrap" Text="Feed Rate" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy" HorizontalAlignment="Left" Margin="180,190,0,0" TextWrapping="Wrap" Text="mm/rev" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBox x:Name="textBoxCuttingSpeed" HorizontalAlignment="Left" Height="23" Margin="130,215,0,0" Grid.Row="1" TextWrapping="Wrap" Text="240" VerticalAlignment="Top" Width="45"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy1" HorizontalAlignment="Left" Margin="27,216,0,0" TextWrapping="Wrap" Text="Cutting speed" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="84"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy2" HorizontalAlignment="Left" Margin="180,216,0,0" TextWrapping="Wrap" Text="m/min" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBox x:Name="textBoxAllowanceX" HorizontalAlignment="Left" Height="23" Margin="131,318,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.2" VerticalAlignment="Top" Width="45"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy3" HorizontalAlignment="Left" Margin="27,319,0,0" TextWrapping="Wrap" Text="Allowance" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy4" HorizontalAlignment="Left" Margin="181,319,0,0" TextWrapping="Wrap" Text="mm" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBox x:Name="textBoxAllowanceZ" HorizontalAlignment="Left" Height="23" Margin="130,346,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.2" VerticalAlignment="Top" Width="45"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy5" HorizontalAlignment="Left" Margin="31,347,0,0" TextWrapping="Wrap" Text="Allowance" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy6" HorizontalAlignment="Left" Margin="180,347,0,0" TextWrapping="Wrap" Text="mm" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBlock x:Name="textBlockAllowanceCoord1" HorizontalAlignment="Left" Margin="95,319,0,0" TextWrapping="Wrap" Text="X" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="15"/>
+        <TextBlock x:Name="textBlockAllowanceCoord2" HorizontalAlignment="Left" Margin="96,347,0,0" TextWrapping="Wrap" Text="Z" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="15"/>
+        <TextBlock x:Name="textBlockTools_Copy" HorizontalAlignment="Left" Margin="25,262,0,0" TextWrapping="Wrap" Text="Turning Type" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="84"/>
+        <ComboBox x:Name="comboBoxTuringType" Margin="131,260,24,0" Grid.Row="1" VerticalAlignment="Top" SelectionChanged="comboBoxProfiles_SelectionChanged"/>
+        <TextBlock x:Name="textBlockTools_Copy1" HorizontalAlignment="Left" Margin="27,402,0,0" TextWrapping="Wrap" Text="Machining Removal Type" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="164"/>
+        <ComboBox x:Name="comboBoxMachiningRemovalType" Margin="26,422,91,0" Grid.Row="1" VerticalAlignment="Top" SelectionChanged="comboBoxProfiles_SelectionChanged"/>
+        <CheckBox x:Name="checkBoxRoughing" Content="Roughing Machining" HorizontalAlignment="Left" Margin="25,470,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="True"/>
+        <CheckBox x:Name="checkBoxFinishing" Content="Finishing Machining" HorizontalAlignment="Left" Margin="25,490,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="True"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy7" HorizontalAlignment="Left" Margin="27,85,0,0" TextWrapping="Wrap" Text="Approaching Point" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="104"/>
+        <TextBlock x:Name="textBlockAllowanceCoord1_Copy" HorizontalAlignment="Left" Margin="95,113,0,0" TextWrapping="Wrap" Text="X" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="15"/>
+        <TextBlock x:Name="textBlockAllowanceCoord1_Copy1" HorizontalAlignment="Left" Margin="95,141,0,0" TextWrapping="Wrap" Text="Z" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="15"/>
+        <TextBox x:Name="textBoxApproachingPointX" HorizontalAlignment="Left" Height="23" Margin="130,110,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.25" VerticalAlignment="Top" Width="45"/>
+        <TextBox x:Name="textBoxApproachingPointZ" HorizontalAlignment="Left" Height="23" Margin="130,138,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.25" VerticalAlignment="Top" Width="45"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy8" HorizontalAlignment="Left" Margin="180,110,0,0" TextWrapping="Wrap" Text="mm" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy9" HorizontalAlignment="Left" Margin="180,141,0,0" TextWrapping="Wrap" Text="mm" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
 
     </Grid>
 </UserControl>

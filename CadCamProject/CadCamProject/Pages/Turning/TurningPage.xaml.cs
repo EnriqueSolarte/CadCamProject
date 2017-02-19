@@ -180,17 +180,18 @@ namespace CadCamProject
             WindowsFunctions fnc = new WindowsFunctions();
 
             profileList = getInformation.GetListProfiles(MainPage);
-            comboBoxProfiles.ItemsSource = getInformation.GetStringProfileList(profileList);
-            comboBoxProfiles.SelectedIndex = 0;
-            turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
+            comboBoxProfiles.ItemsSource = getInformation.GetStringList(profileList);
+            comboBoxProfiles.SelectedItem = turningOperation.profile.GetDataString();
             comboBoxTools.ItemsSource = wSettings.GetToolSettings();
-            comboBoxTools.SelectedIndex = 0;
+            comboBoxTools.SelectedItem = turningOperation.tool.GetDataString();
 
             comboBoxMachiningRemovalType.ItemsSource = fnc.TurningRemovalTypeArray();
-            comboBoxMachiningRemovalType.SelectedIndex = 0;
+            comboBoxMachiningRemovalType.SelectedItem = turningOperation.turningRemovalType;
 
             comboBoxTuringType.ItemsSource = fnc.TurningTypeArray();
-            comboBoxTuringType.SelectedIndex = 0;
+            comboBoxTuringType.SelectedItem  = turningOperation.turningType;
+
+            
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
@@ -213,7 +214,6 @@ namespace CadCamProject
 
         private void refreshData()
         {
-
 
             turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
             turningOperation.tool = wSettings.toolSettings[comboBoxTools.SelectedIndex];
@@ -273,16 +273,15 @@ namespace CadCamProject
 
         }
 
-
-
-
-
         #endregion
 
         private void comboBoxProfiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
-            DrawProfileGeometry();
+            if (comboBoxProfiles.SelectedIndex != -1)
+            {
+                turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
+                DrawProfileGeometry();
+            }
         }
 
        

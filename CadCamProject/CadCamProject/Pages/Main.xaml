@@ -22,7 +22,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Index" Width="200" DisplayMemberBinding="{Binding Index}"/>
-                    <GridViewColumn Header="Operation Type" Width="200" DisplayMemberBinding="{Binding TypeOperation}"/>
+                    <GridViewColumn Header="Operation Type" Width="200" DisplayMemberBinding="{Binding typeOperation}"/>
                     <GridViewColumn Header="Parameters" Width="340" DisplayMemberBinding="{Binding Parameters}"/>
 
                 </GridView>
