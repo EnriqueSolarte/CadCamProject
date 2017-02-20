@@ -309,7 +309,9 @@ namespace CadCamProject
             coord2 = 0.00;
             
         }
-    
+
+       
+
         public CoordinatePoint GetCoordinatePoint(WorkingPlane wPlane)
 
         {

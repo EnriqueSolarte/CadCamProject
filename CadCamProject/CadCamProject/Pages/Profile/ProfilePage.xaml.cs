@@ -538,8 +538,6 @@ namespace CadCamProject
         }
         #endregion   
 
-       
-
       
     }
 }

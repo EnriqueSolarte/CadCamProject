@@ -16,7 +16,6 @@ namespace CadCamProject
         public string Parameters { get; set; }
         public int Index { get; set; }
      
-
         //Common Parameters
         public Profile profile { get; set; }
         public Tool tool { get; set; }
@@ -44,6 +43,7 @@ namespace CadCamProject
             allowanceZ = 0.05;
             turningType = TurningType.externalTurning;
             turningRemovalType = TurningRemovaltype.byLongitudinal;
+            apprachingPoint = new CoordinatePoint(0.25,0.25);
         }
 
         public Turning GetParameters(Main MainPage, int index)

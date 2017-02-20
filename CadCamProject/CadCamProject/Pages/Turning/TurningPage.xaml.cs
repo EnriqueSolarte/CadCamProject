@@ -38,7 +38,6 @@ namespace CadCamProject
             InitializeComponent();
             turningOperation = new Turning();
            
-
             turningOperation = turningOperation.GetParameters(MainPage, index);
 
             wSettings = new WorkSettings();
@@ -217,11 +216,21 @@ namespace CadCamProject
 
             turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
             turningOperation.tool = wSettings.toolSettings[comboBoxTools.SelectedIndex];
-            double _feedRate, _cuttingSpeed, _allowanceX, _allowanceZ; 
+            double _feedRate, _cuttingSpeed, _allowanceX, _allowanceZ, _minimumX, _minimumZ; 
             double.TryParse(textBoxFeedRate.Text, out _feedRate);
             double.TryParse(textBoxCuttingSpeed.Text, out _cuttingSpeed);
             double.TryParse(textBoxAllowanceX.Text, out _allowanceX);
             double.TryParse(textBoxAllowanceZ.Text, out _allowanceZ);
+            double.TryParse(textBlockMinimumX.Text, out _minimumX);
+            double.TryParse(textBlockMinimumZ.Text, out _minimumZ);
+
+            turningOperation.allowanceX = _allowanceX;
+            turningOperation.allowanceX = _allowanceZ;
+            turningOperation.feedRate = _feedRate;
+            turningOperation.cuttingSpeed = _cuttingSpeed;
+            turningOperation.apprachingPoint.coord1 = _minimumX;
+            turningOperation.apprachingPoint.coord2 = _minimumZ;
+
             turningOperation.turningType = (TurningType)comboBoxTuringType.SelectedItem;
             turningOperation.turningRemovalType = (TurningRemovaltype)comboBoxMachiningRemovalType.SelectedItem;
             turningOperation.Parameters = turningOperation.ShowingParameters();
@@ -281,11 +290,21 @@ namespace CadCamProject
             {
                 turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
                 DrawProfileGeometry();
+                minimumTextBlockSetting();
             }
         }
 
-       
+        private void minimumTextBlockSetting()
+        {
+            int lastGeometry = turningOperation.profile.geometry.Count-1;
+            textBlockMinimumX.Text = turningOperation.profile.geometry[lastGeometry].finalPosition.coord1.ToString();
+            textBlockMinimumZ.Text = turningOperation.profile.geometry[0].initialPosition.coord2.ToString();
+        }
 
-       
+        private void buttonGenerateGCode_Click(object sender, RoutedEventArgs e)
+        {
+            
+
+        }
     }
 }
