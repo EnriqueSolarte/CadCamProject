@@ -37,13 +37,13 @@ namespace CadCamProject
             MainPage = main;
             InitializeComponent();
             turningOperation = new Turning();
-            statusBarInformation = new StatusBar();
+           
 
             turningOperation = turningOperation.GetParameters(MainPage, index);
 
             wSettings = new WorkSettings();
             wSettings = wSettings.GetParameters(MainPage);
-
+            statusBarInformation = new StatusBar(wSettings.statusBar);
             drawing = new Drawing(wSettings.stock, 680, new Point(450, 330));
             fillingParameters();
             SetUpDrawing();
@@ -231,7 +231,7 @@ namespace CadCamProject
         {
 
             #region statusBar ready
-            if (statusBarInformation.ready)
+            if (statusBarInformation.statusBoolean)
             {
                 //state ready
                 buttonAccept.IsEnabled = true;
@@ -244,7 +244,7 @@ namespace CadCamProject
             #endregion
 
             #region statusBar Status = ready
-            if (statusBarInformation.status == StateToFile.Ready)
+            if (statusBarInformation.status == StateFile.Ready)
             {
                
 
@@ -259,18 +259,18 @@ namespace CadCamProject
             if (progressBar.Value == progressBar.Maximum)
             {
                 progressBar.Visibility = Visibility.Hidden;
-                statusBarInformation.status = StateToFile.Ready;
+                statusBarInformation.status = StateFile.Ready;
             }
             #endregion
 
             LabelVersion.Content = statusBarInformation.version;
-            LabelFile.Content = statusBarInformation.fileName;
+            LabelFile.Content = statusBarInformation.pathFile.fileName;
             LabelStatus.Content = statusBarInformation.status;
         }
 
         private void Grid_MouseMove(object sender, MouseEventArgs e)
         {
-
+            ControlStatusBar();
         }
 
         #endregion

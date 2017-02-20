@@ -26,29 +26,27 @@ namespace CadCamProject
         Main MainPage;
         Profile profileOperation;
         StatusBar statusBarInformation;
-        SpecialChart specialChart;
+    
         WorkSettings wSettings;
         Drawing drawing;
        
-
         public ProfilePage(Main main, int index)
         {
             Main = main;
             MainPage = main;
             InitializeComponent();
             profileOperation = new Profile();
-            statusBarInformation = new StatusBar();
-            specialChart = new SpecialChart();
+         
             profileOperation = profileOperation.GetParameters(MainPage, index);
             wSettings = new WorkSettings();
             wSettings = wSettings.GetParameters(MainPage);
-
+            statusBarInformation = new StatusBar(wSettings.statusBar);
             fillingParameters();
 
             drawing = new Drawing(wSettings.stock, 650, new Point(485, 330));
             SetUpDrawing();
         }
-
+        #region Drawing
         private void SetUpDrawing()
         {
             labelScale.Content = drawing.scaleLabel;
@@ -134,18 +132,19 @@ namespace CadCamProject
             line4.Point = _startPoint;
         }
 
+        private void buttonRefreshDrawing_Click(object sender, RoutedEventArgs e)
+        {
+            WindowsFunctions wfnc = new WindowsFunctions();
+            DrawProfileGeometry();
+            wfnc.animateProgressBar(progressBar, 1.5);
+        }
+        #endregion
+
         #region General Data Manage
         private void fillingParameters()
         {
             WindowsFunctions function = new WindowsFunctions();
-            // Status Bar 
-            statusBarInformation.fileName = wSettings.file.fileName;
-            statusBarInformation.version = wSettings.version;
-            if(profileOperation.version == null)
-            {
-                profileOperation.version = wSettings.version;
-            }
-            statusBarInformation.status = wSettings.status;
+            
             textBoxProfileName.Text = profileOperation.OperationName;
 
             //Work Offsets - PLane W
@@ -201,7 +200,7 @@ namespace CadCamProject
         {
 
             #region statusBar ready
-            if (statusBarInformation.ready)
+            if (statusBarInformation.statusBoolean)
             {
                 //state ready
                 buttonAccept.IsEnabled = true;                
@@ -214,7 +213,7 @@ namespace CadCamProject
             #endregion
 
             #region statusBar Status = ready
-            if (statusBarInformation.status == StateToFile.Ready)
+            if (statusBarInformation.status == StateFile.Ready)
             {
                 buttonExportProfile.IsEnabled = true;
 
@@ -228,12 +227,12 @@ namespace CadCamProject
             if (progressBar.Value == progressBar.Maximum)
             {
                 progressBar.Visibility = Visibility.Hidden;
-                statusBarInformation.status = StateToFile.Ready;
+                statusBarInformation.status = StateFile.Ready;
             }
             #endregion
 
             LabelVersion.Content = statusBarInformation.version;
-            LabelFile.Content = statusBarInformation.fileName;
+            LabelFile.Content = statusBarInformation.pathFile.fileName;
             LabelStatus.Content = statusBarInformation.status;
         }
 
@@ -329,14 +328,14 @@ namespace CadCamProject
         {
             if (textBoxProfileName.Text == "")
             {
-                statusBarInformation.status = StateToFile.MissingData;
-                statusBarInformation.ready = false;
+                statusBarInformation.status = StateFile.MissingData;
+                statusBarInformation.statusBoolean = false;
 
             }
             else
             {
-                statusBarInformation.status = wSettings.status;
-                statusBarInformation.ready = true;
+                statusBarInformation.status = wSettings.statusBar.status;
+                statusBarInformation.statusBoolean = true;
 
             }
             ControlStatusBar();
@@ -503,9 +502,9 @@ namespace CadCamProject
         {
             //maybe this part shoud be change whith the main status of the MAIN WINDOWS
 
-            if (statusBarInformation.status == StateToFile.Ready)
+            if (statusBarInformation.status == StateFile.Ready)
             {
-                string path = wSettings.file.directory + textBoxProfileName.Text + " v" + wSettings.version + "." + extensionFiles.prf;
+                string path = wSettings.statusBar.pathFile.directory + textBoxProfileName.Text + " v" + wSettings.statusBar.version + "." + extensionFiles.prf;
                 refreshData();
                 ExportingProfile(path);
             }
@@ -539,12 +538,7 @@ namespace CadCamProject
         }
         #endregion   
 
-        private void buttonRefreshDrawing_Click(object sender, RoutedEventArgs e)
-        {
-            WindowsFunctions wfnc = new WindowsFunctions();
-            DrawProfileGeometry();
-            wfnc.animateProgressBar(progressBar, 1.5);
-        }
+       
 
       
     }

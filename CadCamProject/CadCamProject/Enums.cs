@@ -13,7 +13,7 @@ namespace CadCamProject
         prf,
     }
 
-    public enum StateToFile
+    public enum StateFile
     {
         Saving,
         Loading,

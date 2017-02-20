@@ -193,19 +193,31 @@ namespace CadCamProject
             return fullName;
         }      
     }
-
+    [Serializable]
     public class StatusBar
     {
         public string version { get; set; }
-        public string fileName { get; set; }
-        public StateToFile status { get; set; }
-        public bool ready { get; set; }
+        public PathDefinition pathFile { get; set; }
+        public StateFile status { get; set; }
+        public bool statusBoolean { get; set; }
         
+        public StatusBar(StatusBar _statusBar)
+        {
+            version = _statusBar.version;
+            pathFile = _statusBar.pathFile;
+            status = _statusBar.status;
+            statusBoolean = _statusBar.statusBoolean;
+        }
+
         public StatusBar()
         {
-            status = StateToFile.Unsaved;
-            ready = true;
+            pathFile = new PathDefinition();
+            pathFile.fileName = "defaultName." + extensionFiles.wstt;
+            pathFile.directory = "C:\\";
+            status = StateFile.Unsaved;
+            statusBoolean = false;
         }
+
     }
 
     public static class MyExtensions

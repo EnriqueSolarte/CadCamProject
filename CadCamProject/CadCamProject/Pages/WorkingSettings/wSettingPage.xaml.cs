@@ -25,30 +25,26 @@ namespace CadCamProject
         UserControl Main;
         Main MainPage;
         WorkSettings workSettings;
-        StatusBar statusBarInformation;
-        SpecialChart specialChart;
-        
-
+       
+      
         public wSettingPage(Main main)
         { 
             Main = main;  
             MainPage = main;
             InitializeComponent();
             workSettings = new WorkSettings();
-            statusBarInformation = new StatusBar();
-            specialChart = new SpecialChart();
+           
             workSettings = workSettings.GetParameters(MainPage);
             fillingParameters();
         }
          
         private void fillingParameters()
         {
-            if (workSettings.version == null)
+            if (workSettings.statusBar.version == null)
             {
                 // If the file is new
-                workSettings.version = DateTime.Now.ToString("ddMMyy.hhmmss");
-                workSettings.status = statusBarInformation.status;
-                statusBarInformation.ready = false;
+                workSettings.statusBar.version = DateTime.Now.ToString("ddMMyy.hhmmss");
+               
             }else
             {
                 radioButtonExistingFile.IsChecked = true;
@@ -70,10 +66,9 @@ namespace CadCamProject
             textBoxFinal_SZ.Text = workSettings.stock.splindleLimit.ToString();
             
             //Filling file information
-            textBoxFileName.Text = workSettings.file.fileName;
-            textBoxLocalPath.Text = workSettings.file.directory;
-            statusBarInformation.fileName = workSettings.file.fileName;
-            statusBarInformation.version = workSettings.version;
+            textBoxFileName.Text = workSettings.statusBar.pathFile.fileName;
+            textBoxLocalPath.Text = workSettings.statusBar.pathFile.directory;
+            
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
@@ -124,10 +119,10 @@ namespace CadCamProject
         {
 
             #region statusBar ready
-            if (statusBarInformation.ready)
+            if (workSettings.statusBar.statusBoolean)
             {
                 buttonSave.IsEnabled = true;
-                workSettings.status = statusBarInformation.status;
+                workSettings.statusBar.status = workSettings.statusBar.status;
             }
             else
             {
@@ -140,13 +135,13 @@ namespace CadCamProject
             if (progressBar.Value == progressBar.Maximum)
             {
                 progressBar.Visibility = Visibility.Hidden;
-                statusBarInformation.status = StateToFile.Ready;
+                workSettings.statusBar.status = StateFile.Ready;
             }
             #endregion
 
-            LabelVersion.Content = statusBarInformation.version;
-            LabelFile.Content = statusBarInformation.fileName;
-            LabelStatus.Content = statusBarInformation.status;
+            LabelVersion.Content = workSettings.statusBar.version;
+            LabelFile.Content = workSettings.statusBar.pathFile.fileName;
+            LabelStatus.Content = workSettings.statusBar.status;
         }
 
         #region Worksettings
@@ -170,9 +165,7 @@ namespace CadCamProject
             }
            
 
-        }
-
-       
+        }    
 
         private void buttonBrowsePath_Click(object sender, RoutedEventArgs e)
         {
@@ -187,8 +180,8 @@ namespace CadCamProject
                 {
                     textBoxFileName.Text = path.fileName;
                     textBoxLocalPath.Text = path.directory;
-                    statusBarInformation.ready = true;
-                    statusBarInformation.status = StateToFile.Loading;
+                    workSettings.statusBar.statusBoolean = true;
+                    workSettings.statusBar.status = StateFile.Loading;
                     loadFileInformation();
                     WindowsFunctions function = new WindowsFunctions();
                     function.animateProgressBar(progressBar, 1);
@@ -200,7 +193,7 @@ namespace CadCamProject
                 if (auxPath != "")
                 {
                     textBoxLocalPath.Text = auxPath;
-                    statusBarInformation.ready = true;
+                    workSettings.statusBar.statusBoolean = true;
                   
 
                 }
@@ -210,10 +203,10 @@ namespace CadCamProject
 
         private void buttonLoadSave_Click(object sender, RoutedEventArgs e)
         {
-             
-                
-          
-                statusBarInformation.status = StateToFile.Saving;
+
+
+
+                workSettings.statusBar.status = StateFile.Saving;
                 saveFileInformation();
             
 
@@ -228,13 +221,11 @@ namespace CadCamProject
 
             ExportAndImportToFIle fnc = new ExportAndImportToFIle();
 
-            workSettings.file.directory = textBoxLocalPath.Text;
-            workSettings.file.fileName = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text)+"." + extensionFiles.wstt;
+            workSettings.statusBar.pathFile.directory = textBoxLocalPath.Text;
+            workSettings.statusBar.pathFile.fileName = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text)+"." + extensionFiles.wstt;
             ControlStatusBar();
-            statusBarInformation.version = workSettings.version;
-            statusBarInformation.fileName = workSettings.file.fileName;
-
-            fnc.WriteToBinaryFile<WorkSettings>(workSettings.file.GetFullName(),workSettings);
+            
+            fnc.WriteToBinaryFile<WorkSettings>(workSettings.statusBar.pathFile.GetFullName(),workSettings);
         } 
 
         private void loadFileInformation()
@@ -272,10 +263,10 @@ namespace CadCamProject
 
         private void buttonNewTool_Click(object sender, RoutedEventArgs e)
             {
-            workSettings.counterTools++;
+            workSettings.counterTools++;   
             workSettings.toolSettings.Add(new Tool(workSettings.counterTools));
             listViewToolSettings.Items.Refresh();
-          
+         
         }
 
         private void buttonDeleteToolItem_Click(object sender, RoutedEventArgs e)

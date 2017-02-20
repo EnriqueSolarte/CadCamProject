@@ -16,13 +16,9 @@ namespace CadCamProject
         public TypeOperations typeOperation { get; set; }
         public string Parameters { get; set; }
         public int Index { get; set; }     
-        public string dataContent { get; set; }
-        public string version { get; set; }
-        public StateToFile status { get; set; }
+        internal StatusBar statusBar { get; set; }
 
         //Specific parameters
-        public PathDefinition file { get; set; }
-        public string duplicatedFilePrefix { get; }
         public List<WorkOffsetPointPosition> workOffsets { get; set; }
         public List<Tool> toolSettings { get; set; }
         public int counterTools { get; set; }
@@ -39,11 +35,8 @@ namespace CadCamProject
             toolSettings.Add(new Tool(1));
             counterTools = 1;
             stock = new BlackStock();
-            file = new PathDefinition();
-            file.directory = "C:\\";
-            file.fileName = "defaultName."+ extensionFiles.wstt;
-            duplicatedFilePrefix = "_duplicated";
-            dataContent = "vamos por buen camino kikin";
+            statusBar = new StatusBar();     
+          
         }
 
         internal List<string> GetWorkOffsets()
@@ -103,14 +96,14 @@ namespace CadCamProject
         internal string ShowingParameters(WorkSettings wSettings)
         {
             SpecialChart sCh = new SpecialChart();
-            string dataOut = sCh.chLF + wSettings.file.fileName + sCh.chRH +
+            string dataOut = sCh.chLF + wSettings.statusBar.pathFile.fileName + sCh.chRH +
                              sCh.chLF + "WO " + wSettings.workOffsets.Count.ToString() + sCh.chRH +
                              sCh.chLF + "TS " + wSettings.toolSettings.Count.ToString() + sCh.chRH +
                              sCh.chLF + "BK " + wSettings.stock.externalDiameter.ToString() + sCh.blank +
                              wSettings.stock.internalDiameter.ToString() + sCh.blank +
                              wSettings.stock.finalPosition.ToString() + sCh.blank +
                              wSettings.stock.splindleLimit.ToString() + sCh.chRH +
-                             sCh.chLF + "V" + wSettings.version + sCh.chRH;
+                             sCh.chLF + "V" + wSettings.statusBar.version + sCh.chRH;
             return dataOut;
         }
     }
