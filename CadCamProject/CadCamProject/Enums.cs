@@ -105,19 +105,7 @@ namespace CadCamProject
         
     }
 
-    public class SpecialChart
-    {
-        public string chLF { get; }
-        public string chRH { get; }
-        public string blank { get; }
-
-        public SpecialChart()
-        {
-            blank = " ";
-            chLF = "[";
-            chRH = "]";
-        }
-    } 
+   
 
     public enum TypeOperations
     {

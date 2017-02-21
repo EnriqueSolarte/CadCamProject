@@ -216,7 +216,8 @@ namespace CadCamProject
 
             turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
             turningOperation.tool = wSettings.toolSettings[comboBoxTools.SelectedIndex];
-            double _feedRate, _cuttingSpeed, _allowanceX, _allowanceZ, _minimumX, _minimumZ; 
+            double _feedRate, _cuttingSpeed, _allowanceX, _allowanceZ, _minimumX, _minimumZ,
+                   _deltaMinimumX, _deltaMinimumZ; 
             double.TryParse(textBoxFeedRate.Text, out _feedRate);
             double.TryParse(textBoxCuttingSpeed.Text, out _cuttingSpeed);
             double.TryParse(textBoxAllowanceX.Text, out _allowanceX);
@@ -224,12 +225,15 @@ namespace CadCamProject
             double.TryParse(textBlockMinimumX.Text, out _minimumX);
             double.TryParse(textBlockMinimumZ.Text, out _minimumZ);
 
+            double.TryParse(textBoxApproachingPointX.Text, out _deltaMinimumX);
+            double.TryParse(textBoxApproachingPointZ.Text, out _deltaMinimumZ);
+
             turningOperation.allowanceX = _allowanceX;
             turningOperation.allowanceX = _allowanceZ;
             turningOperation.feedRate = _feedRate;
             turningOperation.cuttingSpeed = _cuttingSpeed;
-            turningOperation.apprachingPoint.coord1 = _minimumX;
-            turningOperation.apprachingPoint.coord2 = _minimumZ;
+            turningOperation.apprachingPoint.coord1 = _minimumX + _deltaMinimumX;
+            turningOperation.apprachingPoint.coord2 = _minimumZ + _deltaMinimumZ;
 
             turningOperation.turningType = (TurningType)comboBoxTuringType.SelectedItem;
             turningOperation.turningRemovalType = (TurningRemovaltype)comboBoxMachiningRemovalType.SelectedItem;
@@ -280,6 +284,7 @@ namespace CadCamProject
         private void Grid_MouseMove(object sender, MouseEventArgs e)
         {
             ControlStatusBar();
+        
         }
 
         #endregion
@@ -303,8 +308,8 @@ namespace CadCamProject
 
         private void buttonGenerateGCode_Click(object sender, RoutedEventArgs e)
         {
-            
-
+            refreshData();
+            turningOperation.GetGCODE();
         }
     }
 }

@@ -75,7 +75,7 @@ namespace CadCamProject
 
         internal string ShowingParameters()
         {
-            SpecialChart sCh = new SpecialChart();
+            FunctionChart sCh = new FunctionChart();
             string dataOut = sCh.chLF + turningType.ToString() + sCh.chRH +
                              sCh.chLF + "PRF " + profile.OperationName + sCh.blank + profile.workOffset + sCh.chRH +
                              sCh.chLF + turningRemovalType.ToString() + sCh.chRH;
@@ -83,5 +83,16 @@ namespace CadCamProject
             return dataOut;
         }
 
+        public void GetGCODE()
+        {
+            PostProcessor post = new PostProcessor();
+
+            post.Header(profile.workOffset,WorkingPlane.ZX);
+            post.RapidMove(new CoordinatePoint(100, 100));
+
+            post.printGCODE();
+
+
+        }
     }
 }
