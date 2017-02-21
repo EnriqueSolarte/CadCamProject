@@ -43,10 +43,7 @@ namespace CadCamProject
             return _gCode;
         }
 
-        public void ToolChanging()
-        {
-        }
-
+      
         public void LineMove()
         {
 
@@ -61,12 +58,36 @@ namespace CadCamProject
         {
             code.NewBlock();
             code.Add("G00");
+
+            X
+            code.Add(_point.coord1.ToString);
         }
 
         public void printGCODE()
         {
             File.WriteAllText("gCode.NC", code.chainData);
            
+        }
+
+        internal void StartFile()
+        {
+            code.Add("%");
+        }
+
+        internal void ToolChanging(Tool tool)
+        {
+            RapidMove(new CoordinatePoint(50, 50));
+            code.NewBlock();
+            string _tool = "T0" + tool.localization.ToString() +
+                            "0" + tool.toolSet.ToString();
+            code.Add(_tool);
+
+        }
+
+
+        internal void EndFile()
+        {
+            code.Add("M30");
         }
     }
 }
