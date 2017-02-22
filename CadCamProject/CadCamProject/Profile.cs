@@ -69,7 +69,7 @@ namespace CadCamProject
 
         internal string ShowingParameters(Profile _profile)
         {
-            FunctionChart sCh = new FunctionChart();
+            SpecialsChart sCh = new SpecialsChart();
             string dataOut = sCh.chLF + _profile.OperationName + sCh.chRH +
                              sCh.chLF + "WO " + _profile.workOffsetIndex.ToString() + sCh.blank + _profile.workOffset + sCh.chRH +
                              sCh.chLF + "GT " + _profile.geometry.Count.ToString() + sCh.chRH +
@@ -80,7 +80,7 @@ namespace CadCamProject
         internal string GetDataString()
         {
             string data;
-            FunctionChart sCh = new FunctionChart();
+            SpecialsChart sCh = new SpecialsChart();
 
             data = OperationName + sCh.blank + sCh.chLF +
                     workingPlane.ToString() + sCh.blank +

@@ -42,7 +42,7 @@ namespace CadCamProject
         internal List<string> GetWorkOffsets()
         {
             // gets the defined work offsets by a string list to be used in a combobox
-            FunctionChart sCh = new FunctionChart();
+            SpecialsChart sCh = new SpecialsChart();
             List<string> wOffsets = new List<string>();
             
             for(int i=0; i < workOffsets.Count; i++)
@@ -54,7 +54,7 @@ namespace CadCamProject
         }
         internal List<string> GetToolSettings()
         {
-            FunctionChart sCh = new FunctionChart();
+            SpecialsChart sCh = new SpecialsChart();
             List<string> _toolSettings = new List<string>();
             foreach(Tool _tool in toolSettings)
             {            
@@ -95,7 +95,7 @@ namespace CadCamProject
 
         internal string ShowingParameters(WorkSettings wSettings)
         {
-            FunctionChart sCh = new FunctionChart();
+            SpecialsChart sCh = new SpecialsChart();
             string dataOut = sCh.chLF + wSettings.statusBar.pathFile.fileName + sCh.chRH +
                              sCh.chLF + "WO " + wSettings.workOffsets.Count.ToString() + sCh.chRH +
                              sCh.chLF + "TS " + wSettings.toolSettings.Count.ToString() + sCh.chRH +
@@ -183,7 +183,7 @@ namespace CadCamProject
 
         internal string GetDataString()
         {
-            FunctionChart sCh = new FunctionChart();
+            SpecialsChart sCh = new SpecialsChart();
             string data = toolName + sCh.blank + sCh.chLF +
                           localization + sCh.blank + 
                            toolSet + sCh.chRH;

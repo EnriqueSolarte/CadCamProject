@@ -318,65 +318,25 @@ namespace CadCamProject
 
     }
 
-    public class FunctionChart
+    public class SpecialsChart
     {
         public string chLF { get; }
         public string chRH { get; }
-        public string blank { get; }
-        public string chainData { get; set; }
-        private string spc { get; }
-        private int lineNumber { get; set; }
+        public string blank { get; }     
+        
+   
 
-        public FunctionChart()
+        public SpecialsChart()
         {
-            chainData = "";
+            
             blank = " ";
             chLF = "[";
             chRH = "]";
-            spc = " ";
             
         }
 
-        public FunctionChart(string _data)
-        {
-            chainData = _data;
-            spc = " ";
-            blank = " ";
-            chLF = "[";
-            chRH = "]";
-        }
-        public void Add(string _data)
-        {
-            chainData = chainData + spc + _data + spc;
-        }
-
-        public void NewBlock()
-        {
-            if (lineNumber == 0)
-            {
-                lineNumber = 10;
-            }else
-            {
-                lineNumber = lineNumber + 10;
-            }
-            
-            chainData = chainData + Environment.NewLine + "N" + lineNumber.ToString();
-        }
-
-        public void NewLine()
-        {
-            if (lineNumber == 0)
-            {
-                lineNumber = 10;
-            }
-            else
-            {
-                lineNumber = lineNumber + 10;
-            }
-
-            chainData = chainData + Environment.NewLine;
-        }
-
+      
+       
 
     }
 }

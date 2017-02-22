@@ -10,84 +10,65 @@ namespace CadCamProject
 {
     public class PostProcessor
     {
-       
-        public string gCodeFile { get; set; }
-        private FunctionChart code { get; set; }
-        
+        private WorkSettings wSettings { get; }
+        private Turning turning { get; }
+        private SpecialsChart sCh { get;}
 
-        public PostProcessor()
+
+        public string gCodeFile { get; internal set; }
+
+        public PostProcessor(WorkSettings _wSettings, Turning _turningOperation)
         {
-            code = new FunctionChart(gCodeFile);
+            wSettings = _wSettings;
+            turning = _turningOperation;
         }
 
-        public void Header(Gcode gCode,WorkingPlane wPlane)
+        private void Add(string _data)
         {
-            code.NewBlock();
-            code.Add(gCode.ToString());
-            code.Add(GetGCode(wPlane));
-            code.Add("G21 G90 G95");            
-        }
-
-        private string GetGCode(WorkingPlane wPlane)
-        {
-            string _gCode="";
-
-            if (wPlane == WorkingPlane.ZX)
-            {
-                _gCode = "G18";
-            }
-            if (wPlane == WorkingPlane.XY)
-            {
-                _gCode = "G17";
-            }
-            return _gCode;
-        }
-
-      
-        public void LineMove()
-        {
-
-        }
-
-        public void ArcMove()
-        {
-
-        }
-
-        public void RapidMove(CoordinatePoint _point)
-        {
-            code.NewBlock();
-            code.Add("G00");
-
-            X
-            code.Add(_point.coord1.ToString);
-        }
-
-        public void printGCODE()
-        {
-            File.WriteAllText("gCode.NC", code.chainData);
            
         }
 
-        internal void StartFile()
+        private void NewBlock()
         {
-            code.Add("%");
+           
         }
 
-        internal void ToolChanging(Tool tool)
+        private void NewLine()
         {
-            RapidMove(new CoordinatePoint(50, 50));
-            code.NewBlock();
-            string _tool = "T0" + tool.localization.ToString() +
-                            "0" + tool.toolSet.ToString();
-            code.Add(_tool);
+           
+        }
+
+        private void LineMove()
+        {
+
+        }
+
+        private void ArcMove()
+        {
+
+        }
+
+        private void GetGCode()
+        {
+           
+           
+        }
+
+        private void StartFile()
+        {
+           
+        }
+
+        private void ToolChanging(Tool tool)
+        {
+            
 
         }
 
 
-        internal void EndFile()
+        private void EndFile()
         {
-            code.Add("M30");
+            
         }
     }
 }

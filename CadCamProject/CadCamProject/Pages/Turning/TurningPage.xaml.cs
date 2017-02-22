@@ -309,7 +309,7 @@ namespace CadCamProject
         private void buttonGenerateGCode_Click(object sender, RoutedEventArgs e)
         {
             refreshData();
-            turningOperation.GetGCODE();
+            
         }
     }
 }
