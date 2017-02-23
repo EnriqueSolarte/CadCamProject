@@ -190,6 +190,9 @@
 
                 </Grid>
             </TabItem>
+            <TabItem Header="Geometric Boundary">
+                
+            </TabItem>
 
 
         </TabControl>

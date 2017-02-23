@@ -23,7 +23,10 @@ namespace CadCamProject
         public List<Tool> toolSettings { get; set; }
         public int counterTools { get; set; }
         public BlackStock stock { get; set; }
-        
+
+        public string extensionGCode { get; set; }
+        public Units units { get; set; } 
+        public CoordinatePoint safetyPoint { get; set; }
 
         public WorkSettings()
         {
@@ -35,8 +38,13 @@ namespace CadCamProject
             toolSettings.Add(new Tool(1));
             counterTools = 1;
             stock = new BlackStock();
-            statusBar = new StatusBar();     
-          
+            statusBar = new StatusBar();
+
+
+            extensionGCode = ".NC";
+            units = Units.mm;
+            safetyPoint = new CoordinatePoint(100.00, 100);
+
         }
 
         internal List<string> GetWorkOffsets()
@@ -143,6 +151,8 @@ namespace CadCamProject
         public string cuttingToolType { get; set; }
         public string toolName { get; set; }
         public int toolSet { get; set; }
+
+        //Parameters
         public double lengthX { get; set;}
         public double lengthZ { get; set; }
         public double radius { get; set; }
@@ -155,7 +165,7 @@ namespace CadCamProject
         public Mcode[] spindleControlArray { get; set; }
         public string spindleControl { get; set; }
         public bool isEdgeTool { get; set; }
-        public int definedSetTools { get; set; }
+       
 
         public Tool(int index)
         {
@@ -164,7 +174,7 @@ namespace CadCamProject
             cuttingToolTypeArray = functions.CuttingToolTypeArray();
             cuttingToolType = CuttingToolType.Turning.ToString();
             toolName = " New tool " + (index).ToString();
-            toolSet = 1;
+           
             lengthX = 0.000;
             lengthZ = 0.000;
             radius = 0.010;
@@ -178,7 +188,7 @@ namespace CadCamProject
             coolant = true;
 
             isEdgeTool = false;
-            definedSetTools = 1;
+            toolSet = 1;
         }
 
         internal string GetDataString()

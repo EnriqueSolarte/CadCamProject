@@ -25,7 +25,14 @@ namespace CadCamProject
         Ready,
         MissingData,
         Exporting,
+        Creating_GCODE,
 
+    }
+
+    public enum Units
+    {
+        mm,
+        inch,
     }
 
     public enum ButtonContents
@@ -40,12 +47,15 @@ namespace CadCamProject
 
     public enum Gcode
     {
-        G54,
-        G55,
-        G56,
-        G57,
-        G58,
-        G59,
+        G00, G01, G02, G03,
+        G17, G18, G19,
+        G20, G21,
+        G40, G41, G42,
+        G70, G71, G72, G73,
+        G90, G91,
+        G94, G95,
+        G96, G97,
+        G54, G55, G56, G57, G58, G59,
         CP,   
 
     }
@@ -104,8 +114,6 @@ namespace CadCamProject
         pos9=9,
         
     }
-
-   
 
     public enum TypeOperations
     {

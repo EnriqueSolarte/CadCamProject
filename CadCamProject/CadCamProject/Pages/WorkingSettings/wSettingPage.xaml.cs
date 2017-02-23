@@ -326,11 +326,11 @@ namespace CadCamProject
                 Tool newEdgeCuttingTool = new Tool(0);
                 newEdgeCuttingTool.toolName = "New Edge Tool";
                 newEdgeCuttingTool.localization = workSettings.toolSettings[index].localization;
-                newEdgeCuttingTool.toolSet= workSettings.toolSettings[index].definedSetTools + 1;
+                newEdgeCuttingTool.toolSet= workSettings.toolSettings[index].toolSet + 1;
                 newEdgeCuttingTool.isEdgeTool = true;
-                newEdgeCuttingTool.definedSetTools= workSettings.toolSettings[index].definedSetTools + 1;
+                newEdgeCuttingTool.toolSet= workSettings.toolSettings[index].toolSet + 1;
                 workSettings.toolSettings.Insert(index +1,newEdgeCuttingTool);
-                workSettings.toolSettings[index].definedSetTools++;
+                workSettings.toolSettings[index].toolSet++;
                 listViewToolSettings.Items.Refresh();
                 listViewToolSettings.SelectedIndex = index;
                 

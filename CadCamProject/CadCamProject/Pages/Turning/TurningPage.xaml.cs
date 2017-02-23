@@ -309,7 +309,15 @@ namespace CadCamProject
         private void buttonGenerateGCode_Click(object sender, RoutedEventArgs e)
         {
             refreshData();
-            
+            WindowsFunctions wfnc = new WindowsFunctions();
+            PostProcessor code = new PostProcessor(wSettings,turningOperation);
+            PathDefinition gCodeFile = new PathDefinition();
+            gCodeFile.directory = wSettings.statusBar.pathFile.directory;
+            gCodeFile.fileName = "gCode.NC";
+            code.GetGCode(gCodeFile);
+            statusBarInformation.status = StateFile.Creating_GCODE;
+            wfnc.animateProgressBar(progressBar, 3);
+            ControlStatusBar();
         }
     }
 }
