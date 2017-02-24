@@ -14,12 +14,9 @@ namespace CadCamProject
         private int blockNumber=0;
 
         private WorkingPlane wPlane;
-        private Gcode gCode;
-        private Mcode mCode;
-        private double feedRate;
-        private double speedSpindle;
-        private double cuttingSpeed;
-
+        private string gCode;
+        private string mCode;
+       
         private WorkSettings wSettings;
         private Turning turning;
         private SpecialsChart sCh;
@@ -37,19 +34,20 @@ namespace CadCamProject
 
         private void turningOperation()
         {
-                       
+
             Add(Comment(wSettings.statusBar.version));
             Add("Turning Programing");
             NewLine();
             NewBlock();
             Add("G291");
             NewBlock();
-            
+
             #region Header
             Add(turning.profile.workOffset.ToString());
             Add("G90 G40");
             Add(GCODE(turning.profile.workingPlane));
             Add(GCODE(wSettings.units));
+            Add(GCODE(turning.feedRateType));
             #endregion
 
             #region Safety Position
@@ -60,9 +58,85 @@ namespace CadCamProject
             #region Changing Tool
             NewBlock();
             Add(ChangeTool(turning.tool));
-
+            NewBlock();
+            Add(GetSpeedSpindle(turning));
             #endregion
 
+            #region
+            NewBlock();
+            Add(RapidMoveTurning(turning.apprachingPoint, false));
+            NewBlock();
+            Add(TurningCycle(turning));
+            #endregion
+
+        }
+
+        private string TurningCycle(Turning turning)
+        {
+            string _data="";
+
+            
+            return _data;
+        }
+
+        private string RapidMoveTurning(CoordinatePoint safetyPoint, bool safatyMode)
+        {
+            string _data;
+            gCode = Gcode.G00.ToString() + " ";
+            string[] _coordinate = GetCoordinateLabel(wPlane);
+
+            if (safatyMode)
+            {
+                _data = gCode + _coordinate[0] + GetPosition(safetyPoint.coord1);
+                blockNumber = blockNumber + 10;
+                _data = _data + Environment.NewLine + "N" + blockNumber + sCh.blank;
+                _data = _data + _coordinate[1] + GetPosition(safetyPoint.coord2);
+            }
+            else
+            {
+                _data = gCode + _coordinate[0] + GetPosition(safetyPoint.coord1) +
+                     sCh.blank + _coordinate[1] + GetPosition(safetyPoint.coord2);
+            }
+
+
+            return _data;
+        }
+
+
+        private string GCODE(string _feedRateType)
+        {
+            switch (_feedRateType)
+            {
+                case "mm/min":
+                    return Gcode.G94.ToString();
+                case "mm/rot":
+                    return Gcode.G95.ToString();
+                default:
+                    return "";
+            }
+        }
+
+        private string GetSpeedSpindle(Turning _turning)
+        {
+            string _data="";
+            mCode = turning.tool.spindleControl.ToString();
+            if (_turning.speedControlType == SpeedControl.ConstantSurfaceControl)
+            {
+                _data = Gcode.G92.ToString() + sCh.blank + "S" + _turning.spindleSpeed.ToString("####");
+                blockNumber = blockNumber + 10;
+                _data = _data + Environment.NewLine + "N" + blockNumber + sCh.blank;
+                _data = _data + "S" + _turning.cuttingSpeed.ToString("####") + sCh.blank +
+                    mCode + sCh.blank +
+                    Gcode.G96.ToString();
+               
+            }else
+            {
+                
+                _data = "S" + _turning.spindleSpeed.ToString("####") + sCh.blank +
+                      mCode + sCh.blank + Gcode.G97.ToString();
+            }
+
+            return _data;
         }
 
         private string ChangeTool(Tool _tool)
@@ -96,28 +170,7 @@ namespace CadCamProject
             }
         }
 
-        private string RapidMoveTurning(CoordinatePoint safetyPoint, bool safatyMode)
-        {
-           string _data;
-            string[] _coordinate = GetCoordinateLabel(wPlane);
-
-            if (safatyMode)
-            {
-                _data = "G00 " + _coordinate[0] + GetPosition(safetyPoint.coord1);
-                blockNumber = blockNumber + 10;
-                _data = _data + Environment.NewLine + "N" + blockNumber + sCh.blank;
-                _data = _data +  _coordinate[1] + GetPosition(safetyPoint.coord2);
-            }else
-            {
-                _data = "G00 " + _coordinate[0] + GetPosition(safetyPoint.coord1) +
-                     sCh.blank + _coordinate[1] + GetPosition(safetyPoint.coord2);
-
-            }
-
-
-            return _data;
-        }
-
+        
         private string[] GetCoordinateLabel(WorkingPlane _wPlane)
         {
             

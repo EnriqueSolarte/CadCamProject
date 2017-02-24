@@ -175,7 +175,7 @@ namespace CadCamProject
         public double parm_3 { get; set; }
         public bool coolant { get; set; }
         public Mcode[] spindleControlArray { get; set; }
-        public string spindleControl { get; set; }
+        public Mcode spindleControl { get; set; }
         public bool isEdgeTool { get; set; }
        
 
@@ -196,7 +196,7 @@ namespace CadCamProject
             parm_2 = 80;
             parm_3 = 12.000;
             spindleControlArray = functions.SpindleControl();
-            spindleControl = "M3";
+            spindleControl = Mcode.M03;
             coolant = true;
 
             isEdgeTool = false;

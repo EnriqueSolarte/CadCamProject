@@ -132,8 +132,8 @@ namespace CadCamProject
         {
             Mcode[] strArray =
        {
-                Mcode.M3,
-                Mcode.M4,
+                Mcode.M03,
+                Mcode.M04,
 
             };
             return strArray;

@@ -56,15 +56,15 @@ namespace CadCamProject
         G94, G95,
         G96, G97,
         G54, G55, G56, G57, G58, G59,
-        CP,   
-
+        CP,
+        G92,
     }
 
     public enum Mcode
     {
-        M3,
-        M4,
-        M5,
+        M03,
+        M04,
+        M05,
     }
 
     public enum ArcDirection
