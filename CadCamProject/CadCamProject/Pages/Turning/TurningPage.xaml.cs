@@ -179,6 +179,10 @@ namespace CadCamProject
             WindowsFunctions fnc = new WindowsFunctions();
 
             profileList = getInformation.GetListProfiles(MainPage);
+            comboBoxFeedRateType.ItemsSource = fnc.FeedRateTypeArray(wSettings.units);
+            comboBoxFeedRateType.SelectedItem = turningOperation.feedRateType;
+            comboBoxSpeedControlType.ItemsSource = fnc.SpeedControlArray();
+            comboBoxSpeedControlType.SelectedItem = turningOperation.speedControlType;
             comboBoxProfiles.ItemsSource = getInformation.GetStringList(profileList);
             comboBoxProfiles.SelectedItem = turningOperation.profile.GetDataString();
             comboBoxTools.ItemsSource = wSettings.GetToolSettings();
@@ -191,6 +195,23 @@ namespace CadCamProject
             comboBoxTuringType.SelectedItem  = turningOperation.turningType;
 
             
+        }
+
+        private void comboBoxSpeedControlType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboBoxSpeedControlType.SelectedItem != null)
+            {
+                if ((SpeedControl)comboBoxSpeedControlType.SelectedItem != SpeedControl.ConstantSurfaceControl)
+                {
+                    wCuttingSpeed.IsEnabled = false;
+                    textBlockSpindleSpeedControl.Text = "Spindle Speed";
+                }
+                else
+                {
+                    wCuttingSpeed.IsEnabled = true;
+                    textBlockSpindleSpeedControl.Text = "Speed Limite";
+                }
+            }
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
@@ -217,7 +238,7 @@ namespace CadCamProject
             turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
             turningOperation.tool = wSettings.toolSettings[comboBoxTools.SelectedIndex];
             double _feedRate, _cuttingSpeed, _allowanceX, _allowanceZ, _minimumX, _minimumZ,
-                   _deltaMinimumX, _deltaMinimumZ; 
+                   _deltaMinimumX, _deltaMinimumZ, _spindleSpeed; 
             double.TryParse(textBoxFeedRate.Text, out _feedRate);
             double.TryParse(textBoxCuttingSpeed.Text, out _cuttingSpeed);
             double.TryParse(textBoxAllowanceX.Text, out _allowanceX);
@@ -227,11 +248,16 @@ namespace CadCamProject
 
             double.TryParse(textBoxApproachingPointX.Text, out _deltaMinimumX);
             double.TryParse(textBoxApproachingPointZ.Text, out _deltaMinimumZ);
+            double.TryParse(textBoxSpindleSpeed.Text, out _spindleSpeed);
+
 
             turningOperation.allowanceX = _allowanceX;
             turningOperation.allowanceX = _allowanceZ;
             turningOperation.feedRate = _feedRate;
+            turningOperation.feedRateType = comboBoxFeedRateType.Text;
             turningOperation.cuttingSpeed = _cuttingSpeed;
+            turningOperation.speedControlType = (SpeedControl)comboBoxSpeedControlType.SelectedItem;
+            turningOperation.spindleSpeed = _spindleSpeed;
             turningOperation.apprachingPoint.coord1 = _minimumX + _deltaMinimumX;
             turningOperation.apprachingPoint.coord2 = _minimumZ + _deltaMinimumZ;
 
@@ -319,5 +345,7 @@ namespace CadCamProject
             wfnc.animateProgressBar(progressBar, 3);
             ControlStatusBar();
         }
+
+       
     }
 }

@@ -354,6 +354,8 @@ namespace CadCamProject
     
     public class Drawing
     {
+        public double scaleOriginFactor { get; set; }
+
         public Point ProfileStartPoint { get; }     
         public double scale { get; }
         public double scaleOrigin { get;}
@@ -375,9 +377,9 @@ namespace CadCamProject
 
             scale = GetScale(lenthZ, stock.externalDiameter + drawingStock._chuckHight*2, drawingLength);
             scaleLabel = "1:" + (Math.Pow(scale,-1)*10).ToString("0.000") + "mm";
-          
-            
-            scaleOrigin = scale*1.5;
+
+            scaleOriginFactor = 1.5;
+            scaleOrigin = scale*scaleOriginFactor;
 
             drawingStock.scale = scale;
             drawingStock.SettingDrawingStock();

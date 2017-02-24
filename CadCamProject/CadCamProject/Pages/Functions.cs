@@ -179,6 +179,39 @@ namespace CadCamProject
             return data;
         }
 
+        public string[] FeedRateTypeArray(Units units)
+        {
+            if (units == Units.mm)
+            {
+                string[] data =
+                {
+                "mm/min",
+                "mm/rot",
+            };
+                return data;
+            }
+            else
+            {
+                string[] data =
+               {
+                "inch/min",
+                "inch/rot",
+            };
+                return data;
+            }
+            
+        }
+
+        public SpeedControl[] SpeedControlArray()
+        {
+            SpeedControl[] data =
+            {
+                SpeedControl.ConstantSpindleSpeed,
+                SpeedControl.ConstantSurfaceControl,
+            };
+            return data;
+        }
+
     }
     [Serializable]
     public class PathDefinition

@@ -21,7 +21,11 @@ namespace CadCamProject
         public Tool tool { get; set; }
  
         public double feedRate { get; set; }
+        public string feedRateType { get; set; }
+
+        public SpeedControl speedControlType { get; set; }
         public double cuttingSpeed { get; set; }
+        public double spindleSpeed { get; set; }
 
         public TurningType turningType { get; set; }
         public double allowanceX { get; set; }
@@ -44,6 +48,9 @@ namespace CadCamProject
             turningType = TurningType.externalTurning;
             turningRemovalType = TurningRemovaltype.byLongitudinal;
             apprachingPoint = new CoordinatePoint(0.25,0.25);
+
+            feedRateType = "mm/rot";
+            speedControlType = SpeedControl.ConstantSurfaceControl;
         }
 
         public Turning GetParameters(Main MainPage, int index)

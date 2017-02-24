@@ -41,7 +41,7 @@ namespace CadCamProject
             statusBar = new StatusBar();
 
 
-            extensionGCode = ".NC";
+            extensionGCode = ".MPF";
             units = Units.mm;
             safetyPoint = new CoordinatePoint(100.00, 100);
 
@@ -56,6 +56,18 @@ namespace CadCamProject
             for(int i=0; i < workOffsets.Count; i++)
             {
                 wOffsets.Add(workOffsets[i].Gcode + sCh.blank +workOffsets[i].description);
+            }
+
+            return wOffsets;
+        }
+        internal List<Gcode> GetWorkOffsets(bool gCode)
+        {
+           
+            List<Gcode> wOffsets = new List<Gcode>();
+
+            for (int i = 0; i < workOffsets.Count; i++)
+            {
+                wOffsets.Add(workOffsets[i].Gcode);
             }
 
             return wOffsets;
@@ -210,9 +222,10 @@ namespace CadCamProject
         public double initialPosition { get; set; }
         public double finalPosition { get; set; }
         public double splindleLimit { get; set; }
-
+        public Gcode workOffset { get; set; }
         public BlackStock()
         {
+            workOffset = Gcode.G54;
             externalDiameter = 60.000;
             internalDiameter = 0.000;
             initialPosition = 0.000;

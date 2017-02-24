@@ -25,17 +25,21 @@ namespace CadCamProject
         UserControl Main;
         Main MainPage;
         WorkSettings workSettings;
-       
-      
+        Drawing drawing;
+
+
         public wSettingPage(Main main)
         { 
             Main = main;  
             MainPage = main;
             InitializeComponent();
             workSettings = new WorkSettings();
-           
+            
             workSettings = workSettings.GetParameters(MainPage);
+            drawing = new Drawing(workSettings.stock, 450, new Point(600, 221));
+         
             fillingParameters();
+            SetUpDrawing();
         }
          
         private void fillingParameters()
@@ -64,7 +68,9 @@ namespace CadCamProject
             textBoxInitial_Z.Text = workSettings.stock.initialPosition.ToString();
             textBoxFinal_Z.Text = workSettings.stock.finalPosition.ToString();
             textBoxFinal_SZ.Text = workSettings.stock.splindleLimit.ToString();
-            
+
+            comboBoxDefaultWS.ItemsSource = workSettings.GetWorkOffsets(true);
+            comboBoxDefaultWS.SelectedItem = workSettings.stock.workOffset;
             //Filling file information
             textBoxFileName.Text = workSettings.statusBar.pathFile.fileName;
             textBoxLocalPath.Text = workSettings.statusBar.pathFile.directory;
@@ -81,10 +87,20 @@ namespace CadCamProject
 
         private void Definition()
         {
+            UpDateSotck();
+
+            workSettings.Parameters = workSettings.ShowingParameters(workSettings);
+
+            MainPage.listViewOperations.Items.Insert(workSettings.Index,
+                     workSettings.SetParameters(workSettings, MainPage));
+        }
+
+        private void UpDateSotck()
+        {
             double externalDiameter, internalDiameter, initialPosition, finalPosition, splindleLimit;
             WindowsFunctions funtions = new WindowsFunctions();
 
-            double.TryParse(textBoxExternalDiam.Text,out externalDiameter);
+            double.TryParse(textBoxExternalDiam.Text, out externalDiameter);
             workSettings.stock.externalDiameter = externalDiameter;
 
             double.TryParse(textBoxInternalDiam.Text, out internalDiameter);
@@ -99,10 +115,9 @@ namespace CadCamProject
             double.TryParse(textBoxFinal_SZ.Text, out splindleLimit);
             workSettings.stock.splindleLimit = splindleLimit;
 
-            workSettings.Parameters = workSettings.ShowingParameters(workSettings);
+            
 
-            MainPage.listViewOperations.Items.Insert(workSettings.Index,
-                     workSettings.SetParameters(workSettings, MainPage));
+                    
         }
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
@@ -113,6 +128,8 @@ namespace CadCamProject
         private void MouseMoveControl(object sender, MouseEventArgs e)
         {
             ControlStatusBar();
+            updateDrawing();
+            comboBoxDefaultWS.ItemsSource = workSettings.GetWorkOffsets(true);
         }
 
         private void ControlStatusBar()
@@ -237,6 +254,14 @@ namespace CadCamProject
             fillingParameters();
         }
 
+        private void comboBoxDefaultWS_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboBoxDefaultWS.SelectedItem != null)
+            {
+                workSettings.stock.workOffset = (Gcode)comboBoxDefaultWS.SelectedItem;
+            }
+        }
+
         #endregion
 
         #region WorkOffset
@@ -245,8 +270,8 @@ namespace CadCamProject
            
             workSettings.workOffsets.Add(new WorkOffsetPointPosition(listViewWorkOffset.Items.Count));
             listViewWorkOffset.Items.Refresh();
+           
         }
-
         private void buttonDeleteItemListViewWorkOffset_Click(object sender, RoutedEventArgs e)
         {
             if (listViewWorkOffset.SelectedItem != null)
@@ -352,8 +377,101 @@ namespace CadCamProject
 
         #endregion
 
-        
+        #region Drawing
+        private void SetUpDrawing()
+        {
+            labelScale.Content = drawing.scaleLabel;
+         
+            SettingOriginDraw(drawing.ProfileStartPoint, drawing.scaleOrigin*2); // method of this class ProfilePage
+            DrawStockGeometry();
+            DrawChuckGeometry();
+
+        }
+
+        private void DrawChuckGeometry()
+        {
+            chuckA.StartPoint = drawing.drawingStock.A_ChuckStartPoint;
+            chuckB.StartPoint = drawing.drawingStock.B_ChuckStartPoint;
+            chuckA.Segments.Clear();
+            chuckB.Segments.Clear();
+
+            foreach (LineSegment line in drawing.drawingStock.list_A_ChuckDrawing)
+            {
+                chuckA.Segments.Add(line);
+            }
+
+            foreach (LineSegment line in drawing.drawingStock.list_B_ChuckDrawing)
+            {
+                chuckB.Segments.Add(line);
+            }
+        }
+
+        private void DrawStockGeometry()
+        {
+            Point startPoint = drawing.drawingStock.StockStartPoint;
+            externalStock.StartPoint = startPoint;
+            internalStock.StartPoint = startPoint;
+
+            externalStock.Segments.Clear();
+            internalStock.Segments.Clear();
+            foreach (LineSegment line in drawing.drawingStock.listExtStockDrawing)
+            {
+                externalStock.Segments.Add(line);
+            }
+
+            foreach (LineSegment line in drawing.drawingStock.listIntStockDrawing)
+            {
+                internalStock.Segments.Add(line);
+            }
+        }
+
+        private void updateDrawing()
+        {
+            UpDateSotck();
+            drawing = new Drawing(workSettings.stock, 450, new Point(600, 221));
+            SetUpDrawing();
+        }
+
+        private void SettingOriginDraw(Point _startPoint, double _size)
+        {
+
+
+            Point pOrigin1 = new Point(_startPoint.X + _size, _startPoint.Y);
+            Point pOrigin2 = new Point(_startPoint.X, _startPoint.Y - _size);
+            Point pOrigin3 = new Point(_startPoint.X - _size, _startPoint.Y);
+            Point pOrigin4 = new Point(_startPoint.X, _startPoint.Y + _size);
+
+            Point point1 = new Point(_startPoint.X, _startPoint.Y - _size);
+            Point point2 = new Point(_startPoint.X - _size, _startPoint.Y);
+            Point point3 = new Point(_startPoint.X, _startPoint.Y + _size);
+            Point point4 = new Point(_startPoint.X + _size, _startPoint.Y);
+
+            Size size = new Size(_size, _size);
+
+            Origin1.StartPoint = pOrigin1;
+            Origin2.StartPoint = pOrigin2;
+            Origin3.StartPoint = pOrigin3;
+            Origin4.StartPoint = pOrigin4;
+
+            arc1.Point = point1;
+            arc1.Size = size;
+            arc2.Point = point2;
+            arc2.Size = size;
+            arc3.Point = point3;
+            arc3.Size = size;
+            arc4.Point = point4;
+            arc4.Size = size;
+
+            line1.Point = _startPoint;
+            line2.Point = _startPoint;
+            line3.Point = _startPoint;
+            line4.Point = _startPoint;
+        }
+
+        #endregion
+
+      
     }
 
-    
+
 }

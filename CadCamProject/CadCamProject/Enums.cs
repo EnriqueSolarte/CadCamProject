@@ -149,4 +149,10 @@ namespace CadCamProject
         externalTurning,
         internalTurning,
     }
+
+    public enum SpeedControl
+    {
+        ConstantSurfaceControl, 
+        ConstantSpindleSpeed,
+    }
 }
