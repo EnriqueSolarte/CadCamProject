@@ -26,17 +26,17 @@ namespace CadCamProject
         Main MainPage;
         Profile profileOperation;
         StatusBar statusBarInformation;
-    
+
         WorkSettings wSettings;
         Drawing drawing;
-       
+
         public ProfilePage(Main main, int index)
         {
             Main = main;
             MainPage = main;
             InitializeComponent();
             profileOperation = new Profile();
-         
+
             profileOperation = profileOperation.GetParameters(MainPage, index);
             wSettings = new WorkSettings();
             wSettings = wSettings.GetParameters(MainPage);
@@ -66,12 +66,12 @@ namespace CadCamProject
             chuckA.Segments.Clear();
             chuckB.Segments.Clear();
 
-            foreach(LineSegment line in drawing.drawingStock.list_A_ChuckDrawing)
+            foreach (LineSegment line in drawing.drawingStock.list_A_ChuckDrawing)
             {
                 chuckA.Segments.Add(line);
             }
 
-            foreach(LineSegment line in drawing.drawingStock.list_B_ChuckDrawing)
+            foreach (LineSegment line in drawing.drawingStock.list_B_ChuckDrawing)
             {
                 chuckB.Segments.Add(line);
             }
@@ -144,7 +144,7 @@ namespace CadCamProject
         private void fillingParameters()
         {
             WindowsFunctions function = new WindowsFunctions();
-            
+
             textBoxProfileName.Text = profileOperation.OperationName;
 
             //Work Offsets - PLane W
@@ -186,7 +186,7 @@ namespace CadCamProject
 
         private void refreshData()
         {
-           
+
             profileOperation.OperationName = textBoxProfileName.Text;
             int indexWO = comboBoxWorkOffsets.SelectedIndex;
             profileOperation.workOffset = wSettings.workOffsets[indexWO].Gcode;
@@ -203,7 +203,7 @@ namespace CadCamProject
             if (statusBarInformation.statusBoolean)
             {
                 //state ready
-                buttonAccept.IsEnabled = true;                
+                buttonAccept.IsEnabled = true;
             }
             else
             {
@@ -217,7 +217,8 @@ namespace CadCamProject
             {
                 buttonExportProfile.IsEnabled = true;
 
-            }else
+            }
+            else
             {
                 buttonExportProfile.IsEnabled = false;
             }
@@ -264,15 +265,15 @@ namespace CadCamProject
                 if ((RadiusDefinition)comboBoxRadiusDefinition.SelectedItem == RadiusDefinition.byRadius)
                 {
                     wRadius.Visibility = Visibility.Visible;
-                    wCenterPosCoord1.Visibility = Visibility.Hidden;
-                    wCenterPosCoord2.Visibility = Visibility.Hidden;
+                    wCenterPosCoord.Visibility = Visibility.Hidden;
+                    
 
                 }
                 else
                 {
                     wRadius.Visibility = Visibility.Hidden;
-                    wCenterPosCoord1.Visibility = Visibility.Visible;
-                    wCenterPosCoord2.Visibility = Visibility.Visible;
+                    wCenterPosCoord.Visibility = Visibility.Visible;
+                   
                 }
             }
             else
@@ -280,8 +281,8 @@ namespace CadCamProject
                 wRadiusDefinition.Visibility = Visibility.Hidden;
                 wArcDirection.Visibility = Visibility.Hidden;
                 wRadius.Visibility = Visibility.Hidden;
-                wCenterPosCoord1.Visibility = Visibility.Hidden;
-                wCenterPosCoord2.Visibility = Visibility.Hidden;
+                wCenterPosCoord.Visibility = Visibility.Hidden;
+              
             }
         }
 
@@ -294,7 +295,7 @@ namespace CadCamProject
             CheckingDefinitionGeometry();
         }
 
-       
+
         private void checkBoxTransitionNext_Clicked(object sender, RoutedEventArgs e)
         {
             wTransitionParameters.IsEnabled = (bool)checkBoxTransitionNext.IsChecked;
@@ -454,11 +455,16 @@ namespace CadCamProject
 
             if ((RadiusDefinition)comboBoxRadiusDefinition.SelectedItem == RadiusDefinition.byRadius)
             {
-                arc = new Arc(initalCoord1,initalCoord2,finalCoord1,finalCoord2,radius,(ArcDirection)comboBoxArcDirection.SelectedItem);
+                arc = new Arc(initalCoord1, initalCoord2, finalCoord1, finalCoord2, radius, (ArcDirection)comboBoxArcDirection.SelectedItem);
+                Point circuleCenter = arc.GetCenterCircule(profileOperation.workingPlane);
+                Vector _radius = Vector.Subtract(new Vector(circuleCenter.X, circuleCenter.Y),
+                                                 arc.initialPoint.GetVector(profileOperation.workingPlane));
+                arc.centerPoint.coord1 = _radius.Y;
+                arc.centerPoint.coord2 = _radius.X;
             }
             else
             {
-                arc = new Arc(initalCoord1,initalCoord2,finalCoord1,finalCoord2,centerCoord1,centerCoord2,(ArcDirection)comboBoxArcDirection.SelectedItem);
+                arc = new Arc(initalCoord1, initalCoord2, finalCoord1, finalCoord2, centerCoord1, centerCoord2, (ArcDirection)comboBoxArcDirection.SelectedItem);
 
             }
             //Point center = arc.GetCenterCircule((WorkingPlane)comboBoxWorkingPlane.SelectedItem);
@@ -475,7 +481,7 @@ namespace CadCamProject
             transition.enableTransition = checkBoxTransitionNext.IsChecked.Value;
             return transition;
         }
-       
+
         private void listViewGeometries_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ChekingListViewSelection();
@@ -483,16 +489,7 @@ namespace CadCamProject
 
         private void ChekingListViewSelection()
         {
-           if(listViewGeometries.SelectedItem != null)
-            {
-            
-                buttonDelete.IsEnabled = true;
-            }
-            else
-            {
-        
-                buttonDelete.IsEnabled = false;
-            }
+
         }
 
         #endregion
@@ -508,7 +505,7 @@ namespace CadCamProject
                 refreshData();
                 ExportingProfile(path);
             }
-            
+
         }
 
         private void ExportingProfile(string path)
@@ -521,11 +518,11 @@ namespace CadCamProject
 
         private void buttonImportProfile_Click(object sender, RoutedEventArgs e)
         {
-            
-                ExportAndImportToFIle fnc = new ExportAndImportToFIle();
-                WindowsFunctions wfnc = new WindowsFunctions();
-                PathDefinition path = new PathDefinition();
-                path = wfnc.fileBrowser("Profile file(prf)|*.prf");
+
+            ExportAndImportToFIle fnc = new ExportAndImportToFIle();
+            WindowsFunctions wfnc = new WindowsFunctions();
+            PathDefinition path = new PathDefinition();
+            path = wfnc.fileBrowser("Profile file(prf)|*.prf");
             if (path.GetFullName() != "")
             {
                 int savedIndex = profileOperation.Index;
@@ -536,8 +533,11 @@ namespace CadCamProject
             }
             DrawProfileGeometry();
         }
-        #endregion   
 
-      
+
+
+        #endregion
+
+
     }
 }

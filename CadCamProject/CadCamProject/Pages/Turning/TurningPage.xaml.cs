@@ -238,7 +238,8 @@ namespace CadCamProject
             turningOperation.profile = profileList[comboBoxProfiles.SelectedIndex];
             turningOperation.tool = wSettings.toolSettings[comboBoxTools.SelectedIndex];
             double _feedRate, _cuttingSpeed, _allowanceX, _allowanceZ, _minimumX, _minimumZ,
-                   _deltaMinimumX, _deltaMinimumZ, _spindleSpeed; 
+                   _deltaMinimumX, _deltaMinimumZ, _spindleSpeed, _cuttingDepth,
+                   _retracting; 
             double.TryParse(textBoxFeedRate.Text, out _feedRate);
             double.TryParse(textBoxCuttingSpeed.Text, out _cuttingSpeed);
             double.TryParse(textBoxAllowanceX.Text, out _allowanceX);
@@ -249,8 +250,11 @@ namespace CadCamProject
             double.TryParse(textBoxApproachingPointX.Text, out _deltaMinimumX);
             double.TryParse(textBoxApproachingPointZ.Text, out _deltaMinimumZ);
             double.TryParse(textBoxSpindleSpeed.Text, out _spindleSpeed);
+            double.TryParse(textBoxCuttingDepth.Text, out _cuttingDepth);
+            double.TryParse(textBoxRetracting.Text, out _retracting);
 
-
+            turningOperation.cuttingDepth = _cuttingDepth;
+            turningOperation.retracting = _retracting;
             turningOperation.allowanceX = _allowanceX;
             turningOperation.allowanceX = _allowanceZ;
             turningOperation.feedRate = _feedRate;
@@ -323,6 +327,7 @@ namespace CadCamProject
                 DrawProfileGeometry();
                 minimumTextBlockSetting();
             }
+
         }
 
         private void minimumTextBlockSetting()
@@ -339,13 +344,23 @@ namespace CadCamProject
             PostProcessor code = new PostProcessor(wSettings,turningOperation);
             PathDefinition gCodeFile = new PathDefinition();
             gCodeFile.directory = wSettings.statusBar.pathFile.directory;
-            gCodeFile.fileName = "gCode.NC";
+            gCodeFile.fileName = "gCode" + wSettings.extensionGCode;
             code.GetGCode(gCodeFile);
             statusBarInformation.status = StateFile.Creating_GCODE;
             wfnc.animateProgressBar(progressBar, 3);
             ControlStatusBar();
         }
 
-       
+        private void comboBoxMachiningRemovalType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if((TurningRemovaltype)comboBoxMachiningRemovalType.SelectedItem == TurningRemovaltype.byFollowingContour)
+            {
+                comboBoxTuringType.SelectedItem = TurningType.externalTurning;
+                comboBoxTuringType.IsEnabled = false;
+            }else
+            {
+                comboBoxTuringType.IsEnabled = true;
+            }
+        }
     }
 }

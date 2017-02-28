@@ -30,6 +30,8 @@ namespace CadCamProject
         public TurningType turningType { get; set; }
         public double allowanceX { get; set; }
         public double allowanceZ { get; set; }
+        public double cuttingDepth { get; set; }
+        public double retracting { get; set; }
 
         public TurningRemovaltype turningRemovalType { get; set; }
         public CoordinatePoint apprachingPoint { get; set; }
@@ -45,6 +47,10 @@ namespace CadCamProject
             tool = new Tool(0);
             allowanceX = 0.1;
             allowanceZ = 0.05;
+
+            cuttingDepth = 0.25;
+            retracting = 0.1;
+
             turningType = TurningType.externalTurning;
             turningRemovalType = TurningRemovaltype.byLongitudinal;
             apprachingPoint = new CoordinatePoint(0.25,0.25);

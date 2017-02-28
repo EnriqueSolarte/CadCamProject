@@ -177,8 +177,8 @@ namespace CadCamProject
             initialPoint = new CoordinatePoint(initial_coord1, initial_coord2);
             finalPoint = new CoordinatePoint(final_coord1, final_coord2);
             radius = _radius;
-            largeArc = false;
-          
+            largeArc = false;           
+
         }
 
         public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2,
@@ -225,7 +225,7 @@ namespace CadCamProject
                 Vector apothemVector;
 
                 apothemVector = halfChordVector.GetNormalVector_AR(arcDirection);
-                
+             
 
                 halfChordVector = Vector.Multiply(halfChord, halfChordVector);
                 apothemVector = Vector.Multiply(apothem, apothemVector);

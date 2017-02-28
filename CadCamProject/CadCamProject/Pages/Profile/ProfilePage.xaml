@@ -185,48 +185,43 @@
             </Viewbox>
 
         </Canvas>
-        <Button x:Name="buttonDelete" Content="Delete" Margin="10,0,815,118" Grid.Row="1" Grid.Column="1" Height="20" VerticalAlignment="Bottom" Background="#7FDDDDDD"/>
-        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="25,146,0,0" TextWrapping="Wrap" Text="Profile Definition:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="104"/>
-        <Label x:Name="labelInitialCoord1" Content="Xin" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="27" Margin="25,202,0,0" Grid.Row="1"/>
-        <TextBox x:Name="textBoxInitialCoord1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="52,202,0,0" Grid.Row="1" Text="0.000"/>
-        <Label x:Name="labelInitialCoord2" Content="Zin" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="27" Margin="25,231,0,0" Grid.Row="1"/>
-        <TextBox x:Name="textBoxInitialCoord2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="52,231,0,0" Grid.Row="1" Text="0.000"/>
-        <TextBlock x:Name="textBlock5_Copy1" HorizontalAlignment="Left" Margin="25,185,0,0" TextWrapping="Wrap" Text="Initial Point:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="75"/>
-        <TextBlock x:Name="textBlock5_Copy" HorizontalAlignment="Left" Margin="25,305,0,0" TextWrapping="Wrap" Text="Final Position:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="75"/>
-        <Label x:Name="labelFinalCoord1" Content="Xen" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="30" Margin="25,322,0,0" Grid.Row="1"/>
-        <TextBox x:Name="textBoxFinalCoord1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="55,322,0,0" Grid.Row="1" Text="0.000"/>
-        <Label x:Name="labelFinalCoord2" Content="Zen" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="30" Margin="25,351,0,0" Grid.Row="1"/>
-        <TextBox x:Name="textBoxFinalCoord2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="55,351,0,0" Grid.Row="1" Text="0.000"/>
-        <Viewbox x:Name="wRadius" Margin="38,379,135,255" Grid.Row="1" Stretch="Fill">
+        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="26,129,0,0" TextWrapping="Wrap" Text="Profile Definition:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="104"/>
+        <Label x:Name="labelInitialCoord1" Content="Xin" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="27" Margin="25,230,0,0" Grid.Row="1"/>
+        <TextBox x:Name="textBoxInitialCoord1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="52,234,0,0" Grid.Row="1" Text="0.000"/>
+        <Label x:Name="labelInitialCoord2" Content="Zin" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="27" Margin="20,258,0,0" Grid.Row="1"/>
+        <TextBox x:Name="textBoxInitialCoord2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="52,262,0,0" Grid.Row="1" Text="0.000"/>
+        <TextBlock x:Name="textBlock5_Copy1" HorizontalAlignment="Left" Margin="25,209,0,0" TextWrapping="Wrap" Text="Initial Point:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="75"/>
+        <TextBlock x:Name="textBlock5_Copy" HorizontalAlignment="Left" Margin="26,339,0,0" TextWrapping="Wrap" Text="Final Position:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="75"/>
+        <Label x:Name="labelFinalCoord1" Content="Xen" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="30" Margin="26,360,0,0" Grid.Row="1"/>
+        <TextBox x:Name="textBoxFinalCoord1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="56,364,0,0" Grid.Row="1" Text="0.000"/>
+        <Label x:Name="labelFinalCoord2" Content="Zen" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="30" Margin="25,388,0,0" Grid.Row="1"/>
+        <TextBox x:Name="textBoxFinalCoord2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="56,392,0,0" Grid.Row="1" Text="0.000"/>
+        <Viewbox x:Name="wRadius" Margin="38,420,135,0" Grid.Row="1" Stretch="Fill" Height="26" VerticalAlignment="Top">
             <Grid Height="26" Width="122">
                 <Label x:Name="labelInitialCoord2_Copy1" Content="R" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="30" Margin="-13,0,0,0"/>
                 <TextBox x:Name="textBoxRadius" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="17,0,0,0" Text="0.000"/>
             </Grid>
         </Viewbox>
-        <Viewbox x:Name="wCenterPosCoord1" Margin="42,406,135,228" Grid.Row="1" Stretch="Fill">
+        <Viewbox x:Name="wCenterPosCoord" Margin="42,450,135,0" Grid.Row="1" Stretch="Fill" Height="26" VerticalAlignment="Top">
             <Grid Height="26" Width="118">
                 <Label x:Name="labelCentePosCoord1" Content="I" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="27" Margin="-14,0,0,0"/>
                 <TextBox x:Name="textBoxCentePosCoord1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="13,0,0,0" Text="0.000"/>
+                <Label x:Name="labelCenterPosCoord2" Content="K" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="29" Margin="-14,33,0,-33"/>
+                <TextBox x:Name="textBoxCenterPosCoord2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="13,36,0,-33" Text="0.000"/>
             </Grid>
         </Viewbox>
-        <Viewbox x:Name="wCenterPosCoord2" Margin="37,434,136,200" Grid.Row="1" Stretch="Fill">
-            <Grid Height="26" Width="122">
-                <Label x:Name="labelCenterPosCoord2" Content="K" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="29" Margin="-12,0,0,0"/>
-                <TextBox x:Name="textBoxCenterPosCoord2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="17,0,0,0" Text="0.000"/>
-            </Grid>
-        </Viewbox>
-        <Viewbox x:Name="wTransitionParameters" Margin="26,500,125,0" Grid.Row="1" Stretch="Fill" Height="53" VerticalAlignment="Top">
+        <Viewbox x:Name="wTransitionParameters" Margin="26,550,125,0" Grid.Row="1" Stretch="Fill" Height="53" VerticalAlignment="Top">
             <Grid Height="53" Width="144">
                 <ComboBox x:Name="comboBoxTransitionNext" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="23" RenderTransformOrigin="0.516,5.364" Margin="0,30,0,0"/>
                 <TextBox x:Name="textBoxValueTransitionParameter" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" Margin="104,30,-40,0" Text="0.000"/>
             </Grid>
         </Viewbox>
-        <Button x:Name="buttonDefineGeometry" Content="Define" Margin="104,0,96,35" Grid.Row="1" Height="20" VerticalAlignment="Bottom" Click="buttonDefineGeometry_Click" RenderTransformOrigin="0.989,0.5"/>
-        <Viewbox x:Name="wRadiusDefinition" Margin="26,270,30,368" Grid.Row="1" Stretch="Fill">
+        <Button x:Name="buttonDefineGeometry" Content="Add Geometry" Margin="151,0,30,475" Grid.Row="1" Height="20" VerticalAlignment="Bottom" Click="buttonDefineGeometry_Click" RenderTransformOrigin="0.989,0.5"/>
+        <Viewbox x:Name="wRadiusDefinition" Margin="26,310,30,0" Grid.Row="1" Stretch="Fill" Height="22" VerticalAlignment="Top">
             <Grid Height="22" Width="239">
-                <TextBlock x:Name="TextBlockRadiusDefiniton" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Radius Definition" VerticalAlignment="Top" Height="16" Width="95"/>
+                <TextBlock x:Name="TextBlockRadiusDefiniton" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Radius Definition" VerticalAlignment="Top" Height="16" Width="95" Margin="0,3,0,0"/>
                 <ComboBox x:Name="comboBoxRadiusDefinition" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Height="22" RenderTransformOrigin="0.516,5.364" SelectionChanged="comboBoxRadiusDefinition_SelectionChanged" Margin="95,0,0,0"/>
-                <Viewbox x:Name="wArcDirection" Margin="0,200,0,-235" Stretch="Fill" Height="22" VerticalAlignment="Top">
+                <Viewbox x:Name="wArcDirection" Margin="0,215,0,-250" Stretch="Fill" Height="22" VerticalAlignment="Top">
                     <Grid Height="22" Width="239">
                         <TextBlock x:Name="TextBlockRadiusDefiniton_Copy" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Arc Direction " VerticalAlignment="Top" Height="16" Width="76" Margin="3,0,0,0"/>
                         <ComboBox x:Name="comboBoxArcDirection" VerticalAlignment="Top" Height="22" RenderTransformOrigin="0.516,5.364" Margin="79,0,96,0"/>
@@ -234,9 +229,9 @@
                 </Viewbox>
             </Grid>
         </Viewbox>
-        <CheckBox x:Name="checkBoxTransitionNext" Content="Transition to next geometry" HorizontalAlignment="Left" Margin="25,510,0,0" Grid.Row="1" VerticalAlignment="Top" Height="15" Width="166" Click="checkBoxTransitionNext_Clicked"/>
-        <RadioButton x:Name="radioButtonAddLine" Content="Add Line" HorizontalAlignment="Left" Margin="134,147,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="True" Click="radioButtonAddLine_Clicked" Height="15" Width="66"/>
-        <RadioButton x:Name="radioButtonAddArc" Content="Add Arc" HorizontalAlignment="Left" Margin="134,162,0,0" Grid.Row="1" VerticalAlignment="Top" Click="radioButtonAddArc_Clicked" Height="15" Width="62"/>
+        <CheckBox x:Name="checkBoxTransitionNext" Content="Transition to next geometry" HorizontalAlignment="Left" Margin="30,560,0,0" Grid.Row="1" VerticalAlignment="Top" Height="15" Width="166" Click="checkBoxTransitionNext_Clicked"/>
+        <RadioButton x:Name="radioButtonAddLine" Content="Add Line" HorizontalAlignment="Left" Margin="52,160,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="True" Click="radioButtonAddLine_Clicked" Height="15" Width="66"/>
+        <RadioButton x:Name="radioButtonAddArc" Content="Add Arc" HorizontalAlignment="Left" Margin="52,180,0,0" Grid.Row="1" VerticalAlignment="Top" Click="radioButtonAddArc_Clicked" Height="15" Width="62" RenderTransformOrigin="0.645,0.467"/>
         <Button x:Name="buttonImportProfile" Content="Import Profile" Grid.Column="1" Margin="809,40,0,0" VerticalAlignment="Top" Height="20" Click="buttonImportProfile_Click"/>
         <Button x:Name="buttonExportProfile" Content="Export Profile" Grid.Column="1" Margin="689,40,125,0" VerticalAlignment="Top" Background="#FFDDDDDD" Height="20" Click="buttonExport_Click"/>
 
