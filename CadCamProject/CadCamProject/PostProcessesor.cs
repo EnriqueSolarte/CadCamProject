@@ -117,7 +117,7 @@ namespace CadCamProject
             switch (_turning.turningRemovalType)
             {
                 case TurningRemovaltype.byLongitudinal:
-                    _data = "G71 P" + initialProfile.ToString("######") + sCh.blank +
+                    _data = _data + "G71 P" + initialProfile.ToString("######") + sCh.blank +
                         "Q" + finalProfile.ToString("######") + sCh.blank;
                         if(_turning.turningType == TurningType.externalTurning)
                     {
@@ -132,7 +132,7 @@ namespace CadCamProject
 
                     break;
                 case TurningRemovaltype.byTransverse:
-                    _data = "G72 P" + initialProfile.ToString("######") + sCh.blank +
+                    _data = _data + "G72 P" + initialProfile.ToString("######") + sCh.blank +
                        "Q" + finalProfile.ToString("######") + sCh.blank;
                     if (_turning.turningType == TurningType.externalTurning)
                     {
@@ -162,6 +162,7 @@ namespace CadCamProject
             string _data = "";
             switch (_geometry.arc.arcDirection)
             {
+
                 case ArcDirection.CCW:
                     _data = _data + "G02 X" + _geometry.finalPosition.coord1.ToString("####.000") + sCh.blank +
                         "Z"+ _geometry.finalPosition.coord2.ToString("####.000")+ sCh.blank +

@@ -168,7 +168,8 @@ namespace CadCamProject
             
         }
 
-        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double _radius, ArcDirection _arcDirection)
+        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double _radius, 
+            ArcDirection _arcDirection, WorkingPlane _wPlane)
         {
             //by radius
             arcDirection = _arcDirection;
@@ -177,6 +178,14 @@ namespace CadCamProject
             initialPoint = new CoordinatePoint(initial_coord1, initial_coord2);
             finalPoint = new CoordinatePoint(final_coord1, final_coord2);
             radius = _radius;
+
+
+            Point circuleCenter = GetCenterCircule(_wPlane);
+            Vector _radiusVector = Vector.Subtract(new Vector(circuleCenter.X, circuleCenter.Y),
+                                            initialPoint.GetVector(_wPlane));
+            centerPoint = new CoordinatePoint();
+            centerPoint.coord1 = _radiusVector.Y;
+            centerPoint.coord2 = _radiusVector.X;
             largeArc = false;           
 
         }

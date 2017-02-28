@@ -456,12 +456,8 @@ namespace CadCamProject
 
             if ((RadiusDefinition)comboBoxRadiusDefinition.SelectedItem == RadiusDefinition.byRadius)
             {
-                arc = new Arc(initalCoord1, initalCoord2, finalCoord1, finalCoord2, radius, (ArcDirection)comboBoxArcDirection.SelectedItem);
-                Point circuleCenter = arc.GetCenterCircule(profileOperation.workingPlane);
-                Vector _radius = Vector.Subtract(new Vector(circuleCenter.X, circuleCenter.Y),
-                                                 arc.initialPoint.GetVector(profileOperation.workingPlane));
-                arc.centerPoint.coord1 = _radius.Y;
-                arc.centerPoint.coord2 = _radius.X;
+                arc = new Arc(initalCoord1, initalCoord2, finalCoord1, finalCoord2, radius, (ArcDirection)comboBoxArcDirection.SelectedItem, (WorkingPlane)comboBoxWorkingPlane.SelectedItem);
+                
             }
             else
             {
