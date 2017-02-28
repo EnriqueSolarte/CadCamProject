@@ -58,7 +58,7 @@
                     </DrawingBrush.Drawing>
                 </DrawingBrush>
             </Canvas.Background>
-            <ListView x:Name="listViewGeometries" Height="505" Canvas.Left="10" Canvas.Top="10" Width="105" SelectionMode="Single" SelectionChanged="listViewGeometries_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="#7FFFFFFF">
+            <ListView x:Name="listViewGeometries" Height="545" Canvas.Left="14" Canvas.Top="10" Width="105" SelectionMode="Single" SelectionChanged="listViewGeometries_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="#7FFFFFFF">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="ID" Width="30" DisplayMemberBinding="{Binding id}"/>
@@ -188,7 +188,7 @@
         <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="26,129,0,0" TextWrapping="Wrap" Text="Profile Definition:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="104"/>
         <Label x:Name="labelInitialCoord1" Content="Xin" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="27" Margin="25,230,0,0" Grid.Row="1"/>
         <TextBox x:Name="textBoxInitialCoord1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="52,234,0,0" Grid.Row="1" Text="0.000"/>
-        <Label x:Name="labelInitialCoord2" Content="Zin" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="27" Margin="20,258,0,0" Grid.Row="1"/>
+        <Label x:Name="labelInitialCoord2" Content="Zin" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="27" Margin="25,258,0,0" Grid.Row="1"/>
         <TextBox x:Name="textBoxInitialCoord2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="52,262,0,0" Grid.Row="1" Text="0.000"/>
         <TextBlock x:Name="textBlock5_Copy1" HorizontalAlignment="Left" Margin="25,209,0,0" TextWrapping="Wrap" Text="Initial Point:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="75"/>
         <TextBlock x:Name="textBlock5_Copy" HorizontalAlignment="Left" Margin="26,339,0,0" TextWrapping="Wrap" Text="Final Position:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="75"/>
@@ -206,8 +206,8 @@
             <Grid Height="26" Width="118">
                 <Label x:Name="labelCentePosCoord1" Content="I" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="27" Margin="-14,0,0,0"/>
                 <TextBox x:Name="textBoxCentePosCoord1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="13,0,0,0" Text="0.000"/>
-                <Label x:Name="labelCenterPosCoord2" Content="K" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="29" Margin="-14,33,0,-33"/>
-                <TextBox x:Name="textBoxCenterPosCoord2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="13,36,0,-33" Text="0.000"/>
+                <Label x:Name="labelCenterPosCoord2" Content="K" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="29" Margin="-16,25,0,-25"/>
+                <TextBox x:Name="textBoxCenterPosCoord2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="13,28,0,-25" Text="0.000"/>
             </Grid>
         </Viewbox>
         <Viewbox x:Name="wTransitionParameters" Margin="26,550,125,0" Grid.Row="1" Stretch="Fill" Height="53" VerticalAlignment="Top">
@@ -216,7 +216,7 @@
                 <TextBox x:Name="textBoxValueTransitionParameter" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" Margin="104,30,-40,0" Text="0.000"/>
             </Grid>
         </Viewbox>
-        <Button x:Name="buttonDefineGeometry" Content="Add Geometry" Margin="151,0,30,475" Grid.Row="1" Height="20" VerticalAlignment="Bottom" Click="buttonDefineGeometry_Click" RenderTransformOrigin="0.989,0.5"/>
+        <Button x:Name="buttonDefineGeometry" Content="Add Geometry" Margin="151,0,30,490" Grid.Row="1" Height="20" VerticalAlignment="Bottom" Click="buttonDefineGeometry_Click" RenderTransformOrigin="0.989,0.5"/>
         <Viewbox x:Name="wRadiusDefinition" Margin="26,310,30,0" Grid.Row="1" Stretch="Fill" Height="22" VerticalAlignment="Top">
             <Grid Height="22" Width="239">
                 <TextBlock x:Name="TextBlockRadiusDefiniton" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Radius Definition" VerticalAlignment="Top" Height="16" Width="95" Margin="0,3,0,0"/>
@@ -234,6 +234,7 @@
         <RadioButton x:Name="radioButtonAddArc" Content="Add Arc" HorizontalAlignment="Left" Margin="52,180,0,0" Grid.Row="1" VerticalAlignment="Top" Click="radioButtonAddArc_Clicked" Height="15" Width="62" RenderTransformOrigin="0.645,0.467"/>
         <Button x:Name="buttonImportProfile" Content="Import Profile" Grid.Column="1" Margin="809,40,0,0" VerticalAlignment="Top" Height="20" Click="buttonImportProfile_Click"/>
         <Button x:Name="buttonExportProfile" Content="Export Profile" Grid.Column="1" Margin="689,40,125,0" VerticalAlignment="Top" Background="#FFDDDDDD" Height="20" Click="buttonExport_Click"/>
+        <Button x:Name="buttonDeleteGeometry" Content="Delete Geom." Margin="151,0,30,465" Grid.Row="1" Height="20" VerticalAlignment="Bottom" RenderTransformOrigin="0.989,0.5"/>
 
     </Grid>
 </UserControl>

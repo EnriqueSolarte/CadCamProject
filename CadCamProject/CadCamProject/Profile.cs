@@ -247,7 +247,6 @@ namespace CadCamProject
 
             return _centerPoint;
         }
-
     }
    
     [Serializable]

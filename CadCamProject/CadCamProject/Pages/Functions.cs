@@ -355,7 +355,8 @@ namespace CadCamProject
     {
         public string chLF { get; }
         public string chRH { get; }
-        public string blank { get; }     
+        public string blank { get; }  
+        public string positionFormat { get; }  
         
    
 
@@ -365,7 +366,7 @@ namespace CadCamProject
             blank = " ";
             chLF = "[";
             chRH = "]";
-            
+            positionFormat = "####.0000";
         }
 
       

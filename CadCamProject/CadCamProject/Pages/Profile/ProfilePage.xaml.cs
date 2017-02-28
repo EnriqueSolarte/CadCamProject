@@ -26,7 +26,7 @@ namespace CadCamProject
         Main MainPage;
         Profile profileOperation;
         StatusBar statusBarInformation;
-
+        SpecialsChart sCh;
         WorkSettings wSettings;
         Drawing drawing;
 
@@ -36,7 +36,7 @@ namespace CadCamProject
             MainPage = main;
             InitializeComponent();
             profileOperation = new Profile();
-
+            sCh = new SpecialsChart();
             profileOperation = profileOperation.GetParameters(MainPage, index);
             wSettings = new WorkSettings();
             wSettings = wSettings.GetParameters(MainPage);
@@ -243,7 +243,7 @@ namespace CadCamProject
             ControlStatusBar();
             CheckingDefinitionGeometry();
             wTransitionParameters.IsEnabled = (bool)checkBoxTransitionNext.IsChecked;
-            ChekingListViewSelection();
+           
             settingIntialGeometryPoint();
             CheckingProfileFileName();
             DrawProfileGeometry();
@@ -364,8 +364,9 @@ namespace CadCamProject
                 geometry = new Geometry(line, transition, profileOperation.geometry.Count);
                 profileOperation.geometry.Add(geometry);
             }
-            listViewGeometries.Items.Refresh();
 
+            listViewGeometries.Items.Refresh();
+           
             DrawProfileGeometry();
             settingIntialGeometryPoint(); //get the initial point for the next geometry
         }
@@ -489,7 +490,11 @@ namespace CadCamProject
 
         private void ChekingListViewSelection()
         {
-
+            if(listViewGeometries.SelectedItem != null)
+            {
+               
+              
+            }
         }
 
         #endregion
