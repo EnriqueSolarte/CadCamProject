@@ -61,6 +61,10 @@ namespace CadCamProject
             NewBlock();
             Add(TurningRapidMove(_turning.profile.geometry[0].initialPosition,false));
             Add(ProfileDefinition(_turning));
+            NewBlock();
+            Add(TurningRapidMove(_wSettings.safetyPoint, true));
+            NewBlock();
+            Add("M30");
             #endregion
 
         }
@@ -164,19 +168,34 @@ namespace CadCamProject
             {
 
                 case ArcDirection.CCW:
-                    _data = _data + "G02 X" + _geometry.finalPosition.coord1.ToString("####.000") + sCh.blank +
+                    _data = _data + "G03 X" + _geometry.finalPosition.coord1.ToString("####.000") + sCh.blank +
                         "Z"+ _geometry.finalPosition.coord2.ToString("####.000")+ sCh.blank +
                         "I" + _geometry.arc.centerPoint.coord1.ToString("####.000") + sCh.blank +
                         "K" + _geometry.arc.centerPoint.coord2.ToString("####.000")
                         ;
                     break;
                 case ArcDirection.CW:
-                    _data = _data + "G03 X" + _geometry.finalPosition.coord1.ToString("####.000") + sCh.blank +
+                    _data = _data + "G02 X" + _geometry.finalPosition.coord1.ToString("####.000") + sCh.blank +
                       "Z" + _geometry.finalPosition.coord2.ToString("####.000") + sCh.blank +
                       "I" + _geometry.arc.centerPoint.coord1.ToString("####.000") + sCh.blank +
                       "K" + _geometry.arc.centerPoint.coord2.ToString("####.000");
                     break;
             }
+
+            if (_geometry.transition.enableTransition)
+            {
+                switch (_geometry.transition.typeTransition)
+                {
+                    case TypeTransitionGeometry.Chamfer:
+                        _data = _data + sCh.blank + ",C" + _geometry.transition.parameter;
+                        break;
+                    case TypeTransitionGeometry.Round:
+                        _data = _data + sCh.blank + ",R" + _geometry.transition.parameter;
+                        break;
+
+                }
+            }
+
             return _data;
         }
 
@@ -185,6 +204,20 @@ namespace CadCamProject
             string _data = "";
             _data = _data + "G01 X" + _geometry.finalPosition.coord1.ToString("####.000") + sCh.blank +
                         "Z"+ _geometry.finalPosition.coord2.ToString("####.000");
+
+            if (_geometry.transition.enableTransition)
+            {
+                switch (_geometry.transition.typeTransition)
+                {
+                    case TypeTransitionGeometry.Chamfer:
+                        _data = _data + sCh.blank + ",C" + _geometry.transition.parameter;
+                        break;
+                    case TypeTransitionGeometry.Round:
+                        _data = _data + sCh.blank + ",R" + _geometry.transition.parameter;
+                        break;
+
+                }
+            }
             return _data;
         }
 

@@ -357,8 +357,10 @@ namespace CadCamProject
         public string chRH { get; }
         public string blank { get; }  
         public string positionFormat { get; }  
-        
-   
+        public string parameterFormat { get; }
+
+
+
 
         public SpecialsChart()
         {
@@ -367,6 +369,7 @@ namespace CadCamProject
             chLF = "[";
             chRH = "]";
             positionFormat = "####.0000";
+            parameterFormat = "0.####";
         }
 
       

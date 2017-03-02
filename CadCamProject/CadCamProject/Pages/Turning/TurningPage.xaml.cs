@@ -30,6 +30,7 @@ namespace CadCamProject
         List<Profile> profileList;
         WorkSettings wSettings;
         Drawing drawing;
+        SpecialsChart sCh;
 
         public TurningPage(Main main, int index)
         {
@@ -37,7 +38,7 @@ namespace CadCamProject
             MainPage = main;
             InitializeComponent();
             turningOperation = new Turning();
-           
+            sCh = new SpecialsChart();
             turningOperation = turningOperation.GetParameters(MainPage, index);
 
             wSettings = new WorkSettings();
@@ -180,21 +181,33 @@ namespace CadCamProject
 
             profileList = getInformation.GetListProfiles(MainPage);
             comboBoxFeedRateType.ItemsSource = fnc.FeedRateTypeArray(wSettings.units);
-            comboBoxFeedRateType.SelectedItem = turningOperation.feedRateType;
             comboBoxSpeedControlType.ItemsSource = fnc.SpeedControlArray();
-            comboBoxSpeedControlType.SelectedItem = turningOperation.speedControlType;
             comboBoxProfiles.ItemsSource = getInformation.GetStringList(profileList);
-            comboBoxProfiles.SelectedItem = turningOperation.profile.GetDataString();
             comboBoxTools.ItemsSource = wSettings.GetToolSettings();
-            comboBoxTools.SelectedItem = turningOperation.tool.GetDataString();
-
-            comboBoxMachiningRemovalType.ItemsSource = fnc.TurningRemovalTypeArray();
-            comboBoxMachiningRemovalType.SelectedItem = turningOperation.turningRemovalType;
-
-            comboBoxTuringType.ItemsSource = fnc.TurningTypeArray();
-            comboBoxTuringType.SelectedItem  = turningOperation.turningType;
-
             
+            comboBoxMachiningRemovalType.ItemsSource = fnc.TurningRemovalTypeArray();
+            
+            comboBoxTuringType.ItemsSource = fnc.TurningTypeArray();
+            
+            //loading turning Data
+            comboBoxFeedRateType.SelectedItem = turningOperation.feedRateType;
+            comboBoxSpeedControlType.SelectedItem = turningOperation.speedControlType;
+            comboBoxProfiles.SelectedItem = turningOperation.profile.GetDataString();
+            comboBoxTools.SelectedItem = turningOperation.tool.GetDataString();
+            comboBoxMachiningRemovalType.SelectedItem = turningOperation.turningRemovalType;
+            comboBoxTuringType.SelectedItem = turningOperation.turningType;
+
+            textBoxApproachingPointX.Text = turningOperation.apprachingPoint.coord1.ToString(sCh.positionFormat);
+            textBoxApproachingPointZ.Text = turningOperation.apprachingPoint.coord2.ToString(sCh.positionFormat);
+            textBoxFeedRate.Text = turningOperation.feedRate.ToString(sCh.parameterFormat);
+            textBoxCuttingDepth.Text = turningOperation.cuttingDepth.ToString(sCh.parameterFormat);
+            textBoxRetracting.Text = turningOperation.retracting.ToString(sCh.parameterFormat);
+            textBoxCuttingSpeed.Text = turningOperation.cuttingSpeed.ToString(sCh.parameterFormat);
+            textBoxSpindleSpeed.Text = turningOperation.spindleSpeed.ToString(sCh.parameterFormat);
+            textBoxAllowanceX.Text = turningOperation.allowanceX.ToString(sCh.parameterFormat);
+            textBoxAllowanceZ.Text = turningOperation.allowanceZ.ToString(sCh.parameterFormat);
+
+
         }
 
         private void comboBoxSpeedControlType_SelectionChanged(object sender, SelectionChangedEventArgs e)

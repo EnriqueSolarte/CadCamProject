@@ -43,6 +43,7 @@ namespace CadCamProject
                              
             feedRate = 0.25;
             cuttingSpeed = 240;
+            spindleSpeed = 3000;
             profile = new Profile();
             tool = new Tool(0);
             allowanceX = 0.1;
