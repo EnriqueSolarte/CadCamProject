@@ -25,9 +25,8 @@ namespace CadCamProject
         UserControl Main;
         Main MainPage;
         WorkSettings workSettings;
-        StatusBar statusBarInformation;
-        SpecialChart specialChart;
-        
+        Drawing drawing;
+
 
         public wSettingPage(Main main)
         { 
@@ -35,20 +34,21 @@ namespace CadCamProject
             MainPage = main;
             InitializeComponent();
             workSettings = new WorkSettings();
-            statusBarInformation = new StatusBar();
-            specialChart = new SpecialChart();
+            
             workSettings = workSettings.GetParameters(MainPage);
+            drawing = new Drawing(workSettings.stock, 450, new Point(600, 221));
+         
             fillingParameters();
+            SetUpDrawing();
         }
          
         private void fillingParameters()
         {
-            if (workSettings.version == null)
+            if (workSettings.statusBar.version == null)
             {
                 // If the file is new
-                workSettings.version = DateTime.Now.ToString("ddMMyy.hhmmss");
-                workSettings.status = statusBarInformation.status;
-                statusBarInformation.ready = false;
+                workSettings.statusBar.version = DateTime.Now.ToString("ddMMyy.hhmmss");
+               
             }else
             {
                 radioButtonExistingFile.IsChecked = true;
@@ -68,12 +68,13 @@ namespace CadCamProject
             textBoxInitial_Z.Text = workSettings.stock.initialPosition.ToString();
             textBoxFinal_Z.Text = workSettings.stock.finalPosition.ToString();
             textBoxFinal_SZ.Text = workSettings.stock.splindleLimit.ToString();
-            
+
+            comboBoxDefaultWS.ItemsSource = workSettings.GetWorkOffsets(true);
+            comboBoxDefaultWS.SelectedItem = workSettings.stock.workOffset;
             //Filling file information
-            textBoxFileName.Text = workSettings.file.fileName;
-            textBoxLocalPath.Text = workSettings.file.directory;
-            statusBarInformation.fileName = workSettings.file.fileName;
-            statusBarInformation.version = workSettings.version;
+            textBoxFileName.Text = workSettings.statusBar.pathFile.fileName;
+            textBoxLocalPath.Text = workSettings.statusBar.pathFile.directory;
+            
         }
 
         private void buttonAccept_Click(object sender, RoutedEventArgs e)
@@ -86,9 +87,20 @@ namespace CadCamProject
 
         private void Definition()
         {
+            UpDateSotck();
+
+            workSettings.Parameters = workSettings.ShowingParameters(workSettings);
+
+            MainPage.listViewOperations.Items.Insert(workSettings.Index,
+                     workSettings.SetParameters(workSettings, MainPage));
+        }
+
+        private void UpDateSotck()
+        {
             double externalDiameter, internalDiameter, initialPosition, finalPosition, splindleLimit;
             WindowsFunctions funtions = new WindowsFunctions();
-            double.TryParse(textBoxExternalDiam.Text,out externalDiameter);
+
+            double.TryParse(textBoxExternalDiam.Text, out externalDiameter);
             workSettings.stock.externalDiameter = externalDiameter;
 
             double.TryParse(textBoxInternalDiam.Text, out internalDiameter);
@@ -103,10 +115,9 @@ namespace CadCamProject
             double.TryParse(textBoxFinal_SZ.Text, out splindleLimit);
             workSettings.stock.splindleLimit = splindleLimit;
 
-            workSettings.Parameters = workSettings.ShowingParameters(workSettings);
+            
 
-            MainPage.listViewOperations.Items.Insert(workSettings.Index,
-                     workSettings.SetParameters(workSettings, MainPage));
+                    
         }
 
         private void buttonCancel_Click(object sender, RoutedEventArgs e)
@@ -117,20 +128,22 @@ namespace CadCamProject
         private void MouseMoveControl(object sender, MouseEventArgs e)
         {
             ControlStatusBar();
+            updateDrawing();
+            comboBoxDefaultWS.ItemsSource = workSettings.GetWorkOffsets(true);
         }
 
         private void ControlStatusBar()
         {
 
             #region statusBar ready
-            if (statusBarInformation.ready)
+            if (workSettings.statusBar.statusBoolean)
             {
-                buttonLoadSave.IsEnabled = true;
-                workSettings.status = statusBarInformation.status;
+                buttonSave.IsEnabled = true;
+                workSettings.statusBar.status = workSettings.statusBar.status;
             }
             else
             {
-                buttonLoadSave.IsEnabled = false;
+                buttonSave.IsEnabled = false;
 
             }
             #endregion
@@ -139,72 +152,37 @@ namespace CadCamProject
             if (progressBar.Value == progressBar.Maximum)
             {
                 progressBar.Visibility = Visibility.Hidden;
-                statusBarInformation.status = StateToFile.Ready;
+                workSettings.statusBar.status = StateFile.Ready;
             }
             #endregion
 
-            LabelVersion.Content = statusBarInformation.version;
-            LabelFile.Content = statusBarInformation.fileName;
-            LabelStatus.Content = statusBarInformation.status;
+            LabelVersion.Content = workSettings.statusBar.version;
+            LabelFile.Content = workSettings.statusBar.pathFile.fileName;
+            LabelStatus.Content = workSettings.statusBar.status;
         }
 
         #region Worksettings
         private void radioButtonFiles_Clicked(object sender, RoutedEventArgs e)
         {
             RadioButtonsBehaivor();
-
         }
 
         private void RadioButtonsBehaivor()
         {
             if (radioButtonExistingFile.IsChecked == true)
-            {
-
-                checkBoxDuplicateFile.Visibility = Visibility.Visible;
-               
-                buttonLoadSave.Content = ButtonContents.Load;
-             
-                if (checkBoxDuplicateFile.IsChecked == false)
-                {
-                    textBoxFileName.IsEnabled = true;
-                }
+            { 
+                buttonSave.Visibility = Visibility.Hidden;
+                textBoxFileName.IsEnabled = false;
+              
             }
             else
             {
-               
+               buttonSave.Visibility = Visibility.Visible;
                 textBoxFileName.IsEnabled = true;
-                checkBoxDuplicateFile.Visibility = Visibility.Hidden;
-                buttonLoadSave.Content = ButtonContents.Save;
-                
             }
-            CheckBoxDuplicateFileBehaivor();
+           
 
-        }
-
-        private void checkBoxDuplicateFile_clicked(object sender, RoutedEventArgs e)
-        {           
-                CheckBoxDuplicateFileBehaivor();
-        }
-
-        private void CheckBoxDuplicateFileBehaivor()
-        {
-            if (radioButtonExistingFile.IsChecked == true)
-            {
-                if (checkBoxDuplicateFile.IsChecked == true)
-                {
-                    textBoxFileName.IsEnabled = true;
-                    buttonLoadSave.Content = ButtonContents.Save;
-                    textBoxFileName.Text = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text)
-                                         + workSettings.duplicatedFilePrefix + "." + extensionFiles.wstt;
-                }
-                else
-                {
-                    textBoxFileName.IsEnabled = false;
-                    buttonLoadSave.Content = ButtonContents.Load;
-                    textBoxFileName.Text = workSettings.file.fileName;
-                }
-            }
-        }
+        }    
 
         private void buttonBrowsePath_Click(object sender, RoutedEventArgs e)
         {
@@ -219,7 +197,11 @@ namespace CadCamProject
                 {
                     textBoxFileName.Text = path.fileName;
                     textBoxLocalPath.Text = path.directory;
-                    statusBarInformation.ready = true;
+                    workSettings.statusBar.statusBoolean = true;
+                    workSettings.statusBar.status = StateFile.Loading;
+                    loadFileInformation();
+                    WindowsFunctions function = new WindowsFunctions();
+                    function.animateProgressBar(progressBar, 1);
                 }
             }
             else
@@ -228,7 +210,9 @@ namespace CadCamProject
                 if (auxPath != "")
                 {
                     textBoxLocalPath.Text = auxPath;
-                    statusBarInformation.ready = true;
+                    workSettings.statusBar.statusBoolean = true;
+                  
+
                 }
             }         
 
@@ -236,18 +220,12 @@ namespace CadCamProject
 
         private void buttonLoadSave_Click(object sender, RoutedEventArgs e)
         {
-             
-                if (buttonLoadSave.Content.ToString() == ButtonContents.Load.ToString())
-                {
-                    statusBarInformation.status = StateToFile.Loading;
-                    loadFileInformation();
-                }
-            if (buttonLoadSave.Content.ToString() == ButtonContents.Save.ToString())
 
-               {
-                statusBarInformation.status = StateToFile.Saving;
-                    saveFileInformation();
-                }
+
+
+                workSettings.statusBar.status = StateFile.Saving;
+                saveFileInformation();
+            
 
             WindowsFunctions function = new WindowsFunctions();
             function.animateProgressBar(progressBar, 1);
@@ -260,13 +238,11 @@ namespace CadCamProject
 
             ExportAndImportToFIle fnc = new ExportAndImportToFIle();
 
-            workSettings.file.directory = textBoxLocalPath.Text;
-            workSettings.file.fileName = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text)+"." + extensionFiles.wstt;
+            workSettings.statusBar.pathFile.directory = textBoxLocalPath.Text;
+            workSettings.statusBar.pathFile.fileName = System.IO.Path.GetFileNameWithoutExtension(textBoxFileName.Text)+"." + extensionFiles.wstt;
             ControlStatusBar();
-            statusBarInformation.version = workSettings.version;
-            statusBarInformation.fileName = workSettings.file.fileName;
-
-            fnc.WriteToBinaryFile<WorkSettings>(workSettings.file.GetFullName(),workSettings);
+            
+            fnc.WriteToBinaryFile<WorkSettings>(workSettings.statusBar.pathFile.GetFullName(),workSettings);
         } 
 
         private void loadFileInformation()
@@ -278,6 +254,14 @@ namespace CadCamProject
             fillingParameters();
         }
 
+        private void comboBoxDefaultWS_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (comboBoxDefaultWS.SelectedItem != null)
+            {
+                workSettings.stock.workOffset = (Gcode)comboBoxDefaultWS.SelectedItem;
+            }
+        }
+
         #endregion
 
         #region WorkOffset
@@ -286,8 +270,8 @@ namespace CadCamProject
            
             workSettings.workOffsets.Add(new WorkOffsetPointPosition(listViewWorkOffset.Items.Count));
             listViewWorkOffset.Items.Refresh();
+           
         }
-
         private void buttonDeleteItemListViewWorkOffset_Click(object sender, RoutedEventArgs e)
         {
             if (listViewWorkOffset.SelectedItem != null)
@@ -304,10 +288,10 @@ namespace CadCamProject
 
         private void buttonNewTool_Click(object sender, RoutedEventArgs e)
             {
-            workSettings.counterTools++;
+            workSettings.counterTools++;   
             workSettings.toolSettings.Add(new Tool(workSettings.counterTools));
             listViewToolSettings.Items.Refresh();
-          
+         
         }
 
         private void buttonDeleteToolItem_Click(object sender, RoutedEventArgs e)
@@ -367,11 +351,11 @@ namespace CadCamProject
                 Tool newEdgeCuttingTool = new Tool(0);
                 newEdgeCuttingTool.toolName = "New Edge Tool";
                 newEdgeCuttingTool.localization = workSettings.toolSettings[index].localization;
-                newEdgeCuttingTool.toolSet= workSettings.toolSettings[index].definedSetTools + 1;
+                newEdgeCuttingTool.toolSet= workSettings.toolSettings[index].toolSet + 1;
                 newEdgeCuttingTool.isEdgeTool = true;
-                newEdgeCuttingTool.definedSetTools= workSettings.toolSettings[index].definedSetTools + 1;
+                newEdgeCuttingTool.toolSet= workSettings.toolSettings[index].toolSet + 1;
                 workSettings.toolSettings.Insert(index +1,newEdgeCuttingTool);
-                workSettings.toolSettings[index].definedSetTools++;
+                workSettings.toolSettings[index].toolSet++;
                 listViewToolSettings.Items.Refresh();
                 listViewToolSettings.SelectedIndex = index;
                 
@@ -390,10 +374,104 @@ namespace CadCamProject
             return index;
         }
 
+
         #endregion
 
-        
-      }
+        #region Drawing
+        private void SetUpDrawing()
+        {
+            labelScale.Content = drawing.scaleLabel;
+         
+            SettingOriginDraw(drawing.ProfileStartPoint, drawing.scaleOrigin*2); // method of this class ProfilePage
+            DrawStockGeometry();
+            DrawChuckGeometry();
 
-    
+        }
+
+        private void DrawChuckGeometry()
+        {
+            chuckA.StartPoint = drawing.drawingStock.A_ChuckStartPoint;
+            chuckB.StartPoint = drawing.drawingStock.B_ChuckStartPoint;
+            chuckA.Segments.Clear();
+            chuckB.Segments.Clear();
+
+            foreach (LineSegment line in drawing.drawingStock.list_A_ChuckDrawing)
+            {
+                chuckA.Segments.Add(line);
+            }
+
+            foreach (LineSegment line in drawing.drawingStock.list_B_ChuckDrawing)
+            {
+                chuckB.Segments.Add(line);
+            }
+        }
+
+        private void DrawStockGeometry()
+        {
+            Point startPoint = drawing.drawingStock.StockStartPoint;
+            externalStock.StartPoint = startPoint;
+            internalStock.StartPoint = startPoint;
+
+            externalStock.Segments.Clear();
+            internalStock.Segments.Clear();
+            foreach (LineSegment line in drawing.drawingStock.listExtStockDrawing)
+            {
+                externalStock.Segments.Add(line);
+            }
+
+            foreach (LineSegment line in drawing.drawingStock.listIntStockDrawing)
+            {
+                internalStock.Segments.Add(line);
+            }
+        }
+
+        private void updateDrawing()
+        {
+            UpDateSotck();
+            drawing = new Drawing(workSettings.stock, 450, new Point(600, 221));
+            SetUpDrawing();
+        }
+
+        private void SettingOriginDraw(Point _startPoint, double _size)
+        {
+
+
+            Point pOrigin1 = new Point(_startPoint.X + _size, _startPoint.Y);
+            Point pOrigin2 = new Point(_startPoint.X, _startPoint.Y - _size);
+            Point pOrigin3 = new Point(_startPoint.X - _size, _startPoint.Y);
+            Point pOrigin4 = new Point(_startPoint.X, _startPoint.Y + _size);
+
+            Point point1 = new Point(_startPoint.X, _startPoint.Y - _size);
+            Point point2 = new Point(_startPoint.X - _size, _startPoint.Y);
+            Point point3 = new Point(_startPoint.X, _startPoint.Y + _size);
+            Point point4 = new Point(_startPoint.X + _size, _startPoint.Y);
+
+            Size size = new Size(_size, _size);
+
+            Origin1.StartPoint = pOrigin1;
+            Origin2.StartPoint = pOrigin2;
+            Origin3.StartPoint = pOrigin3;
+            Origin4.StartPoint = pOrigin4;
+
+            arc1.Point = point1;
+            arc1.Size = size;
+            arc2.Point = point2;
+            arc2.Size = size;
+            arc3.Point = point3;
+            arc3.Size = size;
+            arc4.Point = point4;
+            arc4.Size = size;
+
+            line1.Point = _startPoint;
+            line2.Point = _startPoint;
+            line3.Point = _startPoint;
+            line4.Point = _startPoint;
+        }
+
+        #endregion
+
+      
+    }
+
+
 }

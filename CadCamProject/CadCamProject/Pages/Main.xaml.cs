@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace CadCamProject
         public Main()
         {
             InitializeComponent();
-            this.labelTime.Content = "V 2.15.17";
+            this.labelTime.Content = "V 2.20.2017";
             Buttons(false);
         }
 
@@ -32,42 +33,46 @@ namespace CadCamProject
         {
             buttonAxialMilling.IsEnabled = v;
             buttonDrilling.IsEnabled = v;
-            buttonExternalTurning.IsEnabled = v;
+            buttonTurning.IsEnabled = v;
             buttonProfile.IsEnabled = v;
             buttonRadialMilling.IsEnabled = v;
             buttonThreading.IsEnabled = v;
             buttonTrasnferSpindle.IsEnabled = v;
             buttonGrooving.IsEnabled = v;
-            buttonInternalTurning.IsEnabled = v;     
+           
         }
 
         private void doubleCLlick(object sender, MouseButtonEventArgs e)
         {
             int index = this.listViewOperations.SelectedIndex;
-            
-            if (index != 0)
+
+            if (index != -1)
             {
-                MessageBox.Show("It is not implement yet");
-            }
-            else {
-                gotoWorkSettings();
-            }
+                var selectedItem = (dynamic)listViewOperations.Items[index];
+                TypeOperations typeOperation = (TypeOperations)selectedItem[0].typeOperation;
+
+                switch (typeOperation)
+                {
+                    case TypeOperations.Work_Settings:
+                        Switcher.Switch(new wSettingPage(this));
+                        break;
+                    case TypeOperations.Profile:
+                        Switcher.Switch(new ProfilePage(this, index));
+                        break;
+
+                    case TypeOperations.Turning:
+                        Switcher.Switch(new TurningPage(this, index));
+                        break;
+                }
+
+            } 
 
         }
-
         private void gotoWorkSettings()
         {
             Switcher.Switch(new wSettingPage(this));
         }
-
-        private void EditingOperation(Operations typeOperation)
-        {
-            // over this function is gonna be implemented the code to access again to the data saved in each operation already created
-            MessageBox.Show("Is no implement yet :>>"+typeOperation);
-        }
-
-
-
+       
         #region Rezing ListView
         private void ChangeSize(object sender, SizeChangedEventArgs e)
         {
@@ -86,8 +91,6 @@ namespace CadCamProject
 
         #endregion
 
-        
-
         private void buttonWorkSettings_Click(object sender, RoutedEventArgs e)
         {
             gotoWorkSettings();
@@ -99,6 +102,13 @@ namespace CadCamProject
 
             Switcher.Switch(new ProfilePage(this, index));
 
+        }
+
+        private void buttonTurning_Click(object sender, RoutedEventArgs e)
+        {
+            int index = this.listViewOperations.Items.Count + 1;
+
+            Switcher.Switch(new TurningPage(this, index));
         }
     }
 }

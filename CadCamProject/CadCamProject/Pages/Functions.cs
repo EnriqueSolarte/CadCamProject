@@ -11,6 +11,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Xml.Serialization;
 
+
 namespace CadCamProject
 {
     public class WindowsFunctions
@@ -131,8 +132,8 @@ namespace CadCamProject
         {
             Mcode[] strArray =
        {
-                Mcode.M3,
-                Mcode.M4,
+                Mcode.M03,
+                Mcode.M04,
 
             };
             return strArray;
@@ -157,6 +158,60 @@ namespace CadCamProject
             };
             return Array;
         }
+
+        public TurningRemovaltype[] TurningRemovalTypeArray()
+        {
+            TurningRemovaltype[] Array =
+            {
+               TurningRemovaltype.byLongitudinal,
+               TurningRemovaltype.byTransverse,
+               TurningRemovaltype.byFollowingContour,
+            };
+            return Array;
+        } 
+        public TurningType[] TurningTypeArray()
+        {
+            TurningType[] data =
+            {
+                TurningType.externalTurning,
+                TurningType.internalTurning,
+            };
+            return data;
+        }
+
+        public string[] FeedRateTypeArray(Units units)
+        {
+            if (units == Units.mm)
+            {
+                string[] data =
+                {
+                "mm/min",
+                "mm/rot",
+            };
+                return data;
+            }
+            else
+            {
+                string[] data =
+               {
+                "inch/min",
+                "inch/rot",
+            };
+                return data;
+            }
+            
+        }
+
+        public SpeedControl[] SpeedControlArray()
+        {
+            SpeedControl[] data =
+            {
+                SpeedControl.ConstantSpindleSpeed,
+                SpeedControl.ConstantSurfaceControl,
+            };
+            return data;
+        }
+
     }
     [Serializable]
     public class PathDefinition
@@ -172,19 +227,31 @@ namespace CadCamProject
             return fullName;
         }      
     }
-
+    [Serializable]
     public class StatusBar
     {
         public string version { get; set; }
-        public string fileName { get; set; }
-        public StateToFile status { get; set; }
-        public bool ready { get; set; }
+        public PathDefinition pathFile { get; set; }
+        public StateFile status { get; set; }
+        public bool statusBoolean { get; set; }
         
+        public StatusBar(StatusBar _statusBar)
+        {
+            version = _statusBar.version;
+            pathFile = _statusBar.pathFile;
+            status = _statusBar.status;
+            statusBoolean = _statusBar.statusBoolean;
+        }
+
         public StatusBar()
         {
-            status = StateToFile.Unsaved;
-            ready = true;
+            pathFile = new PathDefinition();
+            pathFile.fileName = "defaultName." + extensionFiles.wstt;
+            pathFile.directory = "C:\\";
+            status = StateFile.Unsaved;
+            statusBoolean = false;
         }
+
     }
 
     public static class MyExtensions
@@ -219,6 +286,94 @@ namespace CadCamProject
             return normalVector;
         }
 
+
+    }
+
+    public class ExportAndImportToFIle
+    {
+        #region Save DATA
+        public void WriteToBinaryFile<T>(string filePath, T objectToWrite, bool append = false)
+        {
+            using (Stream stream = File.Open(filePath, append ? FileMode.Append : FileMode.Create))
+            {
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                binaryFormatter.Serialize(stream, objectToWrite);
+            }
+        }
+
+        /// <summary>
+        /// Reads an object instance from a binary file.
+        /// </summary>
+        /// <typeparam name="T">The type of object to read from the XML.</typeparam>
+        /// <param name="filePath">The file path to read the object instance from.</param>
+        /// <returns>Returns a new instance of the object read from the binary file.</returns>
+        public T ReadFromBinaryFile<T>(string filePath)
+        {
+            using (Stream stream = File.Open(filePath, FileMode.Open))
+            {
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                return (T)binaryFormatter.Deserialize(stream);
+            }
+        }
+        #endregion saveDATa
+    }
+
+    public class GettingInformation
+    {
+        public List<Profile> GetListProfiles(Main MainPage)
+        {
+            List<Profile> _listProfile = new List<Profile>();
+
+            int count = MainPage.listViewOperations.Items.Count;
+
+            foreach (var operation in (dynamic)MainPage.listViewOperations.Items)
+            {
+                if (operation[0].typeOperation == TypeOperations.Profile)
+                {
+                    _listProfile.Add((Profile)operation[0]);
+                }
+            }
+
+            return _listProfile;
+        }
+
+        public List<string> GetStringList(List<Profile> profileList)
+        {
+            List<string> _profileList = new List<string>();
+            
+
+            foreach (Profile _profile in profileList)
+            {  
+                _profileList.Add(_profile.GetDataString());
+            }
+            return _profileList;
+        }
+
+    }
+
+    public class SpecialsChart
+    {
+        public string chLF { get; }
+        public string chRH { get; }
+        public string blank { get; }  
+        public string positionFormat { get; }  
+        public string parameterFormat { get; }
+
+
+
+
+        public SpecialsChart()
+        {
+            
+            blank = " ";
+            chLF = "[";
+            chRH = "]";
+            positionFormat = "####.0000";
+            parameterFormat = "0.####";
+        }
+
+      
+       
 
     }
 }

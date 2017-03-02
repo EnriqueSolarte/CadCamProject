@@ -22,7 +22,7 @@
             <ColumnDefinition Width="Auto" MinWidth="929"/>
             <ColumnDefinition Width="Auto" MinWidth="55"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="label" Content="Profile Settings" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265" Grid.RowSpan="2"/>
+        <Label x:Name="label" Content="Tunring Operation" Margin="15,20,0,0" FontSize="24" Height="50" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265" Grid.RowSpan="2"/>
         <Button x:Name="buttonAccept" Content="Accept" Margin="26,0,0,0" Click="buttonAccept_Click" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120" Grid.Row="1"/>
         <Button x:Name="buttonCancel" Content="Cancel" Margin="151,0,24,0" Click="buttonCancel_Click" Height="20" VerticalAlignment="Bottom" Grid.Row="1"/>
         <DockPanel Grid.Column="1" Grid.Row="2">
@@ -35,12 +35,8 @@
                 <ProgressBar x:Name="progressBar" Minimum="0" Maximum="100" Width="147" Height="15" Visibility="Hidden"/>
             </StatusBar>
         </DockPanel>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="25,5,0,0" TextWrapping="Wrap" Text="Profile Name:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="71"/>
-        <TextBox x:Name="textBoxProfileName" Height="23" Margin="25,21,25,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" TextChanged="textBoxProfileName_TextChanged"/>
-        <ComboBox x:Name="comboBoxWorkOffsets" HorizontalAlignment="Left" Margin="25,65,0,0" VerticalAlignment="Top" Width="245" Grid.Row="1" Height="22"/>
-        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="25,49,0,0" TextWrapping="Wrap" Text="Work Offset:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="66"/>
-        <ComboBox x:Name="comboBoxWorkingPlane" HorizontalAlignment="Left" Margin="115,92,0,0" VerticalAlignment="Top" Width="155" Grid.Row="1" Height="22" SelectionChanged="comboBoxWorkingPlane_SelectionChanged"/>
-        <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Margin="25,92,0,0" TextWrapping="Wrap" Text="Working Plane:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="85"/>
+
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="25,7,0,0" TextWrapping="Wrap" Text="Profile" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="40"/>
         <Border BorderThickness="1" BorderBrush="Black"  Grid.Row="1" Grid.Column="1" />
         <Canvas Grid.Column="1" Grid.Row="1" >
             <Canvas.Background>
@@ -58,14 +54,6 @@
                     </DrawingBrush.Drawing>
                 </DrawingBrush>
             </Canvas.Background>
-            <ListView x:Name="listViewGeometries" Height="595" Canvas.Left="10" Canvas.Top="10" Width="105" SelectionMode="Single" SelectionChanged="listViewGeometries_SelectionChanged" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="#7FFFFFFF">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="ID" Width="30" DisplayMemberBinding="{Binding id}"/>
-                        <GridViewColumn Header="Geometry" Width="60" DisplayMemberBinding="{Binding typeGeometry.Name}"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
 
             <Path Stroke="Black" StrokeThickness="1" Canvas.Left="0" Canvas.Top="0" Fill="Black">
                 <Path.Data>
@@ -165,65 +153,82 @@
 
                 </Grid>
             </Viewbox>
-            <Button x:Name="buttonRefreshDrawing" Content="Refresh Drawing" Canvas.Left="574" Canvas.Top="-25" Width="110" Click="buttonRefreshDrawing_Click"/>
+            <Viewbox Height="73" Canvas.Left="25" Stretch="Fill" Canvas.Top="577" Width="39">
+                <Grid Height="73" Width="39">
+                    <Rectangle Stroke="Red" Fill="#FFF32612" Margin="5,0,29,28"/>
+                    <Rectangle Fill="#FF0051FF" Stroke="#FF0051FF" RenderTransformOrigin="0.5,0.5" Margin="34,28,0,0">
+                        <Rectangle.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="89.513"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Rectangle.RenderTransform>
+                    </Rectangle>
+                    <Ellipse Stroke="Black" Fill="Black" Margin="0,43,23,15"/>
+
+                </Grid>
+            </Viewbox>
 
         </Canvas>
-        <Button x:Name="buttonDelete" Content="Delete" Margin="10,0,815,5" Grid.Row="1" Grid.Column="1" Height="20" VerticalAlignment="Bottom" Background="#7FDDDDDD"/>
-        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="25,146,0,0" TextWrapping="Wrap" Text="Profile Definition:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="104"/>
-        <Label x:Name="labelInitialCoord1" Content="Xin" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="27" Margin="25,202,0,0" Grid.Row="1"/>
-        <TextBox x:Name="textBoxInitialCoord1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="52,202,0,0" Grid.Row="1" Text="0.000"/>
-        <Label x:Name="labelInitialCoord2" Content="Zin" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="27" Margin="25,231,0,0" Grid.Row="1"/>
-        <TextBox x:Name="textBoxInitialCoord2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="52,231,0,0" Grid.Row="1" Text="0.000"/>
-        <TextBlock x:Name="textBlock5_Copy1" HorizontalAlignment="Left" Margin="25,185,0,0" TextWrapping="Wrap" Text="Initial Point:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="75"/>
-        <TextBlock x:Name="textBlock5_Copy" HorizontalAlignment="Left" Margin="25,305,0,0" TextWrapping="Wrap" Text="Final Position:" VerticalAlignment="Top" Grid.Row="1" Height="16" Width="75"/>
-        <Label x:Name="labelFinalCoord1" Content="Xen" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="30" Margin="25,322,0,0" Grid.Row="1"/>
-        <TextBox x:Name="textBoxFinalCoord1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="55,322,0,0" Grid.Row="1" Text="0.000"/>
-        <Label x:Name="labelFinalCoord2" Content="Zen" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="30" Margin="25,351,0,0" Grid.Row="1"/>
-        <TextBox x:Name="textBoxFinalCoord2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="55,351,0,0" Grid.Row="1" Text="0.000"/>
-        <Viewbox x:Name="wRadius" Margin="38,379,135,255" Grid.Row="1" Stretch="Fill">
-            <Grid Height="26" Width="122">
-                <Label x:Name="labelInitialCoord2_Copy1" Content="R" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="30" Margin="-13,0,0,0"/>
-                <TextBox x:Name="textBoxRadius" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="17,0,0,0" Text="0.000"/>
+        <ComboBox x:Name="comboBoxProfiles" Margin="70,5,25,0" Grid.Row="1" VerticalAlignment="Top" SelectionChanged="comboBoxProfiles_SelectionChanged"/>
+        <TextBlock x:Name="textBlockTools" HorizontalAlignment="Left" Margin="25,38,0,0" TextWrapping="Wrap" Text="Tool" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="40"/>
+        <ComboBox x:Name="comboBoxTools" Margin="71,36,24,0" Grid.Row="1" VerticalAlignment="Top" SelectionChanged="comboBoxProfiles_SelectionChanged" IsSynchronizedWithCurrentItem="False"/>
+        <TextBox x:Name="textBoxFeedRate" HorizontalAlignment="Left" Height="23" Margin="130,173,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.25" VerticalAlignment="Top" Width="45"/>
+        <TextBlock x:Name="textBlockFeedRate" HorizontalAlignment="Left" Margin="25,174,0,0" TextWrapping="Wrap" Text="Feed Rate" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="61"/>
+        <Viewbox x:Name="wCuttingSpeed" Margin="25,271,55,366" Grid.Row="1" Stretch="Fill">
+            <Grid Height="23" Width="216">
+                <TextBox x:Name="textBoxCuttingSpeed" HorizontalAlignment="Left" Height="23" Margin="105,68,0,-68" TextWrapping="Wrap" Text="240" VerticalAlignment="Top" Width="45"/>
+                <TextBlock x:Name="textBlockFeedRate_Copy1" HorizontalAlignment="Left" Margin="0,69,0,-66" TextWrapping="Wrap" Text="Cutting speed" VerticalAlignment="Top" Height="20" Width="84"/>
+                <TextBlock x:Name="textBlockFeedRate_Copy2" HorizontalAlignment="Left" Margin="156,69,0,-66" TextWrapping="Wrap" Text="m/min" VerticalAlignment="Top" Height="20" Width="60"/>
             </Grid>
         </Viewbox>
-        <Viewbox x:Name="wCenterPosCoord1" Margin="42,406,135,228" Grid.Row="1" Stretch="Fill">
-            <Grid Height="26" Width="118">
-                <Label x:Name="labelCentePosCoord1" Content="I" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="27" Margin="-14,0,0,0"/>
-                <TextBox x:Name="textBoxCentePosCoord1" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="13,0,0,0" Text="0.000"/>
-            </Grid>
-        </Viewbox>
-        <Viewbox x:Name="wCenterPosCoord2" Margin="37,434,136,200" Grid.Row="1" Stretch="Fill">
-            <Grid Height="26" Width="122">
-                <Label x:Name="labelCenterPosCoord2" Content="K" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="29" Margin="-12,0,0,0"/>
-                <TextBox x:Name="textBoxCenterPosCoord2" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="105" Margin="17,0,0,0" Text="0.000"/>
-                <CheckBox x:Name="checkBoxIsLargeArc" Content="Large Arc" HorizontalAlignment="Left" Margin="41,34,0,-25" VerticalAlignment="Top" Width="81" Height="17" RenderTransformOrigin="0.5,0.5"/>
-            </Grid>
-        </Viewbox>
-        <Viewbox x:Name="wTransitionParameters" Margin="26,537,125,70" Grid.Row="1" Stretch="Fill">
-            <Grid Height="53" Width="144">
-                <ComboBox x:Name="comboBoxTransitionNext" HorizontalAlignment="Left" VerticalAlignment="Top" Width="99" Height="23" RenderTransformOrigin="0.516,5.364" Margin="0,30,0,0"/>
-                <TextBox x:Name="textBoxValueTransitionParameter" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" Margin="104,30,-40,0" Text="0.000"/>
-            </Grid>
-        </Viewbox>
-        <Button x:Name="buttonDefineGeometry" Content="Define" Margin="104,0,96,35" Grid.Row="1" Height="20" VerticalAlignment="Bottom" Click="buttonDefineGeometry_Click" RenderTransformOrigin="0.989,0.5"/>
-        <Viewbox x:Name="wRadiusDefinition" Margin="26,270,30,368" Grid.Row="1" Stretch="Fill">
-            <Grid Height="22" Width="239">
-                <TextBlock x:Name="TextBlockRadiusDefiniton" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Radius Definition" VerticalAlignment="Top" Height="16" Width="95"/>
-                <ComboBox x:Name="comboBoxRadiusDefinition" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144" Height="22" RenderTransformOrigin="0.516,5.364" SelectionChanged="comboBoxRadiusDefinition_SelectionChanged" Margin="95,0,0,0"/>
-                <Viewbox x:Name="wArcDirection" Margin="0,235,0,-235" Stretch="Fill" Height="22" VerticalAlignment="Top">
-                    <Grid Height="22" Width="239">
-                        <TextBlock x:Name="TextBlockRadiusDefiniton_Copy" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Arc Direction " VerticalAlignment="Top" Height="16" Width="76" Margin="3,0,0,0"/>
-                        <ComboBox x:Name="comboBoxArcDirection" VerticalAlignment="Top" Height="22" RenderTransformOrigin="0.516,5.364" Margin="79,0,96,0"/>
-                    </Grid>
-                </Viewbox>
-            </Grid>
-        </Viewbox>
-        <CheckBox x:Name="checkBoxTransitionNext" Content="Transition to next geometry" HorizontalAlignment="Left" Margin="26,545,0,0" Grid.Row="1" VerticalAlignment="Top" Height="15" Width="166" Click="checkBoxTransitionNext_Clicked"/>
-        <RadioButton x:Name="radioButtonAddLine" Content="Add Line" HorizontalAlignment="Left" Margin="134,147,0,0" Grid.Row="1" VerticalAlignment="Top" IsChecked="True" Click="radioButtonAddLine_Clicked" Height="15" Width="66"/>
-        <RadioButton x:Name="radioButtonAddArc" Content="Add Arc" HorizontalAlignment="Left" Margin="134,162,0,0" Grid.Row="1" VerticalAlignment="Top" Click="radioButtonAddArc_Clicked" Height="15" Width="62"/>
-        <Button x:Name="buttonEditGeometry" Content="Edit" Margin="10,0,815,30" Grid.Row="1" Height="20" VerticalAlignment="Bottom" Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Hidden" Background="#7FDDDDDD"/>
-        <Button x:Name="buttonImportProfile" Content="Import Profile" Grid.Column="1" Margin="809,40,0,0" VerticalAlignment="Top" Height="20" Click="buttonImportProfile_Click"/>
-        <Button x:Name="buttonExportProfile" Content="Export Profile" Grid.Column="1" Margin="689,40,125,0" VerticalAlignment="Top" Background="#FFDDDDDD" Height="20" Click="buttonExport_Click"/>
+        <TextBox x:Name="textBoxAllowanceX" HorizontalAlignment="Left" Height="23" Margin="131,447,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.2" VerticalAlignment="Top" Width="45"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy3" HorizontalAlignment="Left" Margin="26,448,0,0" TextWrapping="Wrap" Text="Allowance" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy4" HorizontalAlignment="Left" Margin="181,448,0,0" TextWrapping="Wrap" Text="mm" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBox x:Name="textBoxAllowanceZ" HorizontalAlignment="Left" Height="23" Margin="131,475,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.2" VerticalAlignment="Top" Width="45"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy5" HorizontalAlignment="Left" Margin="27,476,0,0" TextWrapping="Wrap" Text="Allowance" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy6" HorizontalAlignment="Left" Margin="181,476,0,0" TextWrapping="Wrap" Text="mm" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBlock x:Name="textBlockAllowanceCoord1" HorizontalAlignment="Left" Margin="96,448,0,0" TextWrapping="Wrap" Text="X" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="15"/>
+        <TextBlock x:Name="textBlockAllowanceCoord2" HorizontalAlignment="Left" Margin="96,476,0,0" TextWrapping="Wrap" Text="Z" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="15"/>
+        <TextBlock x:Name="textBlockTools_Copy" HorizontalAlignment="Left" Margin="25,413,0,0" TextWrapping="Wrap" Text="Turning Type" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="84"/>
+        <ComboBox x:Name="comboBoxTuringType" Margin="131,411,25,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <TextBlock x:Name="textBlockTools_Copy1" HorizontalAlignment="Left" Margin="26,507,0,0" TextWrapping="Wrap" Text="Machining Removal Type" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="164"/>
+        <ComboBox x:Name="comboBoxMachiningRemovalType" Margin="25,532,92,0" Grid.Row="1" VerticalAlignment="Top" SelectionChanged="comboBoxMachiningRemovalType_SelectionChanged"/>
+        <TextBlock x:Name="textBlockAllowanceCoord1_Copy" HorizontalAlignment="Left" Margin="50,101,0,0" TextWrapping="Wrap" Text="X:" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="15"/>
+        <TextBlock x:Name="textBlockAllowanceCoord1_Copy1" HorizontalAlignment="Left" Margin="46,134,0,0" TextWrapping="Wrap" Text=" Z:" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="15"/>
+        <TextBox x:Name="textBoxApproachingPointX" HorizontalAlignment="Left" Height="23" Margin="130,100,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.25" VerticalAlignment="Top" Width="45"/>
+        <TextBox x:Name="textBoxApproachingPointZ" HorizontalAlignment="Left" Height="23" Margin="130,133,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.25" VerticalAlignment="Top" Width="45"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy8" HorizontalAlignment="Left" Margin="180,101,0,0" TextWrapping="Wrap" Text="mm" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy9" HorizontalAlignment="Left" Margin="180,134,0,0" TextWrapping="Wrap" Text="mm" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBlock x:Name="textBlockMinimumX" HorizontalAlignment="Left" Margin="66,100,0,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="34"/>
+        <TextBlock x:Name="textBlockMinimumZ" HorizontalAlignment="Left" Margin="66,134,0,0" TextWrapping="Wrap" Text="0.000" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="30"/>
+        <TextBlock x:Name="textBlockAllowanceCoord1_Copy5" HorizontalAlignment="Left" Margin="110,100,0,0" TextWrapping="Wrap" Text="+" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="15"/>
+        <TextBlock x:Name="textBlockAllowanceCoord1_Copy6" HorizontalAlignment="Left" Margin="110,135,0,0" TextWrapping="Wrap" Text="+" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="15"/>
+        <Button x:Name="buttonGenerateGCode" Content="Generate G CODE" Margin="799,0,0,630" Height="20" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="120" Grid.Row="1" Click="buttonGenerateGCode_Click" Grid.Column="1"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy7" HorizontalAlignment="Left" Margin="21,75,0,0" TextWrapping="Wrap" Text="Approaching Point" VerticalAlignment="Top" Height="20" Width="104" Grid.Row="1"/>
+        <ComboBox x:Name="comboBoxFeedRateType" HorizontalAlignment="Left" Margin="181,174,0,0" Grid.Row="1" VerticalAlignment="Top" Width="89"/>
+        <ComboBox x:Name="comboBoxSpeedControlType" HorizontalAlignment="Left" Margin="25,301,0,0" Grid.Row="1" VerticalAlignment="Top" Width="243" SelectionChanged="comboBoxSpeedControlType_SelectionChanged"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy" HorizontalAlignment="Left" Margin="26,278,0,0" TextWrapping="Wrap" Text="Speed Ccontrol" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="84" RenderTransformOrigin="0.5,0.5">
+            <TextBlock.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="0.575"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBlock x:Name="textBlockSpindleSpeedControl" HorizontalAlignment="Left" Margin="25,375,0,0" TextWrapping="Wrap" Text="Speed Limite" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="84"/>
+        <TextBox x:Name="textBoxSpindleSpeed" HorizontalAlignment="Left" Height="23" Margin="130,375,0,0" Grid.Row="1" TextWrapping="Wrap" Text="240" VerticalAlignment="Top" Width="45"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy11" HorizontalAlignment="Left" Margin="180,375,0,0" TextWrapping="Wrap" Text="RPM" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBox x:Name="textBoxCuttingDepth" HorizontalAlignment="Left" Height="23" Margin="130,208,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.25" VerticalAlignment="Top" Width="45"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy10" HorizontalAlignment="Left" Margin="25,209,0,0" TextWrapping="Wrap" Text="Cutting Depth" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="86"/>
+        <TextBox x:Name="textBoxRetracting" HorizontalAlignment="Left" Height="23" Margin="130,236,0,0" Grid.Row="1" TextWrapping="Wrap" Text="0.1" VerticalAlignment="Top" Width="45"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy12" HorizontalAlignment="Left" Margin="26,237,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="61" Text="Retracting"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy13" HorizontalAlignment="Left" Margin="180,209,0,0" TextWrapping="Wrap" Text="mm" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
+        <TextBlock x:Name="textBlockFeedRate_Copy14" HorizontalAlignment="Left" Margin="180,236,0,0" TextWrapping="Wrap" Text="mm" VerticalAlignment="Top" Grid.Row="1" Height="20" Width="60"/>
 
     </Grid>
 </UserControl>

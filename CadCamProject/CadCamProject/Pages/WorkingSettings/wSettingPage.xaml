@@ -14,26 +14,154 @@
         <TabControl x:Name="tabControl" Margin="25,75,35,35" BorderBrush="#FFB0AFAF" TabStripPlacement="Left">
             <TabItem Header="General Settings" Width="120">
                 <Grid Background="White" Margin="0,0,0,0">
-                    <RadioButton x:Name="radioButtonExistingFile" Content="Existing fIle" HorizontalAlignment="Left" Margin="30,17,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked"/>
-                    <RadioButton x:Name="radioButtonNewFile" Content="Create a new fIle" HorizontalAlignment="Left" Margin="30,37,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked" IsChecked="True"/>
+
+                    <RadioButton x:Name="radioButtonExistingFile" Content="Existing fIle" HorizontalAlignment="Left" Margin="30,17,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked" IsChecked="True"/>
+                    <RadioButton x:Name="radioButtonNewFile" Content="Create a new fIle" HorizontalAlignment="Left" Margin="30,37,0,0" Height="15" VerticalAlignment="Top" Click="radioButtonFiles_Clicked"/>
                     <Button x:Name="buttonBrowsePath" Content="Browse" Margin="0,88,57,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="75" Click="buttonBrowsePath_Click"/>
                     <TextBox x:Name="textBoxLocalPath" Height="23" Margin="31,88,147,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
                     <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="30,67,0,0" TextWrapping="Wrap" Text="Local Path:" VerticalAlignment="Top"/>
                     <TextBox x:Name="textBoxFileName" Height="23" Margin="101,117,147,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
                     <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Margin="31,117,0,0" TextWrapping="Wrap" Text="File Name:" VerticalAlignment="Top"/>
-                    <Button x:Name="buttonLoadSave" Content="Save File" HorizontalAlignment="Left" Margin="30,177,0,0" VerticalAlignment="Top" Width="75" Click="buttonLoadSave_Click"/>
-                    <CheckBox x:Name="checkBoxDuplicateFile" Content="Use a duplicate file" HorizontalAlignment="Left" Margin="101,145,0,0" VerticalAlignment="Top" Click="checkBoxDuplicateFile_clicked"/>
-                    <Label x:Name="label1" Content="Geometry Dimension" HorizontalAlignment="Left" Margin="30,398,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label2" Content="External Diameter" HorizontalAlignment="Left" Margin="65,425,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBoxExternalDiam" HorizontalAlignment="Left" Height="23" Margin="190,428,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
-                    <Label x:Name="label3" Content="Internal Diameter" HorizontalAlignment="Left" Margin="65,456,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBoxInternalDiam" HorizontalAlignment="Left" Height="23" Margin="190,456,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
-                    <Label x:Name="label4" Content="Initial Position" HorizontalAlignment="Left" Margin="65,486,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label5" Content="Final Position" HorizontalAlignment="Left" Margin="67,517,0,0" VerticalAlignment="Top"/>
-                    <Label x:Name="label6" Content="Sipindle Limite" HorizontalAlignment="Left" Margin="67,548,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="textBoxInitial_Z" HorizontalAlignment="Left" Height="23" Margin="190,486,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
-                    <TextBox x:Name="textBoxFinal_Z" HorizontalAlignment="Left" Height="23" Margin="190,517,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
-                    <TextBox x:Name="textBoxFinal_SZ" HorizontalAlignment="Left" Height="23" Margin="190,548,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
+                    <Button x:Name="buttonSave" Content="Save File" Margin="0,120,57,0" VerticalAlignment="Top" Click="buttonLoadSave_Click" Visibility="Visible" HorizontalAlignment="Right" Width="75"/>
+                    <Border BorderThickness="1" BorderBrush="Black" Margin="31,177,147,27"/>
+                    <Canvas Height="440" Margin="31,177,147,0" VerticalAlignment="Top">
+                        <Canvas.Background>
+                            <DrawingBrush TileMode="Tile" Viewport="0,0,10,10" 
+                                     ViewportUnits="Absolute">
+                                <DrawingBrush.Drawing>
+                                    <GeometryDrawing>
+                                        <GeometryDrawing.Geometry>
+                                            <RectangleGeometry Rect="0,0,50,50"/>
+                                        </GeometryDrawing.Geometry>
+                                        <GeometryDrawing.Pen>
+                                            <Pen Brush="Gray" Thickness="1"/>
+                                        </GeometryDrawing.Pen>
+                                    </GeometryDrawing>
+                                </DrawingBrush.Drawing>
+                            </DrawingBrush>
+                        </Canvas.Background>
+                        <Grid HorizontalAlignment="Left" Height="393" VerticalAlignment="Top" Width="235" Background="#B2FFFDFD" Canvas.Left="29" Canvas.Top="25">
+                            <Label x:Name="label1" Content="Stock Geometry" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold"/>
+                            <Label x:Name="label2" Content="External Diameter" HorizontalAlignment="Left" Margin="23,41,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="label3" Content="Internal Diameter" HorizontalAlignment="Left" Margin="23,72,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="label4" Content="Initial Position" HorizontalAlignment="Left" Margin="23,100,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="label5" Content="Final Position" HorizontalAlignment="Left" Margin="23,126,0,0" VerticalAlignment="Top"/>
+                            <Label x:Name="label6" Content="Sipindle Limite" HorizontalAlignment="Left" Margin="23,156,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="textBoxExternalDiam" HorizontalAlignment="Left" Height="23" Margin="132,44,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
+                            <TextBox x:Name="textBoxInternalDiam" HorizontalAlignment="Left" Height="23" Margin="132,72,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
+                            <TextBox x:Name="textBoxInitial_Z" HorizontalAlignment="Left" Height="23" Margin="132,100,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
+                            <TextBox x:Name="textBoxFinal_Z" HorizontalAlignment="Left" Height="23" Margin="132,128,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
+                            <TextBox x:Name="textBoxFinal_SZ" HorizontalAlignment="Left" Height="23" Margin="132,156,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="70"/>
+                            <ComboBox x:Name="comboBoxDefaultWS" HorizontalAlignment="Left" Margin="132,190,0,0" VerticalAlignment="Top" Width="70" SelectionChanged="comboBoxDefaultWS_SelectionChanged"/>
+                            <Label x:Name="label6_Copy" Content="Work Offset" HorizontalAlignment="Left" Margin="27,187,0,0" VerticalAlignment="Top" Width="80"/>
+                        </Grid>
+                        <Path Stroke="Black" StrokeThickness="1" Canvas.Left="0" Canvas.Top="0" Fill="Black">
+                            <Path.Data>
+                                <PathGeometry x:Name="Origin">
+                                    <PathFigure x:Name="Origin1" StartPoint="810,300" IsClosed="True" IsFilled="True">
+                                        <ArcSegment x:Name="arc1" Point="800,290" SweepDirection="Counterclockwise" Size="10,10"/>
+                                        <LineSegment x:Name="line1" Point="800,300"/>
+                                    </PathFigure>
+                                    <PathFigure x:Name="Origin2" StartPoint="800,290" IsClosed="True" IsFilled="False">
+                                        <ArcSegment x:Name="arc2" Point="790,300" SweepDirection="Counterclockwise" Size="10,10"/>
+                                        <LineSegment x:Name="line2" Point="800,300"/>
+                                    </PathFigure>
+                                    <PathFigure x:Name="Origin3" StartPoint="790,300" IsClosed="True" IsFilled="True">
+                                        <ArcSegment x:Name="arc3" Point="800,310" SweepDirection="Counterclockwise" Size="10,10"/>
+                                        <LineSegment x:Name="line3"  Point="800,300"/>
+                                    </PathFigure>
+                                    <PathFigure x:Name="Origin4" StartPoint="800,310" IsClosed="True" IsFilled="False">
+                                        <ArcSegment x:Name="arc4" Point="810,300" SweepDirection="Counterclockwise" Size="10,10"/>
+                                        <LineSegment x:Name="line4"  Point="800,300"/>
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+
+                        <Path Stroke="Black" StrokeThickness="1" Canvas.Left="0" Canvas.Top="0" Fill="#3301FFFF">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure x:Name="externalStock" IsClosed="True" IsFilled="True">
+
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                        <Path Stroke="Black" StrokeThickness="1" Canvas.Left="0" Canvas.Top="0" Fill="#6601FFFF">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure x:Name="internalStock" IsClosed="True" IsFilled="True">
+
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+
+                        <Path Fill="#7F808080"  Stroke="Black" StrokeThickness="1" Canvas.Left="0" Canvas.Top="0">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure x:Name="chuckB" IsClosed="True" IsFilled="True">
+
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+                        <Path Fill="#7F808080" Stroke="Black" StrokeThickness="1" Canvas.Left="0" Canvas.Top="0">
+                            <Path.Data>
+                                <PathGeometry>
+                                    <PathFigure x:Name="chuckA" IsClosed="True" IsFilled="True">
+
+                                    </PathFigure>
+                                </PathGeometry>
+                            </Path.Data>
+                        </Path>
+
+                        <Viewbox Height="73" Canvas.Left="305" Stretch="Fill" Canvas.Top="358" Width="39">
+                            <Grid Height="73" Width="39">
+                                <Rectangle Stroke="Red" Fill="#FFF32612" Margin="5,0,29,28"/>
+                                <Rectangle Fill="#FF0051FF" Stroke="#FF0051FF" RenderTransformOrigin="0.5,0.5" Margin="34,28,0,0">
+                                    <Rectangle.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform/>
+                                            <SkewTransform/>
+                                            <RotateTransform Angle="89.513"/>
+                                            <TranslateTransform/>
+                                        </TransformGroup>
+                                    </Rectangle.RenderTransform>
+                                </Rectangle>
+                                <Ellipse Stroke="Black" Fill="Black" Margin="0,43,23,15"/>
+
+                            </Grid>
+                        </Viewbox>
+                        <Viewbox Height="60" Canvas.Left="761" Stretch="Fill" Canvas.Top="371" Width="121">
+                            <Grid Height="60" Width="121">
+
+                                <Rectangle Fill="Black" Stroke="Black" StrokeThickness="1" Margin="19,29,92,21"/>
+                                <Rectangle Fill="white" Stroke="Black" StrokeThickness="1" Margin="9,29,102,21"/>
+
+
+                                <Rectangle Fill="Black" Stroke="Black" StrokeThickness="1" Margin="9,19,102,31"/>
+                                <Rectangle Fill="white" Stroke="Black" StrokeThickness="1" Margin="19,19,92,31"/>
+                                <Rectangle Fill="white" Stroke="Black" StrokeThickness="1" Margin="29,29,82,21"/>
+                                <Rectangle Fill="white" Stroke="Black" StrokeThickness="1" Margin="39,19,72,31"/>
+                                <Rectangle Fill="Black" Stroke="Black" StrokeThickness="1" Margin="29,19,82,31"/>
+                                <Rectangle Fill="Black" Stroke="Black" StrokeThickness="1" Margin="39,29,72,21"/>
+                                <Rectangle Fill="Black" Stroke="Black" StrokeThickness="1" Margin="49,19,42,31"/>
+                                <Rectangle Fill="white" Stroke="Black" StrokeThickness="1" Margin="49,29,42,21"/>
+                                <Rectangle Fill="white" Stroke="Black" StrokeThickness="1" Margin="79,19,12,31"/>
+                                <Rectangle Fill="Black" Stroke="Black" StrokeThickness="1" Margin="79,29,12,21"/>
+                                <Label x:Name="label12" Content="0" Margin="0,0,105,34"/>
+                                <Label x:Name="label1_Copy" Content="2" Margin="21,0,84,34"/>
+                                <Label x:Name="label1_Copy1" Content="4" Margin="39,0,66,34"/>
+                                <Label x:Name="label1_Copy2" Content="7" Margin="72,0,33,34"/>
+                                <Label x:Name="label1_Copy3" Content="10" Margin="98,0,0,34"/>
+                                <Label x:Name="labelScale" Content="1:10mm" Margin="10,34,12,0" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontStretch="UltraExpanded"/>
+
+                            </Grid>
+                        </Viewbox>
+                    </Canvas>
+
+
                 </Grid>
             </TabItem>
             <TabItem Header="Work offset" Margin="-2,-2,0,2">
@@ -191,6 +319,7 @@
 
                 </Grid>
             </TabItem>
+
 
 
         </TabControl>

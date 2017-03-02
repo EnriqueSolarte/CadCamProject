@@ -15,12 +15,10 @@ namespace CadCamProject
     {
         //General Parameters
         public string TypeImagineOperation { get; set; }
-        public Operations TypeOperation { get; set; }
+        public TypeOperations typeOperation { get; set; }
         public string Parameters { get; set; }
         public int Index { get; set; }       
-        public string version { get; set; }
-
-
+     
 
         //Specific parameters
         public string OperationName { get; set; }
@@ -29,16 +27,13 @@ namespace CadCamProject
         public WorkingPlane workingPlane { get; set; }
         public List<Geometry> geometry { get; set; }
        
-
         public Profile()
         {
             TypeImagineOperation = "/Images/Profile.png";
-            TypeOperation = Operations.Profile;
+            typeOperation = TypeOperations.Profile;
             workingPlane = WorkingPlane.ZX;
             workOffsetIndex = 0;
             geometry = new List<Geometry>();
-            
-            
             
         }
 
@@ -62,6 +57,7 @@ namespace CadCamProject
 
         public List<Profile> SetParameters(Profile opParameters, Main MainPage)
         {
+
             List<Profile> listOperation = new List<Profile>();
             listOperation.Add(opParameters);
             if (opParameters.Index != MainPage.listViewOperations.Items.Count)
@@ -73,7 +69,7 @@ namespace CadCamProject
 
         internal string ShowingParameters(Profile _profile)
         {
-            SpecialChart sCh = new SpecialChart();
+            SpecialsChart sCh = new SpecialsChart();
             string dataOut = sCh.chLF + _profile.OperationName + sCh.chRH +
                              sCh.chLF + "WO " + _profile.workOffsetIndex.ToString() + sCh.blank + _profile.workOffset + sCh.chRH +
                              sCh.chLF + "GT " + _profile.geometry.Count.ToString() + sCh.chRH +
@@ -81,6 +77,17 @@ namespace CadCamProject
             return dataOut;
         }
 
+        internal string GetDataString()
+        {
+            string data;
+            SpecialsChart sCh = new SpecialsChart();
+
+            data = OperationName + sCh.blank + sCh.chLF +
+                    workingPlane.ToString() + sCh.blank +
+                    workOffset + sCh.chRH;
+
+            return data;
+        }
     }
 
     #region Class Geometry Transition Arc Line Point
@@ -161,22 +168,32 @@ namespace CadCamProject
             
         }
 
-        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double _radius, ArcDirection _arcDirection)
+        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double _radius, 
+            ArcDirection _arcDirection, WorkingPlane _wPlane)
         {
-
+            //by radius
             arcDirection = _arcDirection;
             radiusDefinition = RadiusDefinition.byRadius;
 
             initialPoint = new CoordinatePoint(initial_coord1, initial_coord2);
             finalPoint = new CoordinatePoint(final_coord1, final_coord2);
             radius = _radius;
-            largeArc = false;
-          
+
+
+            Point circuleCenter = GetCenterCircule(_wPlane);
+            Vector _radiusVector = Vector.Subtract(new Vector(circuleCenter.X, circuleCenter.Y),
+                                            initialPoint.GetVector(_wPlane));
+            centerPoint = new CoordinatePoint();
+            centerPoint.coord1 = _radiusVector.Y;
+            centerPoint.coord2 = _radiusVector.X;
+            largeArc = false;           
+
         }
 
-        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2, double center_coord1, double center_coord2, ArcDirection _arcDirection, bool _isLargeArc)
+        public Arc(double initial_coord1, double initial_coord2, double final_coord1, double final_coord2,
+                double center_coord1, double center_coord2, ArcDirection _arcDirection)
         {
-
+            // by center point
             arcDirection = _arcDirection;
             radiusDefinition = RadiusDefinition.byCoordinateCenter;
             initialPoint = new CoordinatePoint(initial_coord1, initial_coord2);
@@ -184,7 +201,6 @@ namespace CadCamProject
             centerPoint = new CoordinatePoint(center_coord1, center_coord2);
             Vector _centerVector = new Vector(centerPoint.coord1, centerPoint.coord2);
             radius = _centerVector.Length;
-            largeArc = _isLargeArc;
         }
 
         public Size GetSize()
@@ -218,7 +234,7 @@ namespace CadCamProject
                 Vector apothemVector;
 
                 apothemVector = halfChordVector.GetNormalVector_AR(arcDirection);
-                
+             
 
                 halfChordVector = Vector.Multiply(halfChord, halfChordVector);
                 apothemVector = Vector.Multiply(apothem, apothemVector);
@@ -240,7 +256,6 @@ namespace CadCamProject
 
             return _centerPoint;
         }
-
     }
    
     [Serializable]
@@ -302,7 +317,9 @@ namespace CadCamProject
             coord2 = 0.00;
             
         }
-    
+
+       
+
         public CoordinatePoint GetCoordinatePoint(WorkingPlane wPlane)
 
         {
@@ -345,6 +362,8 @@ namespace CadCamProject
     
     public class Drawing
     {
+        public double scaleOriginFactor { get; set; }
+
         public Point ProfileStartPoint { get; }     
         public double scale { get; }
         public double scaleOrigin { get;}
@@ -366,9 +385,9 @@ namespace CadCamProject
 
             scale = GetScale(lenthZ, stock.externalDiameter + drawingStock._chuckHight*2, drawingLength);
             scaleLabel = "1:" + (Math.Pow(scale,-1)*10).ToString("0.000") + "mm";
-          
-            
-            scaleOrigin = scale*1.5;
+
+            scaleOriginFactor = 1.5;
+            scaleOrigin = scale*scaleOriginFactor;
 
             drawingStock.scale = scale;
             drawingStock.SettingDrawingStock();
@@ -395,8 +414,7 @@ namespace CadCamProject
 
         public void SetListProfileDrawing(List<Geometry> geometry, WorkingPlane wPlane)
         {
-           
-
+          
             listProfileDrawing.Clear();
             foreach (Geometry _geometry in geometry)
             {

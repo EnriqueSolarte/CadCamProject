@@ -13,7 +13,7 @@ namespace CadCamProject
         prf,
     }
 
-    public enum StateToFile
+    public enum StateFile
     {
         Saving,
         Loading,
@@ -25,7 +25,14 @@ namespace CadCamProject
         Ready,
         MissingData,
         Exporting,
+        Creating_GCODE,
 
+    }
+
+    public enum Units
+    {
+        mm,
+        inch,
     }
 
     public enum ButtonContents
@@ -40,21 +47,24 @@ namespace CadCamProject
 
     public enum Gcode
     {
-        G54,
-        G55,
-        G56,
-        G57,
-        G58,
-        G59,
-        CP,   
-
+        G00, G01, G02, G03,
+        G17, G18, G19,
+        G20, G21,
+        G40, G41, G42,
+        G70, G71, G72, G73,
+        G90, G91,
+        G94, G95,
+        G96, G97,
+        G54, G55, G56, G57, G58, G59,
+        CP,
+        G92,
     }
 
     public enum Mcode
     {
-        M3,
-        M4,
-        M5,
+        M03,
+        M04,
+        M05,
     }
 
     public enum ArcDirection
@@ -105,24 +115,11 @@ namespace CadCamProject
         
     }
 
-    public class SpecialChart
-    {
-        public string chLF { get; }
-        public string chRH { get; }
-        public string blank { get; }
-
-        public SpecialChart()
-        {
-            blank = " ";
-            chLF = "[";
-            chRH = "]";
-        }
-    } 
-
-    public enum Operations
+    public enum TypeOperations
     {
         Work_Settings,
         Profile, 
+        Turning,
     }
 
     public enum WorkingPlane
@@ -140,5 +137,22 @@ namespace CadCamProject
         K,
     }
 
-    
+    public enum TurningRemovaltype
+    {
+        byLongitudinal, 
+        byTransverse,
+        byFollowingContour,
+    }
+
+    public enum TurningType
+    {
+        externalTurning,
+        internalTurning,
+    }
+
+    public enum SpeedControl
+    {
+        ConstantSurfaceControl, 
+        ConstantSpindleSpeed,
+    }
 }
